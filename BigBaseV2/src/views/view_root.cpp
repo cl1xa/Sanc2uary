@@ -11,7 +11,7 @@ namespace big
 		ImGui::SetNextWindowSize(ImVec2{ 770, 420 }, ImGuiCond_Once);
 		ImGui::SetNextWindowPos(ImVec2{ 100, 200 }, ImGuiCond_Once);
 
-		tabs = tabs = { xorstr_("Protection"), xorstr_("Misc"), xorstr_("Tools"), xorstr_("Cheats"), xorstr_("Network"), xorstr_("Settings") };
+		tabs = { xorstr_("Protection"), xorstr_("Misc"), xorstr_("Tools"), xorstr_("Cheats"), xorstr_("Network"), xorstr_("Settings") };
 
 		if (ImGui::Begin(xorstr_("Sanctuary"), &g_gui.m_opened, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
 		{
