@@ -43,7 +43,7 @@ namespace big
 			{
 				ImGui::Checkbox(xorstr_("Idle kick prevention"), &g_config.protection.other.idle);
 
-				//ImGui::Checkbox(xorstr_("Vote kick prevention"), &g_config.protection.other.kick);
+				ImGui::Checkbox(xorstr_("Vote kick prevention"), &g_config.protection.other.vote);
 
 				ImGui::Checkbox(xorstr_("Rate limit prevention"), &g_config.protection.other.rate_limit);
 

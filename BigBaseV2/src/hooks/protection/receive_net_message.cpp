@@ -44,15 +44,20 @@ namespace big
 				{
 					switch (msgType)
 					{
-						//Desync Kick
+						//Desync from host
 						case rage::eNetMessage::CMsgNetComplaint:
 						{
 							uint64_t hostToken;
+
 							buffer.ReadQWord(&hostToken, 0x40);
 							buffer.Seek(0);
+
 							player_ptr sender = g_player_service->get_by_host_token(hostToken);
+
 							sender->get_net_game_player()->m_complaints = USHRT_MAX;
-							g_notification_service->push_warning("Protections", fmt::format("{} sent: desnyc kick", sender->get_name()));
+
+							g_notification_service->push_warning(xorstr_("Protections"), fmt::format(xorstr_("{} sent: desnyc kick"), sender->get_name()));
+
 							buffer.Seek(0);
 							return false;
 						}

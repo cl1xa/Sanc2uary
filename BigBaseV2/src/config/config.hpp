@@ -37,7 +37,7 @@ namespace big
 			struct
 			{
 				bool idle = false;
-				//bool vote = false; 
+				bool vote = false; 
 				bool rate_limit = false;
 				bool stat_increment = false;
 

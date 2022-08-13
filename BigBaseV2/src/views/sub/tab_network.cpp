@@ -31,9 +31,9 @@ namespace big
 			{
 				if (*g_pointers->m_is_session_started)
 				{
-					//const auto player_count = g_player_service->players().size() + 1; // +1 is you
+					const auto player_count = g_player_service->players().size() + 1; // +1 is you
 
-					//ImGui::Text(fmt::format(xorstr_("Players in session: {}"), g_player_service->players().size() + 1).c_str());
+					ImGui::Text(fmt::format(xorstr_("Players in session: {}"), g_player_service->players().size() + 1).c_str());
 
 					if (ImGui::BeginListBox(xorstr_("##players"), { 350.f - ImGui::GetStyle().WindowPadding.x * 2 , 285 }))
 					{

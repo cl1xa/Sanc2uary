@@ -251,11 +251,6 @@ namespace big
 			m_give_pickup_rewards = ptr.sub(0x28).as<decltype(m_give_pickup_rewards)>();
 		});
 
-		/*main_batch.add("Net Array Handler", "44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90", [this](memory::handle ptr)
-		{
-			m_net_array_handler = ptr.sub(0x3C).as<PVOID>();
-		});*/
-
 		main_batch.add("Network Group Override", "44 89 81 ? ? ? ? 89 91 ? ? ? ? C6 05", [this](memory::handle ptr)
 		{
 			m_network_group_override = ptr.as<PVOID>();

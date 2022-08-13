@@ -23,7 +23,7 @@ namespace big
 
 		if (invalidsync && g_config.protection.sync.clone_sync)
 		{
-			g_notification_service->push_warning("Protection", fmt::format(xorstr_("{} sent invalid sync type: {} in sync tree: {}"), src->get_name(), sync_type, tree_name));
+			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent invalid sync type: {} in sync tree: {}"), src->get_name(), sync_type, tree_name));
 
 			return 2;
 		}

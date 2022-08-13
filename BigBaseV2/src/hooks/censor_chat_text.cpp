@@ -9,7 +9,8 @@ namespace big
 	{
 		if (g_config.misc.uncensor_chat)
 		{
-			LOG(INFO) << fmt::format("[{} | {}] Unfiltered string: {}", chat_menu, reinterpret_cast<void*>(output_text), user_text);
+			LOG(INFO) << fmt::format(xorstr_("[{} | {}] Unfiltered string: {}"), chat_menu, reinterpret_cast<void*>(output_text), user_text);
+
 			return -1; //Returns uncensored text
 		}
 

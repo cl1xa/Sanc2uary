@@ -31,7 +31,6 @@ namespace big
 		static void network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3);
 
 		static bool increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender);
-		//static bool net_array_handler(__int64 netArrayHandlerBaseMgr, CNetGamePlayer* a2, rage::datBitBuffer* datbitbuffer, unsigned int bytes_to_read, __int16 a5);
 
 		static void player_join(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
@@ -96,7 +95,6 @@ namespace big
 		detour_hook m_network_player_mgr_shutdown_hook;
 
 		detour_hook m_network_group_override_hook;
-		//detour_hook m_net_array_handler_hook;
 
 		detour_hook m_player_has_joined_hook;
 		detour_hook m_player_has_left_hook;
@@ -106,7 +104,6 @@ namespace big
 		detour_hook m_received_event_hook;
 		detour_hook m_received_clone_sync_hook;
 
-		//detour_hook m_send_net_info_to_lobby;
 		detour_hook m_receive_net_message_hook;
 		detour_hook m_get_network_event_data_hook;
 

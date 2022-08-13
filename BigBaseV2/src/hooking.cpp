@@ -25,10 +25,6 @@ namespace big
 
 		m_is_dlc_present_hook("Is DLC Present", g_pointers->m_is_dlc_present, &hooks::is_dlc_present),
 
-		//m_chat_receive_hook("Chat Receive", g_pointers->m_chat_receive, &hooks::chat_receive),
-
-		//m_send_net_info_to_lobby("Send NET Info to Lobby", g_pointers->m_send_net_info_to_lobby, &hooks::send_net_info_to_lobby),
-
 		m_network_player_mgr_init_hook("Network Player Mgr Init", g_pointers->m_network_player_mgr_init, &hooks::network_player_mgr_init),
 		m_network_player_mgr_shutdown_hook("Network Player Mgr Shutdown", g_pointers->m_network_player_mgr_shutdown, &hooks::network_player_mgr_shutdown),
 
@@ -36,7 +32,6 @@ namespace big
 		m_player_has_left_hook("Player Has Left", g_pointers->m_player_has_left, &hooks::player_leave),
 
 		m_network_group_override_hook("Network Group Override", g_pointers->m_network_group_override, &hooks::network_group_override),
-		//m_net_array_handler_hook("Net Array Handler", g_pointers->m_net_array_handler, &hooks::net_array_handler),
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
 
@@ -73,10 +68,6 @@ namespace big
 
 		m_is_dlc_present_hook.enable();
 
-		//m_chat_receive_hook.enable();
-
-		//m_send_net_info_to_lobby.enable();
-
 		m_network_player_mgr_init_hook.enable();
 		m_network_player_mgr_shutdown_hook.enable();
 
@@ -84,7 +75,6 @@ namespace big
 		m_player_has_left_hook.enable();
 
 		m_network_group_override_hook.enable();
-		//m_net_array_handler_hook.enable();
 
 		m_received_event_hook.enable();
 
@@ -96,8 +86,6 @@ namespace big
 		m_censor_chat_text_hook.enable();
 
 		m_enabled = true;
-
-		//g_gui.m_opened = true;
 	}
 
 	void hooking::disable()
@@ -113,7 +101,6 @@ namespace big
 
 		m_received_event_hook.disable();
 
-		//m_net_array_handler_hook.disable();
 		m_network_group_override_hook.disable();
 
 		m_player_has_left_hook.disable();
@@ -121,10 +108,6 @@ namespace big
 
 		m_network_player_mgr_shutdown_hook.disable();
 		m_network_player_mgr_init_hook.disable();
-
-		//sm_send_net_info_to_lobby.disable();
-
-		//m_chat_receive_hook.disable();
 
 		m_is_dlc_present_hook.disable();
 
@@ -152,7 +135,7 @@ namespace big
 		TRY_CLAUSE
 		{
 			if (g_running)
-			g_script_mgr.tick();
+				g_script_mgr.tick();
 
 		return g_hooking->m_run_script_threads_hook.get_original<functions::run_script_threads>()(ops_to_execute);
 
@@ -205,7 +188,7 @@ namespace big
 		TRY_CLAUSE
 		{
 			if (g_running)
-			g_renderer->wndproc(hwnd, msg, wparam, lparam);
+				g_renderer->wndproc(hwnd, msg, wparam, lparam);
 
 			return CallWindowProcW(g_hooking->m_og_wndproc, hwnd, msg, wparam, lparam);
 
