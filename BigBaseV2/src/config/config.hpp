@@ -28,9 +28,7 @@ namespace big
 
 			struct 
 			{
-				bool clone_sync = false;
 
-				bool host_desync = false;
 
 			}sync;
 
@@ -40,6 +38,7 @@ namespace big
 				bool vote = false; 
 				bool rate_limit = false;
 				bool stat_increment = false;
+				bool host_desync = false;
 
 			}other;
 

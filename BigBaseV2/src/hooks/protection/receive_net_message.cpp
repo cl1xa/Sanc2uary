@@ -28,7 +28,7 @@ namespace big
 
 	bool hooks::receive_net_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame)
 	{
-		if (g_config.protection.sync.host_desync)
+		if (g_config.protection.other.host_desync)
 		{
 			if (frame->get_type() == 4)
 			{

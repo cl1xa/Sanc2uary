@@ -28,16 +28,11 @@ namespace big
 				ImGui::EndTabItem();
 			}
 
-			if (ImGui::BeginTabItem(xorstr_("Sync")))
+			/*if (ImGui::BeginTabItem(xorstr_("Sync")))
 			{
-				ImGui::Text(xorstr_("Object sync:"));
-				ImGui::Checkbox(xorstr_("Clone"), &g_config.protection.sync.clone_sync);
-
-				ImGui::Text(xorstr_("Network sync:"));
-				ImGui::Checkbox(xorstr_("Host desync prevention"), &g_config.protection.sync.host_desync);
 
 				ImGui::EndTabItem();
-			}
+			}*/
 
 			if (ImGui::BeginTabItem(xorstr_("Other")))
 			{
@@ -48,6 +43,8 @@ namespace big
 				ImGui::Checkbox(xorstr_("Rate limit prevention"), &g_config.protection.other.rate_limit);
 
 				ImGui::Checkbox(xorstr_("Block stat increments"), &g_config.protection.other.stat_increment);
+
+				ImGui::Checkbox(xorstr_("Host desync prevention"), &g_config.protection.other.host_desync);
 
 				ImGui::EndTabItem();
 			}

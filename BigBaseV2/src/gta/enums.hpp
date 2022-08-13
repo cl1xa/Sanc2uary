@@ -1934,7 +1934,25 @@ enum class SpeedUnit : uint32_t
 	MPS
 };
 
-
+enum eObjType : uint16_t 
+{
+	carObjType = 0,
+	bikeObjType = 1,
+	boatObjType = 2,
+	doorObjType = 3,
+	heliObjType = 4,
+	objType = 5,
+	pedObjType = 6,
+	pickupObjType = 7,
+	pickupPlacementObjType = 8,
+	planeObjType = 9,
+	submarineObjType = 10,
+	playerObjType = 11,
+	trailerObjType = 12,
+	trainObjType = 13,
+	unkObjType14 = 14,
+	unkObjType = 69
+};
 
 enum class eEntityProofs : uint32_t
 {

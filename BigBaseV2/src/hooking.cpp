@@ -25,11 +25,10 @@ namespace big
 
 		m_is_dlc_present_hook("Is DLC Present", g_pointers->m_is_dlc_present, &hooks::is_dlc_present),
 
+		m_assign_physical_index_hook("Assign Physical Index", g_pointers->m_assign_physical_index, &hooks::assign_physical_index),
+
 		m_network_player_mgr_init_hook("Network Player Mgr Init", g_pointers->m_network_player_mgr_init, &hooks::network_player_mgr_init),
 		m_network_player_mgr_shutdown_hook("Network Player Mgr Shutdown", g_pointers->m_network_player_mgr_shutdown, &hooks::network_player_mgr_shutdown),
-
-		m_player_has_joined_hook("Player Has Joined", g_pointers->m_player_has_joined, &hooks::player_join),
-		m_player_has_left_hook("Player Has Left", g_pointers->m_player_has_left, &hooks::player_leave),
 
 		m_network_group_override_hook("Network Group Override", g_pointers->m_network_group_override, &hooks::network_group_override),
 
@@ -67,12 +66,11 @@ namespace big
 		m_gta_thread_kill_hook.enable();
 
 		m_is_dlc_present_hook.enable();
+		
+		m_assign_physical_index_hook.enable();
 
 		m_network_player_mgr_init_hook.enable();
 		m_network_player_mgr_shutdown_hook.enable();
-
-		m_player_has_joined_hook.enable();
-		m_player_has_left_hook.enable();
 
 		m_network_group_override_hook.enable();
 
@@ -84,6 +82,8 @@ namespace big
 		m_received_clone_sync_hook.enable();
 
 		m_censor_chat_text_hook.enable();
+
+		MH_ApplyQueued();
 
 		m_enabled = true;
 	}
@@ -103,18 +103,19 @@ namespace big
 
 		m_network_group_override_hook.disable();
 
-		m_player_has_left_hook.disable();
-		m_player_has_joined_hook.disable();
-
 		m_network_player_mgr_shutdown_hook.disable();
 		m_network_player_mgr_init_hook.disable();
 
 		m_is_dlc_present_hook.disable();
 
+		m_assign_physical_index_hook.disable();
+
 		m_gta_thread_kill_hook.disable();
 		m_gta_thread_start_hook.disable();
 
 		m_run_script_threads_hook.disable();
+
+		MH_ApplyQueued();
 
 		SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(m_og_wndproc));
 		m_swapchain_hook.disable();

@@ -18,10 +18,10 @@ namespace big
 
 	detour_hook::~detour_hook() noexcept
 	{
-		if (m_target)
-			MH_RemoveHook(m_target);
+		//if (m_target)
+		//	MH_RemoveHook(m_target);
 
-		LOG(INFO) << fmt::format(xorstr_("Removed hook: {}"), m_name);
+		//LOG(INFO) << fmt::format(xorstr_("Removed hook: {}"), m_name);
 	}
 
 	void detour_hook::enable()

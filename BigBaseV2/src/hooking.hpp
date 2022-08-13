@@ -17,6 +17,7 @@ namespace big
 		static constexpr auto swapchain_num_funcs = 19;
 		static constexpr auto swapchain_present_index = 8;
 		static constexpr auto swapchain_resizebuffers_index = 13;
+
 		static HRESULT swapchain_present(IDXGISwapChain* this_, UINT sync_interval, UINT flags);
 		static HRESULT swapchain_resizebuffers(IDXGISwapChain* this_, UINT buffer_count, UINT width, UINT height, DXGI_FORMAT new_format, UINT swapchain_flags);
 
@@ -25,15 +26,15 @@ namespace big
 		static GtaThread* gta_thread_start(unsigned int** a1, unsigned int a2);
 		static rage::eThreadState gta_thread_kill(GtaThread* thread);
 
+		static void* assign_physical_index(CNetworkPlayerMgr* netPlayerMgr, CNetGamePlayer* player, uint8_t new_index);
+
 		static void network_player_mgr_init(CNetworkPlayerMgr* _this, std::uint64_t a2, std::uint32_t a3, std::uint32_t a4[4]);
 		static void network_player_mgr_shutdown(CNetworkPlayerMgr* _this);
+		
+		//Not yet implemented
+		//static bool send_net_info_to_lobby(rage::netPlayerData* player, int64_t a2, int64_t a3, DWORD* a4);
 
 		static void network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3);
-
-		static bool increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender);
-
-		static void player_join(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
-		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 
 		static bool is_dlc_present(Hash dlc_hash);
 
@@ -48,18 +49,16 @@ namespace big
 			rage::datBitBuffer* bit_buffer
 		);
 
-		// these two aren't actually hooks, just helper functions for hooks
-		//static bool increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender);
+		//These two aren't actually hooks, just helper functions for hooks
 		static bool scripted_game_event(CScriptedGameEvent* scripted_game_event, CNetGamePlayer* player);
+		static bool increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender);
 
-		//static bool send_net_info_to_lobby(rage::netPlayerData* player, int64_t a2, int64_t a3, DWORD* a4);
 		static bool receive_net_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
 		static void get_network_event_data(int64_t unk, rage::CEventNetwork* net_event);
-
-		//SYNC
-		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, uint16_t sync_type, uint16_t obj_id, rage::datBitBuffer* bufer, uint16_t unk, uint32_t timestamp);
 		
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
+
+		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, eObjType sync_type, uint16_t obj_id, rage::datBitBuffer* bufer, uint16_t unk, uint32_t timestamp);
 	};
 
 	struct minhook_keepalive
@@ -91,13 +90,12 @@ namespace big
 		detour_hook m_gta_thread_start_hook;
 		detour_hook m_gta_thread_kill_hook;
 
+		detour_hook m_assign_physical_index_hook;
+
 		detour_hook m_network_player_mgr_init_hook;
 		detour_hook m_network_player_mgr_shutdown_hook;
 
 		detour_hook m_network_group_override_hook;
-
-		detour_hook m_player_has_joined_hook;
-		detour_hook m_player_has_left_hook;
 
 		detour_hook m_is_dlc_present_hook;
 
