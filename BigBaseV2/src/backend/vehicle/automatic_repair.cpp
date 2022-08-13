@@ -13,15 +13,15 @@ namespace big
 
 		const Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(ped);
 
-		if (now - tick_1 > 50) //Delay to prevent vehicle seizures
+		if (g_config.cheats.vehicle.automatic_repair
+			&& vehicle::owns_vehicle() && VEHICLE::GET_DOES_VEHICLE_HAVE_DAMAGE_DECALS(vehicle))
 		{
-			if (g_config.cheats.vehicle.automatic_repair
-				&& vehicle::owns_vehicle())
+			if (now - tick_1 > 50) //Delay to prevent vehicle seizures
 			{
 				vehicle::repair(vehicle);
-			}
 
-			tick_1 = now;
+				tick_1 = now;
+			}
 		}
 	}
 }

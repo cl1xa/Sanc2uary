@@ -6,6 +6,7 @@
 namespace big
 {
 	auto transition_state = script_global(1574991);
+
 	eTransitionState last_state = eTransitionState::TRANSITION_STATE_EMPTY;
 
 	void backend_engine::hud_transition_state()

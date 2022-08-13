@@ -39,7 +39,7 @@ namespace big
 		case eRemoteEvent::IDK23:
 			//These send lots of false positives. They spam and I only want them logged to the console
 			//I will figure out something better later
-			LOG(G3LOG_DEBUG) << fmt::format(xorstr_("{} potentially unwanted event: {}"), player_name, (int)hash);
+			LOG(G3LOG_DEBUG) << fmt::format(xorstr_("{} sent potentially unwanted event: {}"), player_name, (int)hash);
 			return true;
 
 		case eRemoteEvent::RotateCam:
