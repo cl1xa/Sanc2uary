@@ -72,5 +72,4 @@ namespace big
 
 		return notifications_to_sent;
 	}
-
 }

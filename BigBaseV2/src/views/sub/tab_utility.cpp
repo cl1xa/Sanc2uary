@@ -13,7 +13,7 @@ namespace big
 
 			} QUEUE_JOB_END_CLAUSE
 
-				g_notification_service->push(xorstr_("Utility"), xorstr_("Killed local player"));
+			g_notification_service->push(xorstr_("Utility"), xorstr_("Killed local player"));
 		}
 
 		if (ImGui::Button(xorstr_("Skip Cutscene")))
@@ -24,7 +24,7 @@ namespace big
 
 			} QUEUE_JOB_END_CLAUSE
 
-				g_notification_service->push(xorstr_("Utility"), xorstr_("Skipped current cutscene"));
+			g_notification_service->push(xorstr_("Utility"), xorstr_("Skipped current cutscene"));
 		}
 
 		if (ImGui::Button(xorstr_("Clean Player")))
@@ -40,7 +40,7 @@ namespace big
 
 			} QUEUE_JOB_END_CLAUSE
 
-				g_notification_service->push(xorstr_("Utility"), xorstr_("Cleaned local player"));
+			g_notification_service->push(xorstr_("Utility"), xorstr_("Cleaned local player"));
 		}
 	}
 }

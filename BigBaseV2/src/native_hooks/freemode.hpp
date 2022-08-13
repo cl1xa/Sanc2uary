@@ -25,7 +25,7 @@ namespace big::freemode
 	{
 		LOG(G3LOG_DEBUG) << xorstr_("!NETWORK_HAS_RECEIVED_HOST_BROADCAST_DATA TRIGGERED!");
 
-		if (g_config.protection.other.optimize_loading)
+		if (g_config.misc.optimize_loading)
 			src->set_return_value<BOOL>(TRUE);
 
 	}

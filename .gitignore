@@ -426,3 +426,4 @@ bin/
 *.vcxproj.user
 *.ipch
 *.ipch
+*.exe

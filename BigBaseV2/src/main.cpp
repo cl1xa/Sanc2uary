@@ -9,6 +9,7 @@
 #include "thread_pool.hpp"
 
 #include "native_hooks/native_hooks.hpp"
+
 #include "services/player_service.hpp"
 #include "services/notification_service.hpp"
 
@@ -17,6 +18,7 @@
 BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
 	using namespace big;
+
 	if (reason == DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hmod);

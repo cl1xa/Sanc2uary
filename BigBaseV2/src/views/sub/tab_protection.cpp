@@ -41,15 +41,11 @@ namespace big
 
 			if (ImGui::BeginTabItem(xorstr_("Other")))
 			{
-				ImGui::Checkbox(xorstr_("Rate limit prevention"), &g_config.protection.other.rate_limit);
-
-				ImGui::Checkbox(xorstr_("Block main script"), &g_config.protection.other.block_main_script);
-
-				ImGui::Checkbox(xorstr_("Rate limit prevention"), &g_config.protection.other.rate_limit);
-
 				ImGui::Checkbox(xorstr_("Idle kick prevention"), &g_config.protection.other.idle);
 
 				//ImGui::Checkbox(xorstr_("Vote kick prevention"), &g_config.protection.other.kick);
+
+				ImGui::Checkbox(xorstr_("Rate limit prevention"), &g_config.protection.other.rate_limit);
 
 				ImGui::Checkbox(xorstr_("Block stat increments"), &g_config.protection.other.stat_increment);
 

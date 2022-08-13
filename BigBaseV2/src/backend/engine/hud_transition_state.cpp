@@ -10,7 +10,7 @@ namespace big
 
 	void backend_engine::hud_transition_state()
 	{
-		if (g_config.protection.other.terminate_loading_screens)
+		if (g_config.misc.terminate_loading_screens)
 		{
 			const auto state = *transition_state.as<eTransitionState*>();
 
@@ -28,15 +28,15 @@ namespace big
 			if (state == eTransitionState::TRANSITION_STATE_TERMINATE_MAINTRANSITION)
 				return;
 
-			if ((int)state > 0 && (int)std::size(name_transition_state))
+			/*if ((int)state > 0 && (int)std::size(name_transition_state))
 			{
 				HUD::BEGIN_TEXT_COMMAND_BUSYSPINNER_ON("STRING");
 
-				auto const spinner_text = fmt::format((xorstr_("Entering Online [{} | {}]")), name_transition_state[(int)state], state);
+				auto const spinner_text = fmt::format((xorstr_("Entering Online [{} | {}]")), name_transition_state[(int)state], state));
 
 				HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(spinner_text.c_str());
 				HUD::END_TEXT_COMMAND_BUSYSPINNER_ON(5);
-			}
+			}*/
 
 			last_state = state;
 		}

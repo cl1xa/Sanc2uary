@@ -7,7 +7,7 @@ namespace big
 {
 	int hooks::censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text)
 	{
-		if (g_config.protection.other.uncensor_chat)
+		if (g_config.misc.uncensor_chat)
 		{
 			LOG(INFO) << fmt::format("[{} | {}] Unfiltered string: {}", chat_menu, reinterpret_cast<void*>(output_text), user_text);
 			return -1; //Returns uncensored text
