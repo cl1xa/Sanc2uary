@@ -1,5 +1,5 @@
 # Sanctuary is made possible by [BigBaseV2](https://github.com/Pocakking/BigBaseV2) and [YimMenu](https://github.com/Yimura/YimMenu)
-Sanctuary is a protection only mod menu base for GTA-V Online.
+Sanctuary is a protection / utility / recovery mod menu base for GTA-V Online.
 Strictly for educational purposes only.
 
 * This menu is currently unfinished
