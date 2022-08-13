@@ -71,7 +71,10 @@ namespace big
 					{
 						const Vehicle vehicle = vehicle::get_personal_vehicle();
 
+						int amount_fixed = vehicle::fix_all();
+
 						vehicle::bring(vehicle, ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false));
+
 						vehicle::go_into_personal_vehicle();
 
 					} QUEUE_JOB_END_CLAUSE

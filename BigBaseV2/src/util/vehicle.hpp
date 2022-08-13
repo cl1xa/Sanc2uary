@@ -19,14 +19,8 @@ namespace big::vehicle
 	inline void go_into_personal_vehicle()
 	{
 		*script_global(2671449).at(8).as<int*>() = 1;
-	}
 
-	inline bool owns_vehicle()
-	{
-		Ped ped = PLAYER::PLAYER_PED_ID();
-		Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(ped);
-
-		return PED::IS_PED_IN_ANY_VEHICLE(ped, FALSE) && NETWORK::NETWORK_HAS_CONTROL_OF_ENTITY(vehicle);
+		script::get_current()->yield();
 	}
 
 	inline bool repair(Vehicle veh)
@@ -43,15 +37,15 @@ namespace big::vehicle
 
 	inline void bring(Vehicle veh, Vector3 location, bool put_in = true, int seatIdx = -1)
 	{
-		if (!ENTITY::IS_ENTITY_A_VEHICLE(veh)) 
-			return g_notification_service->push_error("Vehicle cheats", "Vehicle is damaged or does not exist");
+		if (!ENTITY::IS_ENTITY_A_VEHICLE(veh))
+			return;
 
 		auto vecVehicleLocation = ENTITY::GET_ENTITY_COORDS(veh, true);
 
 		teleport::load_ground_at_3dcoord(vecVehicleLocation);
 
 		if (!entity::take_control_of(veh))
-			return g_notification_service->push_warning("Vehicle cheats", "Failed to take control of remote vehicle.");
+			return;
 
 		auto ped = PLAYER::PLAYER_PED_ID();
 
@@ -75,6 +69,8 @@ namespace big::vehicle
 
 			PED::SET_PED_INTO_VEHICLE(ped, veh, seatIdx);
 		}
+
+		script::get_current()->yield();
 	}
 
 	inline bool fix_index(int veh_idx, bool spawn_veh = false)
@@ -101,6 +97,8 @@ namespace big::vehicle
 		for (int i = 0; i < arr_size; i++)
 			if (fix_index(i, true))
 				fixed_count++;
+
+		script::get_current()->yield();
 
 		return fixed_count;
 	}

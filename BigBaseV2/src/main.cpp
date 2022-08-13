@@ -37,7 +37,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 			auto logger_instance = std::make_unique<logger>(
 				xorstr_("Sanctuary"),
-				file_manager_instance->get_project_file(xorstr_("./cout.log"))
+				file_manager_instance->get_project_file(xorstr_("./sanctuary.log"))
 			);
 
 			try
@@ -61,7 +61,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_script_mgr.add_script(std::make_unique<script>(&backend_engine::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&backend_player::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&backend_vehicle::script_func));
-
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));
 
 				auto native_hooks_instance = std::make_unique<native_hooks>();

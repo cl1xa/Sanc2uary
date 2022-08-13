@@ -11,8 +11,8 @@ namespace big
 
 		if (g_config.cheats.vehicle.horn_boost
 			&& PAD::IS_CONTROL_PRESSED(0, (int)ControllerInputs::INPUT_VEH_HORN)
+			&& (int)ePedTask::TASK_DRIVING
 			&& PLAYER::IS_PLAYER_PRESSING_HORN(player)
-			&& vehicle::owns_vehicle()
 			&& entity::take_control_of(vehicle))
 		{
 			VEHICLE::SET_VEHICLE_FORWARD_SPEED(vehicle, 79);
