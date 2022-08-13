@@ -61,6 +61,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_script_mgr.add_script(std::make_unique<script>(&backend_engine::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&backend_player::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&backend_vehicle::script_func));
+
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));
 
 				auto native_hooks_instance = std::make_unique<native_hooks>();
@@ -82,15 +83,15 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 				g_script_mgr.remove_all_scripts();
 
-				player_service_instance.reset();
-
-				notification_service_instance.reset();
-
 				// Make sure that all threads created don't have any blocking loops
 				// otherwise make sure that they have stopped executing
 				thread_pool_instance->destroy();
 
 				thread_pool_instance.reset();
+
+				player_service_instance.reset();
+
+				notification_service_instance.reset();
 
 				hooking_instance.reset();
 
