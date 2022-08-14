@@ -14,7 +14,9 @@ namespace big::local_player
 
 	inline std::string get_mp_prefix()
 	{
-		get_active_character_slot(&character_slot);
-		return "MP" + std::to_string(character_slot) + "_";
+		/*get_active_character_slot(&character_slot);
+		return "MP" + std::to_string(character_slot) + "_";*/
+
+		return "MP0_";
 	}
 }

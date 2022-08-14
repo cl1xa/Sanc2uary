@@ -15,7 +15,7 @@ namespace big
 			if (const rage::netPlayerData* net_player_data = player->get_net_data(); net_player_data)
 			{
 				if (g_config.settings.notify_players)
-					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("[{}]{} left RSID: {}"), (int)player->m_player_id, net_player_data->m_name, net_player_data->m_rockstar_id2));
+					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("{} left RSID: {}"), net_player_data->m_name, net_player_data->m_rockstar_id2));
 			}
 
 			return returnResult;

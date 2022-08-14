@@ -10,7 +10,7 @@ namespace big::recovery
 	{
 		void setInt(std::string stat, int val)
 		{
-			std::string mpPrefix = local_player::get_mp_prefix();
+			string mpPrefix = local_player::get_mp_prefix();
 			STATS::STAT_SET_INT(rage::joaat(mpPrefix + stat), val, true);
 		}
 	}

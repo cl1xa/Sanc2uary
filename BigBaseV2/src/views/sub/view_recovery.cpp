@@ -1,8 +1,6 @@
 #include "views/view.hpp"
 #include "util/recovery.hpp"
 #include "fiber_pool.hpp"
-#include "script_global.hpp"
-#include "script.hpp"
 
 namespace big
 {
