@@ -1,5 +1,4 @@
 #pragma once
-#include "native_hooks.hpp"
 #include "script_global.hpp"
 
 namespace big::shop_controller

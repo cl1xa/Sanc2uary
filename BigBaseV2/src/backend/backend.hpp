@@ -1,6 +1,13 @@
 #pragma once
 #include "common.hpp"
 
+#include "script_global.hpp"
+#include "script_mgr.hpp"
+#include "fiber_pool.hpp"
+
+#include "util/vehicle.hpp"
+#include "util/entity.hpp"
+
 namespace big
 {
 	class backend_engine
@@ -11,7 +18,7 @@ namespace big
 		static void no_idle_kick();
 
 		static void engine_calls();
-		static void script_func();
+		static void engine_loop();
 	};
 
 	class backend_player
@@ -22,7 +29,7 @@ namespace big
 		static void no_police();
 
 		static void player_calls();
-		static void script_func();
+		static void player_loop();
 	};
 
 	class backend_vehicle
@@ -33,6 +40,6 @@ namespace big
 		static void horn_boost();
 
 		static void vehicle_calls();
-		static void script_func();
+		static void vehicle_loop();
 	};
 }

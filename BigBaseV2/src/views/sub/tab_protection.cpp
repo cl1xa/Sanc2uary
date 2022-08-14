@@ -14,9 +14,15 @@ namespace big
 				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.0f, 0.2f, 1.f));
 
 				ImGui::Checkbox(xorstr_("Block action events"), &g_config.protection.events.action);
-
+				if (ImGui::IsItemHovered())
+				{
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.0f, 1.f, 1.f));
+					ImGui::SetTooltip(xorstr_("May cause minor gameplay issues and log spam"));
+					ImGui::PopStyleColor();
+				}
+					
 				ImGui::PopStyleColor();
-
+				
 				ImGui::EndTabItem();
 			}
 
@@ -27,12 +33,6 @@ namespace big
 
 				ImGui::EndTabItem();
 			}
-
-			/*if (ImGui::BeginTabItem(xorstr_("Sync")))
-			{
-
-				ImGui::EndTabItem();
-			}*/
 
 			if (ImGui::BeginTabItem(xorstr_("Other")))
 			{

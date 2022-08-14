@@ -19,7 +19,11 @@ namespace big
 			} QUEUE_JOB_END_CLAUSE
 		}
 
-		if (ImGui::Button(xorstr_("Unload Sanctuary")))
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 0.0f, 0.0f, 1.f));
+
+		if (ImGui::Button(xorstr_("UNLOAD SANCTUARY")))
 			g_running = false;
+
+		ImGui::PopStyleColor();
 	}
 }

@@ -1,9 +1,4 @@
 #include "backend.hpp"
-#include "common.hpp"
-#include "script_mgr.hpp"
-#include "fiber_pool.hpp"
-#include "script_global.hpp"
-
 namespace big
 {
 	void backend_vehicle::vehicle_calls()
@@ -11,13 +6,18 @@ namespace big
 		QUEUE_JOB_BEGIN_CLAUSE()
 		{
 			backend_vehicle::vehicle_god();
-			backend_vehicle::automatic_repair();
 			backend_vehicle::horn_boost();
+
+		} QUEUE_JOB_END_CLAUSE
+
+		QUEUE_JOB_BEGIN_CLAUSE() //This needs to be queued separate, otherwise it clogs the queue
+		{
+			backend_vehicle::automatic_repair();
 
 		} QUEUE_JOB_END_CLAUSE
 	}
 
-	void backend_vehicle::script_func()
+	void backend_vehicle::vehicle_loop()
 	{
 		while (true)
 		{

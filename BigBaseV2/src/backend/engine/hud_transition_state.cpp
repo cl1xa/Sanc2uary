@@ -1,7 +1,5 @@
 #include "backend/backend.hpp"
-#include "script_global.hpp"
 #include "gta/structs.hpp"
-#include "natives.hpp"
 
 namespace big
 {

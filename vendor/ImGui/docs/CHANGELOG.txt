@@ -2807,7 +2807,8 @@ Other Changes:
 - ImFontConfig: Added `RasterizerMultiply` option to alter the brightness of individual fonts at rasterization time, which may help increasing readability for some.
 - ImFontConfig: Added `RasterizerFlags` to pass options to custom rasterizer (e.g. the [imgui_freetype](https://github.com/ocornut/imgui_club/tree/master/imgui_freetype) rasterizer in imgui_club has such options).
 - ImVector: added resize() variant with initialization value.
-- Misc: Changed the internal name formatting of child windows identifier to use slashes (instead of dots) as separator, more readable.
+- Misc: Changed the internal name formatting of child 
+identifier to use slashes (instead of dots) as separator, more readable.
 - Misc: Fixed compilation with `IMGUI_DISABLE_OBSOLETE_FUNCTIONS` defined.
 - Misc: Marked all format+va_list functions with format attribute so GCC/Clang can warn about misuses.
 - Misc: Fixed compilation on NetBSD due to missing alloca.h (#1319) [@RyuKojiro]

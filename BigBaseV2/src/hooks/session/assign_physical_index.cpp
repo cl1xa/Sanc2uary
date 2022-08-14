@@ -4,6 +4,7 @@
 
 namespace big
 {
+	//Session switching optimization #3
 	void* hooks::assign_physical_index(CNetworkPlayerMgr* netPlayerMgr, CNetGamePlayer* player, uint8_t new_index)
 	{
 		auto returnResult = g_hooking->m_assign_physical_index_hook.get_original<decltype(&hooks::assign_physical_index)>()(netPlayerMgr, player, new_index);
@@ -28,7 +29,7 @@ namespace big
 			notify::above_map(fmt::format(xorstr_("<C>{}</C> joined."), net_player_data->m_name));
 
 			if (g_config.settings.notify_players)
-				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}]{} joined RSID: {}"), (int)player->m_player_id, net_player_data->m_name, net_player_data->m_rockstar_id2));
+				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}] {} joined RSID: {}"), (int)player->m_player_id, net_player_data->m_name, net_player_data->m_rockstar_id2));
 		}
 
 		return returnResult;

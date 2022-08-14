@@ -6,7 +6,6 @@
 
 namespace big 
 {
-
 	/* Return types of this hook:
 
 	case 1:

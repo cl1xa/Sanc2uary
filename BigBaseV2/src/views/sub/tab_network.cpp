@@ -1,8 +1,6 @@
 #include "views/view.hpp"
-#include "fiber_pool.hpp"
-#include "util/session.hpp"
 #include "services/player_service.hpp"
-#include "pointers.hpp"
+#include "util/session.hpp"
 
 namespace big
 {
@@ -31,34 +29,73 @@ namespace big
 			{
 				if (*g_pointers->m_is_session_started)
 				{
-					const auto player_count = g_player_service->players().size() + 1; // +1 is you
+					ImGui::Text(fmt::format(xorstr_("Total players: {}"), g_player_service->players().size() + 1).c_str());
 
-					ImGui::Text(fmt::format(xorstr_("Players in session: {}"), g_player_service->players().size() + 1).c_str());
+					ImGui::Separator();
 
-					if (ImGui::BeginListBox(xorstr_("##players"), { 350.f - ImGui::GetStyle().WindowPadding.x * 2 , 285 }))
+					if (ImGui::BeginListBox(xorstr_("##player_list"), { 620.f - ImGui::GetStyle().WindowPadding.x * 2 , 320 }))
 					{
-						ImGui::Text(g_player_service->get_self()->get_name());
-
-						ImGui::Separator();
-
 						for (const auto& [_, player] : g_player_service->players())
 						{
 							ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, { 0.0, 0.5 });
 
 							ImGui::PushID(player->id());
 
-							if (ImGui::Button(player->get_name(), { 300.0f - 15.0f - ImGui::GetStyle().ScrollbarSize, 0.f }))
-								g_player_service->set_selected(player);
+							ImGui::Text(player->get_name());
 
 							ImGui::PopID();
 
 							ImGui::PopStyleVar();
 						}
+
 						ImGui::EndListBox();
 					}
 				}
 				else
-					ImGui::Text(xorstr_("GTA Online is required in order to view the playerlist"));
+					ImGui::Text(xorstr_("GTA Online is required in order to view the player list"));
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem(xorstr_("Friends")))
+			{
+				if (*g_pointers->m_is_session_started)
+				{
+					if (ImGui::BeginListBox(xorstr_("##friends_list"), { 620.f - ImGui::GetStyle().WindowPadding.x * 2 , 348 }))
+					{
+						for (const auto& [_, player] : g_player_service->players())
+						{
+							ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, { 0.0, 0.5 });
+
+							ImGui::PushID(player->id());
+
+							if (player->is_friend())
+							{
+								if (ImGui::MenuItem(player->get_name()))
+								{
+									ImGui::OpenPopup(xorstr_("Player selection menu"));
+									g_player_service->set_selected(player);
+								}
+
+								if (g_player_service->get_selected()->is_host())
+								{
+									ImGui::SameLine();
+									ImGui::Text("SESSION HOST");
+								}
+
+								view_main::selected_player();
+							}
+
+							ImGui::PopID();
+
+							ImGui::PopStyleVar();
+						}
+
+						ImGui::EndListBox();
+					}
+				}
+				else
+					ImGui::Text(xorstr_("GTA Online is required in order to view the friends list"));
 
 				ImGui::EndTabItem();
 			}

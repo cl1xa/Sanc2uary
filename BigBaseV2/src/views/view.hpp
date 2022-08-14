@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "pointers.hpp"
 #include "script.hpp"
+#include "fiber_pool.hpp"
 
 namespace big
 {
@@ -10,6 +11,8 @@ namespace big
 	public:
 		static void notifications();
 		static void root();
+
+		static void selected_player();
 
 		static void always()
 		{

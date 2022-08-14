@@ -14,7 +14,7 @@ namespace big
 		const auto event_name = *(char**)((DWORD64)event_manager + 8i64 * event_id + 243376);
 
 		//Session switching optimization #2
-		if (g_config.misc.optimize_loading) 
+		if (g_config.misc.optimize_loading)
 		{
 			if (
 				_event_id > 91u
@@ -54,7 +54,6 @@ namespace big
 
 				return; //Only block event, do not send back to them. We want to remain invisible to modders.
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
 
 			//Script event handler
@@ -89,16 +88,16 @@ namespace big
 				{
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
+					buffer->Seek(0);
 					return;
 				}
-
-				buffer->Seek(0);
 			}
+
+			buffer->Seek(0);
 		}
-		g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 		break;
 
-			//Stat event detection
+		//Stat event detection
 		case eNetworkEvents::NETWORK_INCREMENT_STAT_EVENT:
 			if (g_config.protection.other.stat_increment)
 			{
@@ -113,12 +112,12 @@ namespace big
 
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
+					buffer->Seek(0);
 					return; //Block stat increment
 				}
 
 				buffer->Seek(0);
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
 
 			// TASK_VEHICLE_TEMP_ACTION patch
@@ -145,40 +144,30 @@ namespace big
 
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
+						buffer->Seek(0);
 						return;
 					}
 
 					buffer->Seek(0);
 				}
+
+				buffer->Seek(0);
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
 
 			//Vote kick detection
 		case eNetworkEvents::KICK_VOTES_EVENT:
-		{
 			if (g_config.protection.other.vote)
 			{
-				std::uint32_t player_bitfield;
+				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent: vote kick"), sender_name));
 
-				buffer->ReadDword(&player_bitfield, 32);
-
-				if (player_bitfield & 1 << target_player->m_player_id)
-				{
-					g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent: vote kick"), sender_name));
-
-					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-				}
-
-				buffer->Seek(0);
+				g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
 				return;
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
-		}
 
-		#pragma region Unwanted game event protection
+#pragma region Unwanted game event protection
 		case eNetworkEvents::REQUEST_CONTROL_EVENT:
 		case eNetworkEvents::RAGDOLL_REQUEST_EVENT:
 
@@ -200,17 +189,24 @@ namespace big
 
 				return;
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
-		#pragma endregion
+#pragma endregion
 
-		#pragma region Action event protection
-		case eNetworkEvents::START_PROJECTILE_EVENT:
+#pragma region Action event protection
+		//case eNetworkEvents::WEAPON_DAMAGE_EVENT:
 		case eNetworkEvents::FIRE_EVENT:
 		case eNetworkEvents::EXPLOSION_EVENT:
+		//case eNetworkEvents::START_PROJECTILE_EVENT:
+		//case eNetworkEvents::UPDATE_PROJECTILE_TARGET_EVENT:
+		//case eNetworkEvents::REMOVE_PROJECTILE_ENTITY_EVENT:
+		//case eNetworkEvents::BREAK_PROJECTILE_TARGET_LOCK_EVENT:
+		//case eNetworkEvents::INCIDENT_ENTITY_EVENT:
 		case eNetworkEvents::BLOW_UP_VEHICLE_EVENT:
-		case eNetworkEvents::INFORM_SILENCED_GUNSHOT_EVENT:
+		//case eNetworkEvents::NETWORK_SPECIAL_FIRE_EQUIPPED_WEAPON:
 		case eNetworkEvents::UPDATE_PLAYER_SCARS_EVENT:
+		case eNetworkEvents::INFORM_SILENCED_GUNSHOT_EVENT:
+		case eNetworkEvents::PED_PLAY_PAIN_EVENT:
+		//case eNetworkEvents::ACTIVATE_VEHICLE_SPECIAL_ABILITY_EVENT:
 			if (g_config.protection.events.action)
 			{
 				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent action event: {}"), sender_name, event_name));
@@ -219,13 +215,11 @@ namespace big
 
 				return;
 			}
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
-		#pragma endregion
+#pragma endregion
 
 			//Not sure if I should do this? Doing it anyway.
 		default:
-			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 			break;
 
 		} //End switch case

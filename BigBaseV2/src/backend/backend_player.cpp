@@ -1,8 +1,4 @@
 #include "backend.hpp"
-#include "common.hpp"
-#include "script_mgr.hpp"
-#include "fiber_pool.hpp"
-#include "script_global.hpp"
 
 namespace big
 {
@@ -17,7 +13,7 @@ namespace big
 		} QUEUE_JOB_END_CLAUSE
 	}
 
-	void backend_player::script_func()
+	void backend_player::player_loop()
 	{
 		while (true)
 		{

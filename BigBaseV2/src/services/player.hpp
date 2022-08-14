@@ -9,6 +9,7 @@ namespace big
 
 		CNetGamePlayer* m_net_game_player = nullptr;
 		std::string m_identifier;
+
 		bool m_is_friend;
 
 	public:

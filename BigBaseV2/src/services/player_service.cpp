@@ -72,14 +72,12 @@ namespace big
 
 	void player_service::player_join(CNetGamePlayer* net_game_player)
 	{
-		if (net_game_player == nullptr || net_game_player == *m_self) 
+		if (net_game_player == nullptr || net_game_player == *m_self)
 			return;
 
 		auto plyr = std::make_shared<player>(net_game_player);
-		m_players.emplace(
-			plyr->to_lowercase_identifier(),
-			std::move(plyr)
-		);
+
+		m_players.emplace(plyr->to_lowercase_identifier(), std::move(plyr));
 	}
 
 	void player_service::player_leave(CNetGamePlayer* net_game_player)
@@ -91,6 +89,7 @@ namespace big
 			m_selected_player = m_dummy;
 
 		auto plyr = std::make_unique<player>(net_game_player);
+
 		m_players.erase(plyr->to_lowercase_identifier());
 	}
 

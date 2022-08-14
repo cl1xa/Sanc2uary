@@ -90,20 +90,6 @@ namespace big::teleport
 		return true;
 	}
 
-	inline bool to_entity(Entity ent)
-	{
-		Vector3 location = ENTITY::GET_ENTITY_COORDS(ent, true);
-
-		PED::SET_PED_COORDS_KEEP_VEHICLE(PLAYER::PLAYER_PED_ID(), location.x, location.y, location.z);
-
-		return true;
-	}
-
-	inline bool to_player(Player player)
-	{
-		return to_entity(PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(player));
-	}
-
 	inline bool to_waypoint()
 	{
 		if (!to_blip((int)BlipIcons::Waypoint))

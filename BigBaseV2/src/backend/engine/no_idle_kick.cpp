@@ -1,7 +1,4 @@
-
 #include "backend/backend.hpp"
-#include "gta_util.hpp"
-#include "script_global.hpp"
 
 namespace big
 {

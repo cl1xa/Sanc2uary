@@ -6,9 +6,9 @@ namespace big
 {
     void view_sub::tab_recovery()
     {
-        ImGui::Text("Cayo Perico Heist");
+        ImGui::Text(xorstr_("Cayo Perico Heist"));
 
-        if (ImGui::Button("Cayo one"))
+        if (ImGui::Button(xorstr_("Cayo one")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -21,7 +21,7 @@ namespace big
 
         ImGui::SameLine();
 
-        if (ImGui::Button("Cayo two"))
+        if (ImGui::Button(xorstr_("Cayo two")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -34,7 +34,7 @@ namespace big
 
         ImGui::SameLine();
 
-        if (ImGui::Button("Cayo three"))
+        if (ImGui::Button(xorstr_("Cayo three")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -47,7 +47,7 @@ namespace big
 
         ImGui::SameLine();
 
-        if (ImGui::Button("Cayo four"))
+        if (ImGui::Button(xorstr_("Cayo four")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -58,7 +58,7 @@ namespace big
             g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup four triggered"));
         }
 
-        if (ImGui::Button("Clear cayo cooldown"))
+        if (ImGui::Button(xorstr_("Clear cayo cooldown")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -71,9 +71,9 @@ namespace big
 
         ImGui::Separator();
 
-        ImGui::Text("Diamond Casino Heist");
+        ImGui::Text(xorstr_("Diamond Casino Heist"));
 
-        if (ImGui::Button("Instant casino setup"))
+        if (ImGui::Button(xorstr_("Instant casino setup")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -84,7 +84,7 @@ namespace big
             g_notification_service->push(xorstr_("Recovery"), xorstr_("Instantly set up casino heist"));
         }
 
-        if (ImGui::Button("Clear casino cooldown"))
+        if (ImGui::Button(xorstr_("Clear casino cooldown")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -97,9 +97,9 @@ namespace big
 
         ImGui::Separator();
 
-        ImGui::Text("Doomsday Heist");
+        ImGui::Text(xorstr_("Doomsday Heist"));
 
-        if (ImGui::Button("Doomsday 1"))
+        if (ImGui::Button(xorstr_("Doomsday 1")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -112,7 +112,7 @@ namespace big
 
         ImGui::SameLine();
 
-        if (ImGui::Button("Doomsday 2"))
+        if (ImGui::Button(xorstr_("Doomsday 2")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -125,7 +125,7 @@ namespace big
 
         ImGui::SameLine();
 
-        if (ImGui::Button("Doomsday 3"))
+        if (ImGui::Button(xorstr_("Doomsday 3")))
         {
             QUEUE_JOB_BEGIN_CLAUSE()
             {
@@ -135,19 +135,5 @@ namespace big
 
             g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday three triggered"));
         }
-
-        /*if (ImGui::Button("Instant 750k"))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE(= )
-            {
-                script_global(262145).at(23114).as<int>() = 750000;
-                script_global(1963962).as<int>() = 2;
-
-                script::get_current()->yield();
-
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday three triggered"));
-        }*/
     }
 }

@@ -1,5 +1,4 @@
 #include "notification_service.hpp"
-#include "util/notify.hpp"
 
 namespace big
 {
@@ -21,8 +20,6 @@ namespace big
 	void notification_service::push(string title, string message, bool debug)
 	{
 		this->push({ NotificationType::INFO, title, message, chrono::system_clock::now(), 3000.f , 1.f});
-
-		//message.erase(std::remove(message.begin(), message.end(), '\n'), message.cend());
 
 		if (debug)
 			LOG(G3LOG_DEBUG) << fmt::format(xorstr_("{}"), message);

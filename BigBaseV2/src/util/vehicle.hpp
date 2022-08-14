@@ -1,5 +1,4 @@
 #pragma once
-#include "misc.hpp"
 #include "entity.hpp"
 #include "teleport.hpp"
 #include "math.hpp"
@@ -75,14 +74,14 @@ namespace big::vehicle
 
 	inline bool fix_index(int veh_idx, bool spawn_veh = false)
 	{
-		bool can_be_fixed = misc::has_bits_set(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::DESTROYED | eVehicleFlags::HAS_INSURANCE);
+		bool can_be_fixed = math::has_bits_set(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::DESTROYED | eVehicleFlags::HAS_INSURANCE);
 
 		if (can_be_fixed)
 		{
-			misc::clear_bits(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::DESTROYED | eVehicleFlags::IMPOUNDED | eVehicleFlags::UNK2);
+			math::clear_bits(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::DESTROYED | eVehicleFlags::IMPOUNDED | eVehicleFlags::UNK2);
 
 			if (spawn_veh)
-				misc::set_bits(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::TRIGGER_SPAWN_TOGGLE | eVehicleFlags::SPAWN_AT_MORS_MUTUAL);
+				math::set_bits(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::TRIGGER_SPAWN_TOGGLE | eVehicleFlags::SPAWN_AT_MORS_MUTUAL);
 		}
 
 		return can_be_fixed;

@@ -44,7 +44,7 @@ namespace big
 			}
 		}
 
-		dl->AddRectFilled({ (float)*g_pointers->m_resolution_x - 360.f, 10.f + start_pos }, { (float)*g_pointers->m_resolution_x - 10.f, start_pos + 45.f + total_size }, (ImU32)3357612055);
+		dl->AddRectFilled({ (float)*g_pointers->m_resolution_x - 360.f, 10.f + start_pos }, { (float)*g_pointers->m_resolution_x - 10.f, start_pos + 45.f + total_size }, (ImU32)ImGui::ColorConvertFloat4ToU32(ImVec4(0.075f, 0.075f, 0.075f, 1.000f)));
 		dl->AddRectFilledMultiColor({ (float)*g_pointers->m_resolution_x - 360.f, 10.f + start_pos }, { (float)*g_pointers->m_resolution_x - 255.f, start_pos + 45.f + total_size }, fadeBegin, fadeEnd, fadeEnd, fadeBegin);
 
 		dl->AddText(g_renderer->m_font, 22.f, { (float)*g_pointers->m_resolution_x - 350.f, 15.f + start_pos }, textCol, title.c_str());

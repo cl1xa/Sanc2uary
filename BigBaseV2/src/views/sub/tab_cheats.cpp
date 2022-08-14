@@ -65,7 +65,7 @@ namespace big
 					g_notification_service->push(xorstr_("Vehicle cheats"), xorstr_("Fixed all personal vehicles"));
 				}
 
-				if (ImGui::Button(xorstr_("Bring personal vehicle")))
+				if (ImGui::Button(xorstr_("Enter personal vehicle")))
 				{
 					QUEUE_JOB_BEGIN_CLAUSE()
 					{
@@ -79,7 +79,7 @@ namespace big
 
 					} QUEUE_JOB_END_CLAUSE
 
-					g_notification_service->push(xorstr_("Vehicle cheats"), xorstr_("Personal vehicle teleported to your location"));
+					g_notification_service->push(xorstr_("Vehicle cheats"), xorstr_("Local player forced into current personal vehicle"));
 				}
 
 				ImGui::EndTabItem();

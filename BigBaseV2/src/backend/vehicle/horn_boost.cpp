@@ -1,21 +1,20 @@
 #include "backend/backend.hpp"
-#include "util/vehicle.hpp"
 
 namespace big
 {
 	void backend_vehicle::horn_boost()
 	{
-		const Player player = PLAYER::PLAYER_ID();
-		const Ped ped = PLAYER::PLAYER_PED_ID();
-		const Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(ped);
+		const Ped local_ped = PLAYER::PLAYER_PED_ID();
+		const Vehicle local_vehicle = PED::GET_VEHICLE_PED_IS_USING(local_ped);
 
-		if (g_config.cheats.vehicle.horn_boost
-			&& PAD::IS_CONTROL_PRESSED(0, (int)ControllerInputs::INPUT_VEH_HORN)
+		if (PAD::IS_CONTROL_PRESSED(0, (int)ControllerInputs::INPUT_VEH_HORN)
 			&& (int)ePedTask::TASK_DRIVING
-			&& PLAYER::IS_PLAYER_PRESSING_HORN(player)
-			&& entity::take_control_of(vehicle))
+			&& entity::take_control_of(local_vehicle))
 		{
-			VEHICLE::SET_VEHICLE_FORWARD_SPEED(vehicle, 79);
+			if (!g_config.cheats.vehicle.horn_boost)
+				return;
+			
+			VEHICLE::SET_VEHICLE_FORWARD_SPEED(local_vehicle, 79);
 		}
 	}
 }

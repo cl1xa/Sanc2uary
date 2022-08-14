@@ -2,20 +2,19 @@
 
 namespace big
 {
-	static bool LastInfiniteAmmo = false;
-
 	void backend_player::infinite_ammo()
 	{ 
-		bool InfiniteAmmo = g_config.cheats.player.infinite_ammo;
-		const Ped ped = PLAYER::PLAYER_PED_ID();
+		const Ped local_ped = PLAYER::PLAYER_PED_ID();
 
-		if (InfiniteAmmo 
-			|| (!InfiniteAmmo && InfiniteAmmo != LastInfiniteAmmo))
+		if (g_config.cheats.player.infinite_ammo)
 		{
-			WEAPON::SET_PED_INFINITE_AMMO(ped, g_config.cheats.player.infinite_ammo, NULL);
-			WEAPON::SET_PED_INFINITE_AMMO_CLIP(ped, g_config.cheats.player.infinite_ammo);
-
-			LastInfiniteAmmo = g_config.cheats.player.infinite_ammo;
+			WEAPON::SET_PED_INFINITE_AMMO(local_ped, true, NULL);
+			WEAPON::SET_PED_INFINITE_AMMO_CLIP(local_ped, true);
+		}
+		else
+		{
+			WEAPON::SET_PED_INFINITE_AMMO(local_ped, false, NULL);
+			WEAPON::SET_PED_INFINITE_AMMO_CLIP(local_ped, false);
 		}
 	}
 }

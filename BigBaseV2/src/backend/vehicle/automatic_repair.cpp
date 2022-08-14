@@ -1,26 +1,20 @@
 #include "backend/backend.hpp"
-#include "util/vehicle.hpp"
 
 namespace big
 {
 	void backend_vehicle::automatic_repair()
 	{
-		static ULONGLONG tick_1 = 0;
-		ULONGLONG now = GetTickCount64();
+		const Ped local_ped = PLAYER::PLAYER_PED_ID();
+		const Vehicle local_vehicle = PED::GET_VEHICLE_PED_IS_USING(local_ped);
 
-		const Player player = PLAYER::PLAYER_ID();
-		const Ped ped = PLAYER::PLAYER_PED_ID();
-
-		const Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(ped);
-
-		if (g_config.cheats.vehicle.automatic_repair
+		if (VEHICLE::GET_DOES_VEHICLE_HAVE_DAMAGE_DECALS(local_vehicle) 
 			&& (int)ePedTask::TASK_DRIVING
-			&& VEHICLE::GET_DOES_VEHICLE_HAVE_DAMAGE_DECALS(vehicle)
-			&& (now - tick_1 > 50))
+			&& entity::take_control_of(local_vehicle))
 		{
-			vehicle::repair(vehicle);
+			if (!g_config.cheats.vehicle.automatic_repair)
+				return;
 
-			tick_1 = now;
+			vehicle::repair(local_vehicle);
 		}
 	}
 }

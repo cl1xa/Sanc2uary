@@ -42,7 +42,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 			try
 			{
-				LOG(INFO) << xorstr_("Sanctuary Initializing...");
 				auto pointers_instance = std::make_unique<pointers>();
 
 				auto renderer_instance = std::make_unique<renderer>();
@@ -51,16 +50,17 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 				auto hooking_instance = std::make_unique<hooking>();
 
-				g_config.load(xorstr_("default.sanctuary"));
+				g_config.load("default.sanctuary");
 
 				auto thread_pool_instance = std::make_unique<thread_pool>();
 
 				auto notification_service_instance = std::make_unique<notification_service>();
 				auto player_service_instance = std::make_unique<player_service>();
 
-				g_script_mgr.add_script(std::make_unique<script>(&backend_engine::script_func));
-				g_script_mgr.add_script(std::make_unique<script>(&backend_player::script_func));
-				g_script_mgr.add_script(std::make_unique<script>(&backend_vehicle::script_func));
+				g_script_mgr.add_script(std::make_unique<script>(&backend_engine::engine_loop));
+				g_script_mgr.add_script(std::make_unique<script>(&backend_player::player_loop));
+				g_script_mgr.add_script(std::make_unique<script>(&backend_vehicle::vehicle_loop));
+
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));
 
 				auto native_hooks_instance = std::make_unique<native_hooks>();
@@ -82,15 +82,15 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 				g_script_mgr.remove_all_scripts();
 
+				player_service_instance.reset();
+
+				notification_service_instance.reset();
+
 				// Make sure that all threads created don't have any blocking loops
 				// otherwise make sure that they have stopped executing
 				thread_pool_instance->destroy();
 
 				thread_pool_instance.reset();
-
-				player_service_instance.reset();
-
-				notification_service_instance.reset();
 
 				hooking_instance.reset();
 
