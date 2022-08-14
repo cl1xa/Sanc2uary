@@ -39,10 +39,10 @@ namespace big
 					QUEUE_JOB_BEGIN_CLAUSE()
 					{
 						MISC::SET_OVERRIDE_WEATHER("CLEAR");
-
+						                                                                                                                                                                                               
 					}QUEUE_JOB_END_CLAUSE
 
-					g_notification_service->push(xorstr_("Player cheats"), xorstr_("Cleared local weather"));
+					g_notification_service->push(xorstr_("Player cheats"), xorstr_("Cleared local weather"));                     
 				}
 
 				ImGui::EndTabItem();

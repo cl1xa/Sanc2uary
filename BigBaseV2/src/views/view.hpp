@@ -24,6 +24,7 @@ namespace big
 		static void tab_misc();
 		static void tab_utility();
 		static void tab_cheats();
+		static void tab_recovery();
 		static void tab_network();
 		static void tab_settings();
 	};
