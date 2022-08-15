@@ -25,6 +25,7 @@ namespace big
 	{
 	public:
 		static void player_god();
+		static void keep_player_clean();
 		static void infinite_ammo();
 		static void no_police();
 

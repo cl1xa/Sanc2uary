@@ -1,7 +1,4 @@
 #pragma once
-#include "gta/joaat.hpp"
-#include "natives.hpp"
-#include "script_global.hpp"
 
 namespace big::local_player
 {
@@ -17,6 +14,6 @@ namespace big::local_player
 		/*get_active_character_slot(&character_slot);
 		return "MP" + std::to_string(character_slot) + "_";*/
 
-		return "MP0_";
+		return xorstr_("MP0_");
 	}
 }

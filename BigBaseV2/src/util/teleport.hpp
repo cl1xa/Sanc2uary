@@ -1,5 +1,4 @@
 #pragma once
-#include "gta/enums.hpp"
 
 namespace big::teleport
 {

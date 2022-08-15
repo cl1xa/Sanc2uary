@@ -1,6 +1,5 @@
 #include "views/view.hpp"
 #include "util/recovery.hpp"
-#include "fiber_pool.hpp"
 
 namespace big
 {

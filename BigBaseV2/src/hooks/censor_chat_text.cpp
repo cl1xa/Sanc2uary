@@ -1,7 +1,4 @@
-#include "gta/joaat.hpp"
 #include "hooking.hpp"
-#include "natives.hpp"
-#include "script_global.hpp"
 
 namespace big
 {

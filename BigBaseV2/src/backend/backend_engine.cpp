@@ -7,7 +7,17 @@ namespace big
 		QUEUE_JOB_BEGIN_CLAUSE()
 		{
 			backend_engine::update_pointers();
+
+		} QUEUE_JOB_END_CLAUSE
+
+		QUEUE_JOB_BEGIN_CLAUSE()
+		{
 			backend_engine::hud_transition_state();
+
+		} QUEUE_JOB_END_CLAUSE
+
+		QUEUE_JOB_BEGIN_CLAUSE()
+		{
 			backend_engine::no_idle_kick();
 
 		} QUEUE_JOB_END_CLAUSE

@@ -1,5 +1,4 @@
 #include "views/view.hpp"
-#include "fiber_pool.hpp"
 
 namespace big
 {
@@ -10,7 +9,7 @@ namespace big
 		ImGui::Checkbox(xorstr_("Notify scripts"), &g_config.settings.notify_scripts);
 		ImGui::Checkbox(xorstr_("Script event logger"), &g_config.settings.script_event_logger);
 
-		if (ImGui::Button("Force exit GTA Online"))
+		if (ImGui::Button(xorstr_("Force exit GTA Online")))
 		{
 			QUEUE_JOB_BEGIN_CLAUSE()
 			{

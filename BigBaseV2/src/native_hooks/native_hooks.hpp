@@ -1,6 +1,9 @@
 #pragma once
+#include "script_global.hpp"
+
 #include "gta_util.hpp"
 #include "gta/joaat.hpp"
+
 #include "native_hooks/freemode.hpp"
 #include "native_hooks/shop_controller.hpp"
 

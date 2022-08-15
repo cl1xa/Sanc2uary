@@ -1,5 +1,5 @@
 #pragma once
-#include "script_global.hpp"
+
 
 namespace big::shop_controller
 {
@@ -7,7 +7,7 @@ namespace big::shop_controller
 	{
 		if (g_config.protection.other.rate_limit)
 		{
-			if (auto entry_line = src->get_arg<const char*>(1); !strcmp(entry_line, "CTALERT_F_2"))
+			if (auto entry_line = src->get_arg<const char*>(1); !strcmp(entry_line, xorstr_("CTALERT_F_2")))
 			{
 				g_notification_service->push_error(xorstr_("Rate Limit"), xorstr_("Online rate limit reached. Whatever you're doing, do it less"));
 

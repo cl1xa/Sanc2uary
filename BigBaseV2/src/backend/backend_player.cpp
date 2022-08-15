@@ -6,8 +6,14 @@ namespace big
 	{
 		QUEUE_JOB_BEGIN_CLAUSE()
 		{
-			backend_player::player_god();
 			backend_player::no_police();
+
+		} QUEUE_JOB_END_CLAUSE
+
+		QUEUE_JOB_BEGIN_CLAUSE()
+		{
+			backend_player::player_god();
+			backend_player::keep_player_clean();
 			backend_player::infinite_ammo();
 
 		} QUEUE_JOB_END_CLAUSE

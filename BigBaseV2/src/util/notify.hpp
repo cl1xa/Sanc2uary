@@ -14,7 +14,7 @@ namespace big::notify
 		const auto out = (fmt::format(xorstr_("{}"), in)).c_str();
 
 		HUD::SET_TEXT_OUTLINE();
-		HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+		HUD::BEGIN_TEXT_COMMAND_THEFEED_POST(xorstr_("STRING"));
 
 		HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(out);
 		HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(false, false);
@@ -27,7 +27,7 @@ namespace big::notify
 		string in = text.data();
 		const auto out = (fmt::format(xorstr_("{}"), in)).c_str();
 
-		HUD::BEGIN_TEXT_COMMAND_BUSYSPINNER_ON("STRING");
+		HUD::BEGIN_TEXT_COMMAND_BUSYSPINNER_ON(xorstr_("STRING"));
 		HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(out);
 		HUD::END_TEXT_COMMAND_BUSYSPINNER_ON(3);
 

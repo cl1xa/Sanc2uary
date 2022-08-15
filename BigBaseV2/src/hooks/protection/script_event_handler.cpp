@@ -1,6 +1,4 @@
 #include "hooking.hpp"
-#include "gta_util.hpp"
-#include "gta/enums.hpp"
 
 namespace big
 {
@@ -43,26 +41,8 @@ namespace big
 			return true;
 
 		case eRemoteEvent::RotateCam:
-		{
-			bool blocked = false;
-
-			if (args[2] == 537560473)
-				blocked = true;
-
-			if (CNetworkPlayerMgr* player_mgr = gta_util::get_network_player_mgr(); player_mgr != nullptr)
-				if (args[2] == player_mgr->m_local_net_player->m_player_id)
-					blocked = true;
-
-			if (blocked)
-			{
-				//These send lots of false positives. They spam and I only want them logged to the console
-				//I will figure out something better later
-				LOG(INFO) << fmt::format(xorstr_("{} sent camra event: {}"), player_name, (int)hash);
-				return true;
-			}
-
-			break; //Someone tell me if this is wrong. Better safe than sorry?
-		}
+			LOG(INFO) << fmt::format(xorstr_("{} sent camra event: {}"), player_name, (int)hash);
+			return true;
 
 		case eRemoteEvent::SendToLocation:
 		{
@@ -86,12 +66,20 @@ namespace big
 
 			if (!known_location)
 			{
-				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent telport event: {}"), player_name, (int)hash));
+				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent location event: {}"), player_name, (int)hash));
 				return true;
 			}
 
 			break; //Someone tell me if this is wrong. Better safe than sorry?
 		}
+
+		case eRemoteEvent::ForceMission:
+		case eRemoteEvent::SendToCayoPerico:
+		case eRemoteEvent::SendToCutscene:
+		case eRemoteEvent::Teleport:
+		case eRemoteEvent::ForceMission2:
+			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent telport event: {}"), player_name, (int)hash));
+			return true;
 
 		case eRemoteEvent::Bounty:
 		case eRemoteEvent::CeoBan:
@@ -99,19 +87,15 @@ namespace big
 		case eRemoteEvent::CeoMoney:
 		case eRemoteEvent::ClearWantedLevel:
 		case eRemoteEvent::FakeDeposit:
-		case eRemoteEvent::ForceMission:
 		case eRemoteEvent::GtaBanner:
 		case eRemoteEvent::MCTeleport:
 		case eRemoteEvent::PersonalVehicleDestroyed:
 		case eRemoteEvent::RemoteOffradar:
-		case eRemoteEvent::SendToCayoPerico:
-		case eRemoteEvent::SendToCutscene:
 		case eRemoteEvent::SoundSpam:
 		case eRemoteEvent::Spectate:
-		case eRemoteEvent::Teleport:
 		case eRemoteEvent::TransactionError:
 		case eRemoteEvent::VehicleKick:
-		case eRemoteEvent::ForceMission2:
+
 			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent script event: {}"), player_name, (int)hash));
 			return true;
 			

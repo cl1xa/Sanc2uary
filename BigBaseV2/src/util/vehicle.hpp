@@ -1,8 +1,8 @@
 #pragma once
 #include "entity.hpp"
-#include "teleport.hpp"
 #include "math.hpp"
-#include "gta/enums.hpp"
+#include "teleport.hpp"
+
 #include "script_global.hpp"
 
 namespace big::vehicle
@@ -13,13 +13,6 @@ namespace big::vehicle
 	inline Vehicle get_personal_vehicle()
 	{
 		return *mechanic_global.at(298).as<Vehicle*>();
-	}
-
-	inline void go_into_personal_vehicle()
-	{
-		*script_global(2671449).at(8).as<int*>() = 1;
-
-		script::get_current()->yield();
 	}
 
 	inline bool repair(Vehicle veh)
@@ -72,6 +65,15 @@ namespace big::vehicle
 		script::get_current()->yield();
 	}
 
+	inline void go_into_personal_vehicle()
+	{
+		*script_global(2671449).at(8).as<int*>() = 1;
+
+		script::get_current()->yield();
+
+		g_notification_service->push(xorstr_("Vehicle cheats"), xorstr_("Local player forced into current personal vehicle"));
+	}
+
 	inline bool fix_index(int veh_idx, bool spawn_veh = false)
 	{
 		bool can_be_fixed = math::has_bits_set(vehicle_global.at(veh_idx, 142).at(103).as<int*>(), eVehicleFlags::DESTROYED | eVehicleFlags::HAS_INSURANCE);
@@ -99,6 +101,19 @@ namespace big::vehicle
 
 		script::get_current()->yield();
 
+		g_notification_service->push(xorstr_("Vehicle cheats"), xorstr_("Fixed all personal vehicles"));
+
 		return fixed_count;
+	}
+
+	inline void request_current_personal_vehicle()
+	{
+		const Vehicle vehicle = vehicle::get_personal_vehicle();
+
+		int amount_fixed = vehicle::fix_all();
+
+		vehicle::bring(vehicle, ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false));
+
+		vehicle::go_into_personal_vehicle();
 	}
 }

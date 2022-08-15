@@ -1,6 +1,3 @@
-#include "gta/enums.hpp"
-#include "gta/structs.hpp"
-#include "gta/net_game_event.hpp"
 #include "hooking.hpp"
 
 namespace big
@@ -193,20 +190,13 @@ namespace big
 #pragma endregion
 
 #pragma region Action event protection
-		//case eNetworkEvents::WEAPON_DAMAGE_EVENT:
+		case eNetworkEvents::WEAPON_DAMAGE_EVENT:
 		case eNetworkEvents::FIRE_EVENT:
 		case eNetworkEvents::EXPLOSION_EVENT:
-		//case eNetworkEvents::START_PROJECTILE_EVENT:
-		//case eNetworkEvents::UPDATE_PROJECTILE_TARGET_EVENT:
-		//case eNetworkEvents::REMOVE_PROJECTILE_ENTITY_EVENT:
-		//case eNetworkEvents::BREAK_PROJECTILE_TARGET_LOCK_EVENT:
-		//case eNetworkEvents::INCIDENT_ENTITY_EVENT:
 		case eNetworkEvents::BLOW_UP_VEHICLE_EVENT:
-		//case eNetworkEvents::NETWORK_SPECIAL_FIRE_EQUIPPED_WEAPON:
 		case eNetworkEvents::UPDATE_PLAYER_SCARS_EVENT:
 		case eNetworkEvents::INFORM_SILENCED_GUNSHOT_EVENT:
 		case eNetworkEvents::PED_PLAY_PAIN_EVENT:
-		//case eNetworkEvents::ACTIVATE_VEHICLE_SPECIAL_ABILITY_EVENT:
 			if (g_config.protection.events.action)
 			{
 				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent action event: {}"), sender_name, event_name));

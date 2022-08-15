@@ -1,6 +1,4 @@
 #pragma once
-#include "fiber_pool.hpp"
-#include "script.hpp"
 
 namespace big::scripts
 {

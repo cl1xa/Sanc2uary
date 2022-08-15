@@ -80,7 +80,7 @@ namespace big
 								if (g_player_service->get_selected()->is_host())
 								{
 									ImGui::SameLine();
-									ImGui::Text("SESSION HOST");
+									ImGui::Text(xorstr_("SESSION HOST"));
 								}
 
 								view_main::selected_player();

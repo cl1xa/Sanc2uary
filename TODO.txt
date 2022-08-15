@@ -1,16 +1,10 @@
-add playerlist info
-add friends playerlist and teleport to friends
+add teleport to friends
 add hotkeys for menu, and teleports
-update natives
-update gta classes
-make sure all strings are xor
 make success notifications green
 add change menu color
-revise action protection
 add esp
-add semi passive experimental feature
-make event handler look better
-update readme
-search for unused functions and remove them
-search for unused classes and remove them
+
+remember to always:
+
+organize includes
 ensure menu consistency with backend

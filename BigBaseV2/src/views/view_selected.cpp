@@ -9,7 +9,7 @@ namespace big
 
 		if (ImGui::BeginPopupModal(xorstr_("Player selection menu")))
 		{
-			ImGui::Text(fmt::format("{}[{}] {}", (g_player_service->get_selected()->is_host() ? "[H]" : ""), g_player_service->get_selected()->id(), g_player_service->get_selected()->get_name()).c_str());
+			ImGui::Text(fmt::format(xorstr_("{}[{}] {}"), (g_player_service->get_selected()->is_host() ? xorstr_("[H]") : xorstr_("")), g_player_service->get_selected()->id(), g_player_service->get_selected()->get_name()).c_str());
 
 			ImGui::Separator();
 

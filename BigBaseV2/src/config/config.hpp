@@ -58,6 +58,7 @@ namespace big
 			struct
 			{
 				bool player_god = false;
+				bool keep_player_clean = false;
 				bool no_police = false;
 				bool infinite_ammo = false;
 
