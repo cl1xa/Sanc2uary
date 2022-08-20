@@ -23,6 +23,6 @@
 	url = https://github.com/Yimura/gtav-imgui.git
 	ignore = dirty
 [submodule "vendor/openssl"]
-	path = vendor/ImGui
+	path = vendor/openssl
 	url = https://github.com/openssl/openssl.git
 	ignore = dirty
