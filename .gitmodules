@@ -24,5 +24,4 @@
 	ignore = dirty
 [submodule "vendor/openssl"]
 	path = vendor/openssl
-	url = https://github.com/openssl/openssl.git
-	ignore = dirty
+	url = https://github.com/vanillamc/openssl
