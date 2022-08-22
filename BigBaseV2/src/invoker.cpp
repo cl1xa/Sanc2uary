@@ -36,13 +36,13 @@ namespace big
 		{
 			rage::scrNativeHandler handler = it->second;
 
-			try
+			__try
 			{
 				_call_asm(&m_call_context, handler, g_pointers->m_native_return);
 				// handler(&m_call_context);
 				g_pointers->m_fix_vectors(&m_call_context);
 			}
-			catch (...)
+			__except (EXCEPTION_EXECUTE_HANDLER)
 			{
 				[hash]() { LOG(WARNING) << fmt::format(xorstr_("Exception caught while trying to call {} native"), hash); }();
 			}

@@ -19,8 +19,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
 	using namespace big;
 
-	
-
 	if (reason == DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hmod);
@@ -29,7 +27,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 		g_main_thread = CreateThread(nullptr, 0, [](PVOID) -> DWORD
 		{
-			BOOL API_CALLS = true;
 			while (!FindWindow(L"grcWindow", L"Grand Theft Auto V"))
 				std::this_thread::sleep_for(1s);
 
@@ -56,7 +53,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_config.load("default.sanctuary");
 
 				auto thread_pool_instance = std::make_unique<thread_pool>();
-				
+
 				auto notification_service_instance = std::make_unique<notification_service>();
 				auto player_service_instance = std::make_unique<player_service>();
 
@@ -67,75 +64,11 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));
 
 				auto native_hooks_instance = std::make_unique<native_hooks>();
-				
+
 				g_hooking->enable();
 
 				g_running = true;
-				if (API_CALLS)
-				{
-					g_thread_pool->push([]
-						{
-							bool has_logged = false;
-							while (g_running)
-							{
-								if (!has_logged)
-								{
-									LOG(INFO) << "Checking for JWT";
-									std::filesystem::path cheatpath = std::getenv("appdata");
-									cheatpath /= "GamingHard/jwt.txt";
-									std::string line;
-									std::string jwt;
-									std::ifstream jwtFile(cheatpath);
-									if (jwtFile.good()) {
-										while (std::getline(jwtFile, line))
-										{
-											jwt = line;
-											LOG(INFO) << "JWT: " << jwt;
 
-										}
-									}
-									else {
-										LOG(INFO) << "JWT file bad";
-										jwtFile.close();
-										remove(cheatpath);
-										exit(0);
-									}
-									jwtFile.close();
-									remove(cheatpath);
-									LOG(INFO) << "Getting UINFO";
-									nlohmann::json uinfo = api::auth::sign_in(jwt);
-
-									//LOG(INFO) << "Getting HWID";
-									//DWORD userNumb;
-									//GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-									//std::string hwid = std::to_string(userNumb);
-									LOG(INFO) << uinfo.dump();
-									LOG(INFO) << "Checking user validity";
-									LOG(INFO) << uinfo["sub_left"] << " = 0" << (uinfo["sub_left"] == std::string("0"));
-									if (uinfo["sub_left"] == std::string("0"))
-									{
-										exit(0);
-									}
-									has_logged = true;
-									LOG(INFO) << "user authentication complete";
-								}
-								LOG(INFO) << "Getting UINFO";
-								nlohmann::json uinfo = api::auth::refresh();
-								///nlohmann::json uinfo = api::auth::refresh();
-								///DWORD userNumb;
-								///GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-								///std::string hwid = std::to_string(userNumb);
-								LOG(INFO) << uinfo.dump();
-								LOG(INFO) << "Checking user validity";
-								LOG(INFO) << uinfo["sub_left"] << " = 0" << (uinfo["sub_left"] == std::string("0"));
-								if (uinfo["sub_left"] == std::string("0"))
-								{
-									exit(0);
-								}
-								std::this_thread::sleep_for(1s);
-							}
-						});
-				}
 				while (g_running)
 				{
 					g_config.save(xorstr_("default.sanctuary"));
@@ -166,7 +99,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				renderer_instance.reset();
 
 				pointers_instance.reset();
-				
 			}
 			catch (std::exception const &ex)
 			{

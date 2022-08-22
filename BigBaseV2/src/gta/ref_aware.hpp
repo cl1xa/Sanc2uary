@@ -14,4 +14,5 @@ namespace rage
 	{
 	};
 
+	static_assert(sizeof(fwRefAwareBase) == 0x10);
 }
