@@ -40,5 +40,4 @@ namespace rage
 		}
 	};
 
-	static_assert(sizeof(fwExtensibleBase) == 0x20);
 }

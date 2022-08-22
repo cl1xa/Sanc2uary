@@ -74,7 +74,30 @@ workspace "BigBaseV2"
 
 		DeclareMSVCOptions()
 		DeclareDebugOptions()
-	
+
+	project "openssl"
+		location "vendor/%{prj.name}"
+		kind "StaticLib"
+		language "C++"
+
+		targetdir ("bin/lib/" .. outputdir)
+		objdir ("bin/lib/int/" .. outputdir .. "/%{prj.name}")
+
+		files
+		
+		{
+			"vendor/%{prj.name}/include/**.h",
+			"vendor/%{prj.name}/src/**.cc"
+		}
+
+		includedirs
+		{
+			"vendor/%{prj.name}/include"
+		}
+
+		DeclareMSVCOptions()
+		DeclareDebugOptions()
+
 	project "g3log"
 		location "vendor/%{prj.name}"
 		kind "StaticLib"
@@ -205,16 +228,23 @@ workspace "BigBaseV2"
 		    "vendor/GTAV-Classes",
 		    "vendor/ImGui",
 		    "vendor/json/single_include",
-		    "vendor/MinHook/include"
+		    "vendor/MinHook/include",
+			"vendor/openssl/include"
+			
+			
 		}
 
 		libdirs
 		{
-		    "bin/lib"
+		    "bin/lib",
+			"vendor/openssl/lib"
 		}
 
 		links
 		{
+			"ws2_32.lib",
+			"libcrypto.lib",
+			"libssl.lib",
 		    "fmtlib",
 		    "g3log",
 		    "ImGui",
