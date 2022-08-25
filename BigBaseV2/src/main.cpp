@@ -91,7 +91,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 											while (std::getline(jwtFile, line))
 											{
 												jwt = line;
-												LOG(INFO) << "JWT: " << jwt;
 
 											}
 										}
@@ -106,13 +105,11 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 										LOG(INFO) << "Getting UINFO";
 										nlohmann::json uinfo = api::auth::sign_in(jwt);
 
-										//LOG(INFO) << "Getting HWID";
-										//DWORD userNumb;
-										//GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-										//std::string hwid = std::to_string(userNumb);
-										LOG(INFO) << uinfo.dump();
+										LOG(INFO) << "Getting HWID";
+										DWORD userNumb;
+										GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
+										std::string hwid = std::to_string(userNumb);
 										LOG(INFO) << "Checking user validity";
-										LOG(INFO) << uinfo["sub_left"] << " = 0" << (uinfo["sub_left"] == std::string("0"));
 										if (uinfo["sub_left"] == std::string("0"))
 										{
 											exit(0);
@@ -120,15 +117,11 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 										has_logged = true;
 										LOG(INFO) << "user authentication complete";
 									}
-									LOG(INFO) << "Getting UINFO";
 									nlohmann::json uinfo = api::auth::refresh();
-									///nlohmann::json uinfo = api::auth::refresh();
-									///DWORD userNumb;
-									///GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-									///std::string hwid = std::to_string(userNumb);
-									LOG(INFO) << uinfo.dump();
-									LOG(INFO) << "Checking user validity";
-									LOG(INFO) << uinfo["sub_left"] << " = 0" << (uinfo["sub_left"] == std::string("0"));
+									nlohmann::json uinfo = api::auth::refresh();
+									DWORD userNumb;
+									GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
+									std::string hwid = std::to_string(userNumb);
 									if (uinfo["sub_left"] == std::string("0"))
 									{
 										exit(0);
