@@ -42,6 +42,7 @@ namespace big
 				// handler(&m_call_context);
 				g_pointers->m_fix_vectors(&m_call_context);
 			}
+			//__except (EXCEPTION_EXECUTE_HANDLER) ?? Why
 			catch (...)
 			{
 				[hash]() { LOG(WARNING) << fmt::format(xorstr_("Exception caught while trying to call {} native"), hash); }();

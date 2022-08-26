@@ -1,5 +1,5 @@
 #pragma once
-#include "api/http_request.hpp"
+#include "api/http/http_request.hpp"
 
 namespace big::remote
 {
@@ -9,7 +9,7 @@ namespace big::remote
 
 		for (auto& header : headers)
 		{
-			if (header.rfind("ETag", 0) == 0)
+			if (header.rfind(xorstr_("ETag"), 0) == 0)
 			{
 				remote_etag = header;
 				break;
@@ -19,11 +19,9 @@ namespace big::remote
 		return remote_etag;
 	}
 
-
-	inline bool update_binary(const std::string_view file_url, const std::filesystem::path& file_location, const std::filesystem::path& etag_location)
+	//?
+	/*inline bool update_binary(const std::string_view file_url, const std::filesystem::path& file_location, const std::filesystem::path& etag_location)
 	{
-		
-
 		return false;
-	}
+	}*/
 }

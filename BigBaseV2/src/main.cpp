@@ -9,6 +9,7 @@
 #include "thread_pool.hpp"
 
 #include "api/api.hpp"
+#include "api/auth.hpp"
 #include "native_hooks/native_hooks.hpp"
 
 #include "services/player_service.hpp"
@@ -20,8 +21,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
 	using namespace big;
 
-
-
 	if (reason == DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hmod);
@@ -30,7 +29,6 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 		g_main_thread = CreateThread(nullptr, 0, [](PVOID) -> DWORD
 			{
-				BOOL API_CALLS = true;
 				while (!FindWindow(L"grcWindow", L"Grand Theft Auto V"))
 					std::this_thread::sleep_for(1s);
 
@@ -72,66 +70,14 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					g_hooking->enable();
 
 					g_running = true;
-					if (API_CALLS)
-					{
-						g_thread_pool->push([]
-							{
-								bool has_logged = false;
-								while (g_running)
-								{
-									if (!has_logged)
-									{
-										LOG(INFO) << "Checking for JWT";
-										std::filesystem::path cheatpath = std::getenv("appdata");
-										cheatpath /= "GamingHard/jwt.txt";
-										std::string line;
-										std::string jwt;
-										std::ifstream jwtFile(cheatpath);
-										if (jwtFile.good()) {
-											while (std::getline(jwtFile, line))
-											{
-												jwt = line;
 
-											}
-										}
-										else {
-											LOG(INFO) << "JWT file bad";
-											jwtFile.close();
-											remove(cheatpath);
-											exit(0);
-										}
-										jwtFile.close();
-										remove(cheatpath);
-										LOG(INFO) << "Getting UINFO";
-										nlohmann::json uinfo = api::auth::sign_in(jwt);
-
-										LOG(INFO) << "Getting HWID";
-										DWORD userNumb;
-										GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-										std::string hwid = std::to_string(userNumb);
-										LOG(INFO) << "Checking user validity";
-										if (uinfo["sub_left"] == std::string("0"))
-										{
-											exit(0);
-										}
-										has_logged = true;
-										LOG(INFO) << "user authentication complete";
-									}
-									nlohmann::json uinfo = api::auth::refresh();
-									nlohmann::json uinfo = api::auth::refresh();
-									DWORD userNumb;
-									GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-									std::string hwid = std::to_string(userNumb);
-									if (uinfo["sub_left"] == std::string("0"))
-									{
-										exit(0);
-									}
-									std::this_thread::sleep_for(1s);
-								}
-							});
-					}
 					while (g_running)
 					{
+						//Release is for public distribution. Dist is for us.
+						#ifdef _RELEASE
+						api::auth_loop(); //Working, loops twice a second. (I think)
+						#endif
+
 						g_config.save(xorstr_("default.sanctuary"));
 
 						std::this_thread::sleep_for(500ms);
