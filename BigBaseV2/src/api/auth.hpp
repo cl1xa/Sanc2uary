@@ -2,78 +2,72 @@
 
 namespace big::api
 {
+	bool has_logged = false;
+
 	inline void auth_loop()
 	{
-		//QUEUE_JOB_BEGIN_CLAUSE {
-		g_thread_pool->push([]
+		if (!has_logged)
+		{
+			LOG(INFO) << xorstr_("Checking for JWT");
+
+			filesystem::path cheatpath = getenv(xorstr_("appdata"));
+			cheatpath /= xorstr_("GamingHard/jwt.txt");
+
+			string line;
+			string jwt;
+
+			ifstream jwtFile(cheatpath);
+
+			if (jwtFile.good())
+				while (getline(jwtFile, line)) { jwt = line; }
+			else
 			{
-				bool has_logged = false;
-				while (g_running)
-				{
-					if (!has_logged)
-					{
-						LOG(INFO) << xorstr_("Checking for JWT");
+				LOG(WARNING) << xorstr_("JWT file bad!");
 
-						filesystem::path cheatpath = getenv(xorstr_("appdata"));
-						cheatpath /= xorstr_("GamingHard/jwt.txt");
+				jwtFile.close();
+				remove(cheatpath);
+				g_running = false;
+			}
+			jwtFile.close();
 
-						string line;
-						string jwt;
+			remove(cheatpath);
 
-						ifstream jwtFile(cheatpath);
+			LOG(INFO) << xorstr_("Getting UINFO");
 
-						if (jwtFile.good())
-							while (getline(jwtFile, line)) { jwt = line; }
-						else
-						{
-							LOG(WARNING) << xorstr_("JWT file bad!");
+			nlohmann::json uinfo = api::auth::sign_in(jwt);
 
-							jwtFile.close();
-							remove(cheatpath);
-							exit(0);
-						}
-						jwtFile.close();
+			LOG(INFO) << xorstr_("Getting HWID");
 
-						remove(cheatpath);
+			DWORD userNumb;
+			GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
+			string hwid = to_string(userNumb);
 
-						LOG(INFO) << xorstr_("Getting UINFO");
+			LOG(INFO) << xorstr_("Checking user validity");
 
-						nlohmann::json uinfo = api::auth::sign_in(jwt);
+			//Check #1?
+			if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
+			{
+				LOG(WARNING) << xorstr_("No time left!");
 
-						LOG(INFO) << xorstr_("Getting HWID");
+				g_running = false;
+			}
+			has_logged = true;
 
-						DWORD userNumb;
-						GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-						string hwid = to_string(userNumb);
+			LOG(INFO) << xorstr_("User authentication complete");
+		}
 
-						LOG(INFO) << xorstr_("Checking user validity");
+		nlohmann::json uinfo = api::auth::refresh();
 
-						//Check #1?
-						if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
-						{
-							LOG(WARNING) << xorstr_("No time left!");
-							exit(0);
-						}
-						has_logged = true;
+		DWORD userNumb;
+		GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
+		string hwid = to_string(userNumb);
 
-						LOG(INFO) << xorstr_("User authentication complete");
-					}
+		//Check #2?
+		if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
+		{
+			LOG(WARNING) << xorstr_("No time left!");
 
-					nlohmann::json uinfo = api::auth::refresh();
-
-					DWORD userNumb;
-					GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-					string hwid = to_string(userNumb);
-
-					//Check #2?
-					if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
-					{
-						LOG(WARNING) << xorstr_("No time left!");
-						exit(0);
-					}
-					this_thread::sleep_for(1s);
-				}
-			});
-		//} QUEUE_JOB_END_CLAUSE
+			g_running = false;
+		}
 	}
 }

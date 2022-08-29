@@ -1,5 +1,4 @@
 #pragma once
-#include "http/http_request.hpp"
 #include "http/httplib.hpp"
 #include <exception>
 
@@ -9,20 +8,6 @@ namespace big::api
 {
 	const string domain = "api.gaminghard.xyz:80";
 	inline string session_id;
-
-	namespace util
-	{
-		static string authorization_header() { return string("Authorization: ") + api::session_id; }
-
-		static nlohmann::json parse_body(string res)
-		{
-			LOG(INFO) << xorstr_("Parsing body");
-
-			return nlohmann::json::parse(res.begin(), res.end());
-		}
-
-		static bool signed_in() { return !session_id.empty(); }
-	}
 
 	namespace auth
 	{
