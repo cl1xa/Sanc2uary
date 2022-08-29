@@ -14,20 +14,16 @@ namespace big::api
 					{
 						LOG(INFO) << xorstr_("Checking for JWT");
 
-						std::filesystem::path cheatpath = std::getenv(xorstr_("appdata"));
+						filesystem::path cheatpath = getenv(xorstr_("appdata"));
 						cheatpath /= xorstr_("GamingHard/jwt.txt");
 
-						std::string line;
-						std::string jwt;
-						std::ifstream jwtFile(cheatpath);
+						string line;
+						string jwt;
+
+						ifstream jwtFile(cheatpath);
 
 						if (jwtFile.good())
-						{
-							while (std::getline(jwtFile, line))
-							{
-								jwt = line;
-							}
-						}
+							while (getline(jwtFile, line)) { jwt = line; }
 						else
 						{
 							LOG(WARNING) << xorstr_("JWT file bad!");
@@ -48,33 +44,34 @@ namespace big::api
 
 						DWORD userNumb;
 						GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-						std::string hwid = std::to_string(userNumb);
+						string hwid = to_string(userNumb);
 
 						LOG(INFO) << xorstr_("Checking user validity");
 
 						//Check #1?
-						if (uinfo["sub_left"] == std::string("0"))
+						if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
 						{
-							LOG(WARNING) << "No time left!";
+							LOG(WARNING) << xorstr_("No time left!");
 							exit(0);
 						}
 						has_logged = true;
 
-						LOG(INFO) << "User authentication complete";
+						LOG(INFO) << xorstr_("User authentication complete");
 					}
 
 					nlohmann::json uinfo = api::auth::refresh();
+
 					DWORD userNumb;
 					GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
-					std::string hwid = std::to_string(userNumb);
+					string hwid = to_string(userNumb);
 
 					//Check #2?
-					if (uinfo["sub_left"] == std::string("0"))
+					if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
 					{
-						LOG(WARNING) << "No time left!";
+						LOG(WARNING) << xorstr_("No time left!");
 						exit(0);
 					}
-					std::this_thread::sleep_for(1s);
+					this_thread::sleep_for(1s);
 				}
 			});
 		//} QUEUE_JOB_END_CLAUSE

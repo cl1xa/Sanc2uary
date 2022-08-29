@@ -52,21 +52,21 @@ extern "C" char* _strdup(const char* strSource);
 
 namespace http
 {
-    class RequestError final : public std::logic_error
+    class RequestError final : public logic_error
     {
     public:
-        explicit RequestError(const char* str) : std::logic_error{ str } {}
-        explicit RequestError(const std::string& str) : std::logic_error{ str } {}
+        explicit RequestError(const char* str) : logic_error{ str } {}
+        explicit RequestError(const string& str) : logic_error{ str } {}
     };
 
-    class ResponseError final : public std::runtime_error
+    class ResponseError final : public runtime_error
     {
     public:
-        explicit ResponseError(const char* str) : std::runtime_error{ str } {}
-        explicit ResponseError(const std::string& str) : std::runtime_error{ str } {}
+        explicit ResponseError(const char* str) : runtime_error{ str } {}
+        explicit ResponseError(const string& str) : runtime_error{ str } {}
     };
 
-    enum class InternetProtocol : std::uint8_t
+    enum class InternetProtocol : uint8_t
     {
         V4,
         V6
@@ -84,12 +84,12 @@ namespace http
                 const auto error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
                 if (error != 0)
-                    throw std::system_error(error, std::system_category(), xorstr_("WSAStartup failed"));
+                    throw system_error(error, system_category(), xorstr_("WSAStartup failed"));
 
                 if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
                 {
                     WSACleanup();
-                    throw std::runtime_error(xorstr_("Invalid WinSock version"));
+                    throw runtime_error(xorstr_("Invalid WinSock version"));
                 }
 
                 started = true;
@@ -157,27 +157,27 @@ namespace http
                 endpoint{ socket(getAddressFamily(internetProtocol), SOCK_STREAM, IPPROTO_TCP) }
             {
                 if (endpoint == invalid)
-                    throw std::system_error(getLastError(), std::system_category(), xorstr_("Failed to create socket"));
+                    throw system_error(getLastError(), system_category(), xorstr_("Failed to create socket"));
 
 #ifdef _WIN32
                 unsigned long mode = 1;
                 if (ioctlsocket(endpoint, FIONBIO, &mode) != 0)
                 {
                     close();
-                    throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to get socket flags"));
+                    throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to get socket flags"));
                 }
 #else
                 const auto flags = fcntl(endpoint, F_GETFL);
                 if (flags == -1)
                 {
                     close();
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to get socket flags"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to get socket flags"));
                 }
 
                 if (fcntl(endpoint, F_SETFL, flags | O_NONBLOCK) == -1)
                 {
                     close();
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to set socket flags"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to set socket flags"));
                 }
 #endif // _WIN32
 
@@ -186,7 +186,7 @@ namespace http
                 if (setsockopt(endpoint, SOL_SOCKET, SO_NOSIGPIPE, &value, sizeof(value)) == -1)
                 {
                     close();
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to set socket option"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to set socket option"));
                 }
 #endif // __APPLE__
             }
@@ -215,7 +215,7 @@ namespace http
                 return *this;
             }
 
-            void connect(const struct sockaddr* address, const socklen_t addressSize, const std::int64_t timeout)
+            void connect(const struct sockaddr* address, const socklen_t addressSize, const int64_t timeout)
             {
 #ifdef _WIN32
                 auto result = ::connect(endpoint, address, addressSize);
@@ -232,16 +232,16 @@ namespace http
                         socklen_t optionLength = sizeof(socketErrorPointer);
 
                         if (getsockopt(endpoint, SOL_SOCKET, SO_ERROR, socketErrorPointer, &optionLength) == -1)
-                            throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to get socket option"));
+                            throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to get socket option"));
 
                         int socketError;
-                        std::memcpy(&socketError, socketErrorPointer, sizeof(socketErrorPointer));
+                        memcpy(&socketError, socketErrorPointer, sizeof(socketErrorPointer));
 
                         if (socketError != 0)
-                            throw std::system_error(socketError, std::system_category(), xorstr_("Failed to connect"));
+                            throw system_error(socketError, system_category(), xorstr_("Failed to connect"));
                     }
                     else
-                        throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to connect"));
+                        throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to connect"));
                 }
 #else
                 auto result = ::connect(endpoint, address, addressSize);
@@ -258,18 +258,18 @@ namespace http
                         int socketError;
                         socklen_t optionLength = sizeof(socketError);
                         if (getsockopt(endpoint, SOL_SOCKET, SO_ERROR, &socketError, &optionLength) == -1)
-                            throw std::system_error(errno, std::system_category(), xorstr_("Failed to get socket option"));
+                            throw system_error(errno, system_category(), xorstr_("Failed to get socket option"));
 
                         if (socketError != 0)
-                            throw std::system_error(socketError, std::system_category(), xorstr_("Failed to connect"));
+                            throw system_error(socketError, system_category(), xorstr_("Failed to connect"));
                     }
                     else
-                        throw std::system_error(errno, std::system_category(), xorstr_("Failed to connect"));
+                        throw system_error(errno, system_category(), xorstr_("Failed to connect"));
                 }
 #endif // _WIN32
             }
 
-            std::size_t send(const void* buffer, const std::size_t length, const std::int64_t timeout)
+            size_t send(const void* buffer, const size_t length, const int64_t timeout)
             {
                 select(SelectType::write, timeout);
 #ifdef _WIN32
@@ -281,7 +281,7 @@ namespace http
                         static_cast<int>(length), 0);
 
                 if (result == -1)
-                    throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to send data"));
+                    throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to send data"));
 #else
                 auto result = ::send(endpoint, reinterpret_cast<const char*>(buffer),
                     length, noSignal);
@@ -291,12 +291,12 @@ namespace http
                         length, noSignal);
 
                 if (result == -1)
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to send data"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to send data"));
 #endif // _WIN32
-                return static_cast<std::size_t>(result);
+                return static_cast<size_t>(result);
             }
 
-            std::size_t recv(void* buffer, const std::size_t length, const std::int64_t timeout)
+            size_t recv(void* buffer, const size_t length, const int64_t timeout)
             {
                 select(SelectType::read, timeout);
 #ifdef _WIN32
@@ -308,7 +308,7 @@ namespace http
                         static_cast<int>(length), 0);
 
                 if (result == -1)
-                    throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to read data"));
+                    throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to read data"));
 #else
                 auto result = ::recv(endpoint, reinterpret_cast<char*>(buffer),
                     length, noSignal);
@@ -318,9 +318,9 @@ namespace http
                         length, noSignal);
 
                 if (result == -1)
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to read data"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to read data"));
 #endif // _WIN32
-                return static_cast<std::size_t>(result);
+                return static_cast<size_t>(result);
             }
 
             operator Type() const noexcept { return endpoint; }
@@ -332,7 +332,7 @@ namespace http
                 write
             };
 
-            void select(const SelectType type, const std::int64_t timeout)
+            void select(const SelectType type, const int64_t timeout)
             {
                 fd_set descriptorSet;
                 FD_ZERO(&descriptorSet);
@@ -358,7 +358,7 @@ namespace http
                         (timeout >= 0) ? &selectTimeout : nullptr);
 
                 if (count == -1)
-                    throw std::system_error(WSAGetLastError(), std::system_category(), xorstr_("Failed to select socket"));
+                    throw system_error(WSAGetLastError(), system_category(), xorstr_("Failed to select socket"));
                 else if (count == 0)
                     throw ResponseError(xorstr_("Request timed out"));
 #else
@@ -376,7 +376,7 @@ namespace http
                         (timeout >= 0) ? &selectTimeout : nullptr);
 
                 if (count == -1)
-                    throw std::system_error(errno, std::system_category(), xorstr_("Failed to select socket"));
+                    throw system_error(errno, system_category(), xorstr_("Failed to select socket"));
                 else if (count == 0)
                     throw ResponseError(xorstr_("Request timed out"));
 #endif // _WIN32
@@ -385,6 +385,7 @@ namespace http
             void close() noexcept
             {
 #ifdef _WIN32
+                closesocket(endpoint);
                 closesocket(endpoint);
 #else
                 ::close(endpoint);
@@ -473,21 +474,21 @@ namespace http
         };
 
         int status = 0;
-        std::string description;
-        std::vector<std::string> headers;
-        std::vector<std::uint8_t> body;
+        string description;
+        vector<string> headers;
+        vector<uint8_t> body;
     };
 
     class Request final
     {
     public:
-        explicit Request(const std::string& url,
+        explicit Request(const string& url,
             const InternetProtocol protocol = InternetProtocol::V4) :
             internetProtocol{ protocol }
         {
             const auto schemeEndPosition = url.find(xorstr_("://"));
 
-            if (schemeEndPosition != std::string::npos)
+            if (schemeEndPosition != string::npos)
             {
                 scheme = url.substr(0, schemeEndPosition);
                 path = url.substr(schemeEndPosition + 3);
@@ -501,12 +502,12 @@ namespace http
             const auto fragmentPosition = path.find('#');
 
             // remove the fragment part
-            if (fragmentPosition != std::string::npos)
+            if (fragmentPosition != string::npos)
                 path.resize(fragmentPosition);
 
             const auto pathPosition = path.find('/');
 
-            if (pathPosition == std::string::npos)
+            if (pathPosition == string::npos)
             {
                 domain = path;
                 path = xorstr_("/");
@@ -519,7 +520,7 @@ namespace http
 
             const auto portPosition = domain.find(':');
 
-            if (portPosition != std::string::npos)
+            if (portPosition != string::npos)
             {
                 port = domain.substr(portPosition + 1);
                 domain.resize(portPosition);
@@ -528,23 +529,23 @@ namespace http
                 port = xorstr_("80");
         }
 
-        Response send(const std::string& method = xorstr_("GET"),
-            const std::string& body = "",
-            const std::vector<std::string>& headers = {},
-            const std::chrono::milliseconds timeout = std::chrono::milliseconds{ -1 })
+        Response send(const string& method = xorstr_("GET"),
+            const string& body = "",
+            const vector<string>& headers = {},
+            const chrono::milliseconds timeout = chrono::milliseconds{ -1 })
         {
             return send(method,
-                std::vector<uint8_t>(body.begin(), body.end()),
+                vector<uint8_t>(body.begin(), body.end()),
                 headers,
                 timeout);
         }
 
-        Response send(const std::string& method,
-            const std::vector<uint8_t>& body,
-            const std::vector<std::string>& headers,
-            const std::chrono::milliseconds timeout = std::chrono::milliseconds{ -1 })
+        Response send(const string& method,
+            const vector<uint8_t>& body,
+            const vector<string>& headers,
+            const chrono::milliseconds timeout = chrono::milliseconds{ -1 })
         {
-            const auto stopTime = std::chrono::steady_clock::now() + timeout;
+            const auto stopTime = chrono::steady_clock::now() + timeout;
 
             if (scheme != xorstr_("http"))
                 throw RequestError(xorstr_("Only HTTP scheme is supported"));
@@ -555,22 +556,22 @@ namespace http
 
             addrinfo* info;
             if (getaddrinfo(domain.c_str(), port.c_str(), &hints, &info) != 0)
-                throw std::system_error(getLastError(), std::system_category(), xorstr_("Failed to get address info of ") + domain);
+                throw system_error(getLastError(), system_category(), xorstr_("Failed to get address info of ") + domain);
 
-            std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> addressInfo(info, freeaddrinfo);
+            unique_ptr<addrinfo, decltype(&freeaddrinfo)> addressInfo(info, freeaddrinfo);
 
             // RFC 7230, 3.1.1. Request Line
-            std::string headerData = method + " " + path + xorstr_(" HTTP/1.1\r\n");
+            string headerData = method + " " + path + xorstr_(" HTTP/1.1\r\n");
 
             for (const auto& header : headers)
                 headerData += header + "\r\n";
 
             // RFC 7230, 3.2.  Header Fields
             headerData += xorstr_("Host: ") + domain + "\r\n"
-                "Content-Length: " + std::to_string(body.size()) + "\r\n"
+                "Content-Length: " + to_string(body.size()) + "\r\n"
                 "\r\n";
 
-            std::vector<uint8_t> requestData(headerData.begin(), headerData.end());
+            vector<uint8_t> requestData(headerData.begin(), headerData.end());
             requestData.insert(requestData.end(), body.begin(), body.end());
 
             Socket socket(internetProtocol);
@@ -592,10 +593,10 @@ namespace http
                 sendData += size;
             }
 
-            std::array<std::uint8_t, 4096> tempBuffer;
-            constexpr std::array<std::uint8_t, 2> crlf = { '\r', '\n' };
+            array<uint8_t, 4096> tempBuffer;
+            constexpr array<uint8_t, 2> crlf = { '\r', '\n' };
             Response response;
-            std::vector<std::uint8_t> responseData;
+            vector<uint8_t> responseData;
 
             enum class State
             {
@@ -606,9 +607,9 @@ namespace http
 
             state = State::statusLine;
             bool contentLengthReceived = false;
-            std::size_t contentLength = 0;
+            size_t contentLength = 0;
             bool chunkedResponse = false;
-            std::size_t expectedChunkSize = 0;
+            size_t expectedChunkSize = 0;
             bool removeCrlfAfterChunk = false;
 
             // read the response
@@ -633,13 +634,13 @@ namespace http
                     for (;;)
                     {
                         // RFC 7230, 3. Message Format
-                        const auto i = std::search(responseData.begin(), responseData.end(), crlf.begin(), crlf.end());
+                        const auto i = search(responseData.begin(), responseData.end(), crlf.begin(), crlf.end());
 
                         // didn't find a newline
                         if (i == responseData.end()) 
                             break;
 
-                        const std::string line(responseData.begin(), i);
+                        const string line(responseData.begin(), i);
                         responseData.erase(responseData.begin(), i + 2);
 
                         // empty line indicates the end of the header section
@@ -651,17 +652,17 @@ namespace http
                         else if (state == State::statusLine) // RFC 7230, 3.1.2. Status Line
                         {
                             state = State::headers;
-                            std::size_t partNum = 0;
+                            size_t partNum = 0;
 
                             // tokenize the status line
                             for (auto beginIterator = line.begin(); beginIterator != line.end();)
                             {
-                                const auto endIterator = std::find(beginIterator, line.end(), ' ');
-                                const std::string part{ beginIterator, endIterator };
+                                const auto endIterator = find(beginIterator, line.end(), ' ');
+                                const string part{ beginIterator, endIterator };
 
                                 switch (++partNum)
                                 {
-                                case 2: response.status = std::stoi(part); break;
+                                case 2: response.status = stoi(part); break;
                                 case 3: response.description = part; break;
                                 }
 
@@ -677,7 +678,7 @@ namespace http
 
                             const auto loumnPosition = line.find(':');
 
-                            if (loumnPosition == std::string::npos)
+                            if (loumnPosition == string::npos)
                                 throw ResponseError(xorstr_("Invalid header: ") + line);
 
                             const auto headerName = line.substr(0, loumnPosition);
@@ -690,14 +691,14 @@ namespace http
                             };
 
                             // ltrim
-                            headerValue.erase(headerValue.begin(), std::find_if(headerValue.begin(), headerValue.end(), isNotWhiteSpace));
+                            headerValue.erase(headerValue.begin(), find_if(headerValue.begin(), headerValue.end(), isNotWhiteSpace));
 
                             // rtrim
-                            headerValue.erase(std::find_if(headerValue.rbegin(), headerValue.rend(), isNotWhiteSpace).base(), headerValue.end());
+                            headerValue.erase(find_if(headerValue.rbegin(), headerValue.rend(), isNotWhiteSpace).base(), headerValue.end());
 
                             if (headerName == xorstr_("Content-Length"))
                             {
-                                contentLength = std::stoul(headerValue);
+                                contentLength = stoul(headerValue);
                                 contentLengthReceived = true;
                                 response.body.reserve(contentLength);
                             }
@@ -723,9 +724,9 @@ namespace http
                         {
                             if (expectedChunkSize > 0)
                             {
-                                const auto toWrite = (std::min)(expectedChunkSize, responseData.size());
-                                response.body.insert(response.body.end(), responseData.begin(), responseData.begin() + static_cast<std::ptrdiff_t>(toWrite));
-                                responseData.erase(responseData.begin(), responseData.begin() + static_cast<std::ptrdiff_t>(toWrite));
+                                const auto toWrite = (min)(expectedChunkSize, responseData.size());
+                                response.body.insert(response.body.end(), responseData.begin(), responseData.begin() + static_cast<ptrdiff_t>(toWrite));
+                                responseData.erase(responseData.begin(), responseData.begin() + static_cast<ptrdiff_t>(toWrite));
                                 expectedChunkSize -= toWrite;
 
                                 if (expectedChunkSize == 0) 
@@ -741,22 +742,22 @@ namespace http
                                     if (responseData.size() < 2) 
                                         break;
 
-                                    if (!std::equal(crlf.begin(), crlf.end(), responseData.begin()))
+                                    if (!equal(crlf.begin(), crlf.end(), responseData.begin()))
                                         throw ResponseError(xorstr_("Invalid chunk"));
 
                                     removeCrlfAfterChunk = false;
                                     responseData.erase(responseData.begin(), responseData.begin() + 2);
                                 }
 
-                                const auto i = std::search(responseData.begin(), responseData.end(), crlf.begin(), crlf.end());
+                                const auto i = search(responseData.begin(), responseData.end(), crlf.begin(), crlf.end());
 
                                 if (i == responseData.end()) 
                                     break;
 
-                                const std::string line(responseData.begin(), i);
+                                const string line(responseData.begin(), i);
                                 responseData.erase(responseData.begin(), i + 2);
 
-                                expectedChunkSize = std::stoul(line, nullptr, 16);
+                                expectedChunkSize = stoul(line, nullptr, 16);
 
                                 if (expectedChunkSize == 0)
                                     return response;
@@ -779,10 +780,10 @@ namespace http
         }
 
     private:
-        static std::int64_t getRemainingMilliseconds(const std::chrono::steady_clock::time_point time)
+        static int64_t getRemainingMilliseconds(const chrono::steady_clock::time_point time)
         {
-            const auto now = std::chrono::steady_clock::now();
-            const auto remainingTime = std::chrono::duration_cast<std::chrono::milliseconds>(time - now);
+            const auto now = chrono::steady_clock::now();
+            const auto remainingTime = chrono::duration_cast<chrono::milliseconds>(time - now);
             return (remainingTime.count() > 0) ? remainingTime.count() : 0;
         }
 
@@ -790,10 +791,10 @@ namespace http
         WinSock winSock;
 #endif // _WIN32
         InternetProtocol internetProtocol;
-        std::string scheme;
-        std::string domain;
-        std::string port;
-        std::string path;
+        string scheme;
+        string domain;
+        string port;
+        string path;
     };
 }
 

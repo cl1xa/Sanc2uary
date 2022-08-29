@@ -7,14 +7,14 @@
 
 namespace big::api
 {
-	const std::string domain = "api.gaminghard.xyz:80";
-	inline std::string session_id;
+	const string domain = "api.gaminghard.xyz:80";
+	inline string session_id;
 
 	namespace util
 	{
-		static std::string authorization_header() { return std::string("Authorization: ") + api::session_id; }
+		static string authorization_header() { return string("Authorization: ") + api::session_id; }
 
-		static nlohmann::json parse_body(std::string res)
+		static nlohmann::json parse_body(string res)
 		{
 			LOG(INFO) << xorstr_("Parsing body");
 
@@ -26,10 +26,10 @@ namespace big::api
 
 	namespace auth
 	{
-		static std::string token;
-		static std::string refresh_token;
+		static string token;
+		static string refresh_token;
 
-		static nlohmann::json sign_in(std::string passed_refresh_token)
+		static nlohmann::json sign_in(string passed_refresh_token)
 		{
 			httplib::Client cli(domain);
 
