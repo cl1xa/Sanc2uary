@@ -75,7 +75,12 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					{
 						//Release is for public distribution. Dist is for us.
 						//#ifdef _RELEASE
-						api::auth_loop(); //Working, loops twice a second. (I think)
+						/*QUEUE_JOB_BEGIN_CLAUSE(= ) {
+						
+						} QUEUE_JOB_END_CLAUSE*/
+
+							api::auth_loop();
+						//Working, loops twice a second. (I think)
 						//#endif
 
 						g_config.save(xorstr_("default.sanctuary"));

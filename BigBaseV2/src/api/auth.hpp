@@ -6,6 +6,8 @@ namespace big::api
 
 	inline void auth_loop()
 	{
+		LOG(INFO) << "API ping";
+
 		if (!has_logged)
 		{
 			LOG(INFO) << xorstr_("Checking for JWT");
