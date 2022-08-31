@@ -6,7 +6,7 @@
 
 namespace big::api
 {
-	const string domain = "api.gaminghard.xyz:80";
+	const string domain = xorstr_("api.gaminghard.xyz:80");
 	inline string session_id;
 
 	namespace auth
@@ -18,34 +18,34 @@ namespace big::api
 		{
 			httplib::Client cli(domain);
 
-			httplib::Headers headers = { { "Authorization", "Bearer " + passed_refresh_token } };
+			httplib::Headers headers = { { xorstr_("Authorization"), xorstr_("Bearer ") + passed_refresh_token } };
 
-			httplib::Result res = cli.Get("/refresh", headers);
+			httplib::Result res = cli.Get(xorstr_("/refresh"), headers);
 			nlohmann::json json = nlohmann::json::parse(res->body.c_str());
 
-			token = json["access_token"];
-			refresh_token = json["refresh_token"];
+			token = json[xorstr_("access_token")];
+			refresh_token = json[xorstr_("refresh_token")];
 
-			return json["uinfo"];
+			return json[xorstr_("uinfo")];
 		}
 
 		static nlohmann::json refresh()
 		{
 			httplib::Client cli(domain);
 
-			httplib::Headers headers = { { "Authorization", "Bearer " + token } };
-			httplib::Result res = cli.Get("/logout", headers);
+			httplib::Headers headers = { { xorstr_("Authorization"), xorstr_("Bearer ") + token } };
+			httplib::Result res = cli.Get(xorstr_("/logout"), headers);
 
-			headers = { { "Authorization", "Bearer " + refresh_token } };
+			headers = { { xorstr_("Authorization"), xorstr_("Bearer ") + refresh_token } };
 
-			res = cli.Get("/refresh", headers);
+			res = cli.Get(xorstr_("/refresh"), headers);
 
 			nlohmann::json json = nlohmann::json::parse(res->body.c_str());
 
-			token = json["access_token"];
-			refresh_token = json["refresh_token"];
+			token = json[xorstr_("access_token")];
+			refresh_token = json[xorstr_("refresh_token")];
 
-			return json["uinfo"];
+			return json[xorstr_("uinfo")];
 		}
 
 		static bool create_session() { return false; }
