@@ -1,6 +1,6 @@
 #include "common.hpp"
-#include "crossmap.hpp"
-#include "gta/script_program.hpp"
+#include "gta/crossmap.hpp"
+#include "gta/data/script_program.hpp"
 #include "logger.hpp"
 #include "hooking/pointers.hpp"
 #include "script_hook.hpp"

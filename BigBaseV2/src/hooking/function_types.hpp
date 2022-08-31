@@ -1,9 +1,9 @@
 #pragma once
 #include "common.hpp"
-#include "gta/fwddec.hpp"
-#include "gta/player.hpp"
-#include "gta/natives.hpp"
-#include "gta/replay.hpp"
+#include "gta/data/fwddec.hpp"
+#include "gta/data/player.hpp"
+#include "gta/data/natives.hpp"
+#include "gta/data/replay.hpp"
 
 namespace big::functions
 {

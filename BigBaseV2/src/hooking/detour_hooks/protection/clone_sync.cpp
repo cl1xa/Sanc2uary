@@ -1,5 +1,5 @@
 #include "hooking/hooking.hpp"
-#include "natives.hpp"
+#include "gta/natives.hpp"
 #include "network/netObject.hpp"
 #include "rage/fwEntity.hpp"
 #include "base/CObject.hpp"

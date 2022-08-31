@@ -1,5 +1,5 @@
 #pragma once
-#include "gta/enums.hpp"
+#include "gta/data/enums.hpp"
 
 namespace big
 {

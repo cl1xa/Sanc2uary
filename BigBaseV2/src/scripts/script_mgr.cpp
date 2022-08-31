@@ -1,9 +1,9 @@
 #include "common.hpp"
-#include "gta/array.hpp"
-#include "gta/script_thread.hpp"
-#include "gta/tls_context.hpp"
+#include "gta/data/array.hpp"
+#include "gta/data/script_thread.hpp"
+#include "gta/data/tls_context.hpp"
 #include "misc/gta_util.hpp"
-#include "invoker.hpp"
+#include "gta/invoker.hpp"
 #include "hooking/pointers.hpp"
 #include "script_mgr.hpp"
 

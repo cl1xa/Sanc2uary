@@ -3,10 +3,10 @@
 #include "network/CNetworkPlayerMgr.hpp"
 #include "socialclub/FriendRegistry.hpp"
 #include "base/HashTable.hpp"
-#include "gta/fwddec.hpp"
-#include "gta/enums.hpp"
-#include "gta/replay.hpp"
-#include "gta/script_program.hpp"
+#include "gta/data/fwddec.hpp"
+#include "gta/data/enums.hpp"
+#include "gta/data/replay.hpp"
+#include "gta/data/script_program.hpp"
 #include "hooking/function_types.hpp"
 
 namespace big

@@ -10,6 +10,14 @@ namespace big::vehicle
 	inline auto vehicle_global = script_global(1585857);
 	inline auto mechanic_global = script_global(2815059);
 
+	inline bool owns_vehicle(Vehicle veh)
+	{
+		if ((int)ePedTask::TASK_DRIVING && entity::take_control_of(veh))
+			return true;
+
+		return false;
+	}
+
 	inline Vehicle get_personal_vehicle()
 	{
 		return *mechanic_global.at(298).as<Vehicle*>();

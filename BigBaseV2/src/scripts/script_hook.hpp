@@ -1,7 +1,7 @@
 #pragma once
 #include "common.hpp"
-#include "gta/fwddec.hpp"
-#include "gta/joaat.hpp"
+#include "gta/data/fwddec.hpp"
+#include "gta/data/joaat.hpp"
 #include "gta/natives.hpp"
 #include "hooking/vmt_hook.hpp"
 

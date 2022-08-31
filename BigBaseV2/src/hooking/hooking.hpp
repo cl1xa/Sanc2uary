@@ -1,12 +1,12 @@
 #pragma once
 #include "common.hpp"
 #include "detour_hook.hpp"
-#include "gta/fwddec.hpp"
-#include "gta/net_game_event.hpp"
-#include "gta/script_thread.hpp"
+#include "gta/data/fwddec.hpp"
+#include "gta/data/net_game_event.hpp"
+#include "gta/data/script_thread.hpp"
 #include "scripts/script_hook.hpp"
 #include "vmt_hook.hpp"
-#include "gta/enums.hpp"
+#include "gta/data/enums.hpp"
 
 namespace big
 {

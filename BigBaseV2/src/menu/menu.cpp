@@ -1,6 +1,6 @@
 #include "common.hpp"
 #include "scripts/fiber_pool.hpp"
-#include "gta/player.hpp"
+#include "gta/data/player.hpp"
 #include "misc/gta_util.hpp"
 #include "menu/menu.hpp"
 #include "logger.hpp"

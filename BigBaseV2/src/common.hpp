@@ -53,15 +53,13 @@
 
 #include "file_manager/config/config.hpp"
 #include "gta/natives.hpp"
-#include "gta/enums.hpp"
-#include "natives.hpp"
 
 #include "services/notification_service.hpp"
 #include "util/notify.hpp"
 
 #include "anti_tamper/xorstr.hpp"
 #include "ped/CPed.hpp"
-#include "gta/enums.hpp"
+#include "gta/data/enums.hpp"
 
 using namespace std;
 using namespace big::notify;

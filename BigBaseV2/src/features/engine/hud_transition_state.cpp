@@ -1,5 +1,5 @@
 #include "features/features.hpp"
-#include "natives.hpp"
+#include "gta/natives.hpp"
 #include "scripts/script_global.hpp"
 
 namespace big
@@ -84,7 +84,7 @@ namespace big
 	{
 		const auto state = *transition_state.as<eTransitionState*>();
 
-		// When freemode script loaded remove loading screen.
+		// When freemode script is loaded, remove loading screen.
 		if (state == eTransitionState::TRANSITION_STATE_WAIT_JOIN_FM_SESSION && DLC::GET_IS_LOADING_SCREEN_ACTIVE())
 		{
 			LOG(WARNING) << xorstr_("Freemode transition state terminated");
@@ -98,7 +98,7 @@ namespace big
 		if (HUD::BUSYSPINNER_IS_ON())
 			HUD::BUSYSPINNER_OFF();
 
-		// Sometimes when going into a single player mission or transition this one remains on screen permanently
+		// Sometimes when going into a single player mission or transition, this one remains on screen permanently
 		if (state == eTransitionState::TRANSITION_STATE_TERMINATE_MAINTRANSITION)
 			return;
 
