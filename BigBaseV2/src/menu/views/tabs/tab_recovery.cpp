@@ -7,132 +7,95 @@ namespace big
     {
         ImGui::Text(xorstr_("Cayo Perico Heist"));
 
-        if (ImGui::Button(xorstr_("Cayo one")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Cayo one"), []
             {
                 recovery::cayo::oneClickCayoSetup(424340);
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup one triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup one triggered"));
+            });
 
         ImGui::SameLine();
 
-        if (ImGui::Button(xorstr_("Cayo two")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+
+        queue_button(xorstr_("Cayo two"), []
             {
                 recovery::cayo::oneClickCayoSetup(930000);
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup two triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup two triggered"));
+            });
 
         ImGui::SameLine();
 
-        if (ImGui::Button(xorstr_("Cayo three")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+
+        queue_button(xorstr_("Cayo three"), []
             {
                 recovery::cayo::oneClickCayoSetup(1030000);
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup three triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup three triggered"));
+            });
 
         ImGui::SameLine();
 
-        if (ImGui::Button(xorstr_("Cayo four")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Cayo four"), []
             {
                 recovery::cayo::oneClickCayoSetup(1185000);
 
-            }QUEUE_JOB_END_CLAUSE
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup four triggered"));
+            });
 
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo setup four triggered"));
-        }
-
-        if (ImGui::Button(xorstr_("Clear cayo cooldown")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Clear cayo cooldown"), []
             {
                 recovery::cayo::clearCayoCooldown();
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo heist cooldown cleared"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cayo heist cooldown cleared"));
+            });
 
         ImGui::Separator();
 
         ImGui::Text(xorstr_("Diamond Casino Heist"));
 
-        if (ImGui::Button(xorstr_("Instant casino setup")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Instant casino setup"), []
             {
                 recovery::casino::setupCasino();
 
-            }QUEUE_JOB_END_CLAUSE
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Instantly set up casino heist"));
+            });
 
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Instantly set up casino heist"));
-        }
-
-        if (ImGui::Button(xorstr_("Clear casino cooldown")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Clear casino cooldown"), []
             {
                 recovery::casino::clearCasinoCooldown();
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Cleared casino heist cooldown"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Cleared casino heist cooldown"));
+            });
 
         ImGui::Separator();
 
-        ImGui::Text(xorstr_("Doomsday Heist"));
+        ImGui::Text(xorstr_("Doomsday 1"));
 
-        if (ImGui::Button(xorstr_("Doomsday 1")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Clear casino cooldown"), []
             {
                 recovery::doomsday::setupDoomsday1();
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday one triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday one triggered"));
+            });
 
         ImGui::SameLine();
 
-        if (ImGui::Button(xorstr_("Doomsday 2")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+        queue_button(xorstr_("Doomsday 2"), []
             {
                 recovery::doomsday::setupDoomsday2();
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday two triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday two triggered"));
+            });
 
         ImGui::SameLine();
 
-        if (ImGui::Button(xorstr_("Doomsday 3")))
-        {
-            QUEUE_JOB_BEGIN_CLAUSE()
+
+        queue_button(xorstr_("Doomsday 3"), []
             {
                 recovery::doomsday::setupDoomsday3();
 
-            }QUEUE_JOB_END_CLAUSE
-
-            g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday three triggered"));
-        }
+                g_notification_service->push(xorstr_("Recovery"), xorstr_("Doomsday three triggered"));
+            });
     }
 }

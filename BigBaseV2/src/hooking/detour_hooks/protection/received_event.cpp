@@ -165,7 +165,7 @@ namespace big
 			break;
 
 #pragma region Unwanted game event protection
-		case eNetworkEvents::REQUEST_CONTROL_EVENT:
+		case eNetworkEvents::REQUEST_CONTROL_EVENT: //Need to fix false positive spam
 		case eNetworkEvents::RAGDOLL_REQUEST_EVENT:
 
 		case eNetworkEvents::NETWORK_CLEAR_PED_TASKS_EVENT:

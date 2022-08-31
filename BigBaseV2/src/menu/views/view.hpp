@@ -1,8 +1,11 @@
 #pragma once
 #include "imgui.h"
 #include "hooking/pointers.hpp"
+
 #include "scripts/script.hpp"
 #include "scripts/fiber_pool.hpp"
+
+#include "menu/queue_button.hpp"
 
 namespace big
 {

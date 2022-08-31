@@ -60,8 +60,8 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					auto player_service_instance = make_unique<player_service>();
 
 					g_script_mgr.add_script(make_unique<script>(&features_engine::engine_loop));
-					//g_script_mgr.add_script(make_unique<script>(&backend_player::player_loop));
-					//g_script_mgr.add_script(make_unique<script>(&backend_vehicle::vehicle_loop));
+					g_script_mgr.add_script(make_unique<script>(&features_player::player_loop));
+					g_script_mgr.add_script(make_unique<script>(&features_vehicle::vehicle_loop));
 
 					g_script_mgr.add_script(make_unique<script>(&menu::script_func));
 

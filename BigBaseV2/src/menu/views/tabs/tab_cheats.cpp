@@ -6,9 +6,7 @@ namespace big
 {
 	void view_sub::tab_cheats()
 	{
-		ImGui::Text(xorstr_("Disabled for now"));
-
-		/*if (ImGui::BeginTabBar(xorstr_("##cheats_tabbar")))
+		if (ImGui::BeginTabBar(xorstr_("##cheats_tabbar")))
 		{
 			if (ImGui::BeginTabItem(xorstr_("Player")))
 			{
@@ -17,34 +15,22 @@ namespace big
 				ImGui::Checkbox(xorstr_("No police"), &g_config.cheats.player.no_police);
 				ImGui::Checkbox(xorstr_("Infinite ammo"), &g_config.cheats.player.infinite_ammo);
 
-				if (ImGui::Button(xorstr_("Teleport to waypoint")))
-				{
-					QUEUE_JOB_BEGIN_CLAUSE()
+				queue_button(xorstr_("Teleport to waypoint"), []
 					{
 						teleport::to_waypoint();
+					});
 
-					} QUEUE_JOB_END_CLAUSE
-				}
-
-				if (ImGui::Button(xorstr_("Teleport to objective")))
-				{
-					QUEUE_JOB_BEGIN_CLAUSE()
+				queue_button(xorstr_("Teleport to objective"), []
 					{
 						teleport::to_objective();
+					});
 
-					} QUEUE_JOB_END_CLAUSE
-				}
-
-				if (ImGui::Button(xorstr_("Clear weather")))
-				{
-					QUEUE_JOB_BEGIN_CLAUSE()
+				queue_button(xorstr_("Clear weather"), []
 					{
 						MISC::SET_OVERRIDE_WEATHER(xorstr_("EXTRASUNNY"));
-						                                                                                                                                                                                               
-					}QUEUE_JOB_END_CLAUSE
 
-					g_notification_service->push(xorstr_("Player cheats"), xorstr_("Cleared local weather"));                     
-				}
+						g_notification_service->push(xorstr_("Player cheats"), xorstr_("Cleared local weather"));
+					});
 
 				ImGui::EndTabItem();
 			}
@@ -55,18 +41,13 @@ namespace big
 				ImGui::Checkbox(xorstr_("Automatic repair"), &g_config.cheats.vehicle.automatic_repair);
 				ImGui::Checkbox(xorstr_("Horn boost"), &g_config.cheats.vehicle.horn_boost);
 
-				if (ImGui::Button(xorstr_("MM Fix all")))
-				{
-					QUEUE_JOB_BEGIN_CLAUSE()
+				queue_button(xorstr_("MM Fix all"), []
 					{
 						int amount_fixed = vehicle::fix_all();
+					});
 
-					} QUEUE_JOB_END_CLAUSE
-				}
-
-				if (ImGui::Button(xorstr_("Enter personal vehicle")))
-				{
-					QUEUE_JOB_BEGIN_CLAUSE()
+				// This is broken and ghetto. Replace this with the personal vehicle list.
+				queue_button(xorstr_("Bring personal vehicle"), []
 					{
 						const Vehicle vehicle = vehicle::get_personal_vehicle();
 
@@ -75,14 +56,12 @@ namespace big
 						vehicle::bring(vehicle, ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false));
 
 						vehicle::go_into_personal_vehicle();
-
-					} QUEUE_JOB_END_CLAUSE
-				}
+					});
 
 				ImGui::EndTabItem();
 			}
 
 			ImGui::EndTabBar();
-		}*/
+		}
 	}
 }

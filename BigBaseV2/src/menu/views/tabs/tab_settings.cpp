@@ -9,17 +9,16 @@ namespace big
 		ImGui::Checkbox(xorstr_("Notify scripts"), &g_config.settings.notify_scripts);
 		ImGui::Checkbox(xorstr_("Script event logger"), &g_config.settings.script_event_logger);
 
-		if (ImGui::Button(xorstr_("Force exit GTA Online")))
-		{
-			QUEUE_JOB_BEGIN_CLAUSE()
+		queue_button(xorstr_("Force exit GTA Online"), []
 			{
 				NETWORK::NETWORK_BAIL(16, 0, 0);
 
-			} QUEUE_JOB_END_CLAUSE
-		}
+				g_notification_service->push(xorstr_("Session info"), xorstr_("Forced network termination"));
+			});
 
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 0.0f, 0.0f, 1.f));
 
+		//Does not need to be queued
 		if (ImGui::Button(xorstr_("UNLOAD SANCTUARY")))
 			g_running = false;
 
