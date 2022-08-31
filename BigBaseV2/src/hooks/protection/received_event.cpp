@@ -98,7 +98,7 @@ namespace big
 		case eNetworkEvents::NETWORK_INCREMENT_STAT_EVENT:
 			if (g_config.protection.other.stat_increment)
 			{
-				const auto increment_stat_event = std::make_unique<CNetworkIncrementStatEvent>();
+				const auto increment_stat_event = make_unique<CNetworkIncrementStatEvent>();
 
 				buffer->ReadDword(&increment_stat_event->m_stat, 0x20);
 				buffer->ReadDword(&increment_stat_event->m_amount, 0x20);

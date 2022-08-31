@@ -7,10 +7,10 @@ namespace big
 		{
 			backend_vehicle::vehicle_god();
 			backend_vehicle::horn_boost();
-
+			
 		} QUEUE_JOB_END_CLAUSE
 
-		QUEUE_JOB_BEGIN_CLAUSE() //This needs to be queued separate, otherwise it clogs the queue
+		QUEUE_JOB_BEGIN_CLAUSE() 
 		{
 			backend_vehicle::automatic_repair();
 

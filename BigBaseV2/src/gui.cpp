@@ -20,11 +20,6 @@ namespace big
 {
 	void gui::dx_init()
 	{
-		constexpr auto ColorFromBytes = [](uint8_t r, uint8_t g, uint8_t b)
-		{
-			return ImVec4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f);
-		};
-
         ImGui::GetStyle().FrameRounding = 4.0f;
         ImGui::GetStyle().GrabRounding = 4.0f;
 
@@ -99,7 +94,7 @@ namespace big
 		if (g_gui.m_opened)
 		{
 			//Long array lmao
-			static std::vector<int> controls = { 22, 23, 75, 145, 14, 15, 16, 17, 27, 99, 115, 199, 244, 245, 246, 247, 248, 1, 2, 3, 4, 5, 6, 24, 25, 68, 69, 70, 91, 92, 106, 114, 122, 135, 142, 144, 176, 177, 257, 329, 346, 157, 158, 159, 160, 161, 162, 163, 164, 165, 26, 79 };
+			static vector<int> controls = { 22, 23, 75, 145, 14, 15, 16, 17, 27, 99, 115, 199, 244, 245, 246, 247, 248, 1, 2, 3, 4, 5, 6, 24, 25, 68, 69, 70, 91, 92, 106, 114, 122, 135, 142, 144, 176, 177, 257, 329, 346, 157, 158, 159, 160, 161, 162, 163, 164, 165, 26, 79 };
 
 			for (int i = 0; i < controls.size(); i++)
 			{

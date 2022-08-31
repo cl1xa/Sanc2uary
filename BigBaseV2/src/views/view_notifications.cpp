@@ -19,6 +19,7 @@ namespace big
 		int j = 0;
 		int prevSpace = 0;
 		float total_size = 0.f;
+
 		std::vector<std::string> split_points;
 
 		for (int i = 0; i <= message.size(); i++)

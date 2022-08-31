@@ -1,5 +1,7 @@
 #pragma once
 
+//#STD has to be tag referenced in order for filesystem to properly work
+
 namespace big
 {
 	class file_manager;

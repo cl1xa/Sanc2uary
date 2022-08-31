@@ -43,6 +43,22 @@ namespace big
 
 							ImGui::Text(player->get_name());
 
+							if (player->is_host())
+							{
+								ImGui::SameLine();
+								ImGui::Text(xorstr_("[H]"));
+							}
+							if (player->is_friend())
+							{
+								ImGui::SameLine();
+								ImGui::Text(xorstr_("[F]"));
+							}
+							if (player->get_current_vehicle() != nullptr)
+							{
+								ImGui::SameLine();
+								ImGui::Text(xorstr_("[V]"));
+							}
+
 							ImGui::PopID();
 
 							ImGui::PopStyleVar();
@@ -75,12 +91,6 @@ namespace big
 								{
 									ImGui::OpenPopup(xorstr_("Player selection menu"));
 									g_player_service->set_selected(player);
-								}
-
-								if (g_player_service->get_selected()->is_host())
-								{
-									ImGui::SameLine();
-									ImGui::Text(xorstr_("SESSION HOST"));
 								}
 
 								view_main::selected_player();

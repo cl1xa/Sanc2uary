@@ -5,7 +5,7 @@ namespace big
 	class detour_hook
 	{
 	public:
-		explicit detour_hook(std::string name, void *target, void *detour);
+		explicit detour_hook(string name, void *target, void *detour);
 		~detour_hook() noexcept;
 
 		detour_hook(detour_hook&& that) = delete;
@@ -21,7 +21,7 @@ namespace big
 
 		void fix_hook_address();
 	private:
-		std::string m_name;
+		string m_name;
 		void *m_target;
 		void *m_detour;
 		void *m_original{};

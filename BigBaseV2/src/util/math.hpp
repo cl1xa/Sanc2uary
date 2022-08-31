@@ -2,6 +2,11 @@
 
 namespace big::math
 {
+	inline constexpr auto ColorFromBytes = [](uint8_t r, uint8_t g, uint8_t b)
+	{
+		return ImVec4((float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, 1.0f);
+	};
+
 	inline float distance_between_vectors(Vector3 a, Vector3 b)
 	{
 		return (float)sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2) + pow((a.z - b.z), 2));

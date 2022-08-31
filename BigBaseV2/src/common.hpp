@@ -63,6 +63,8 @@
 #include "ped/CPed.hpp"
 #include "gta/enums.hpp"
 
+#include "core/globals.hpp"
+
 using namespace std;
 using namespace big::notify;
 

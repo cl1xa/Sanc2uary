@@ -35,7 +35,7 @@ namespace big
 		rage::atArray<GtaThread*>* m_script_threads{};
 		rage::scrProgramTable* m_script_program_table{};
 		functions::run_script_threads m_run_script_threads{};
-		std::int64_t** m_script_globals{};
+		int64_t** m_script_globals{};
 
 		CGameScriptHandlerMgr** m_script_handler_mgr{};
 

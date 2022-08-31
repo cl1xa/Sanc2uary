@@ -1857,6 +1857,7 @@ enum class ePedTask
 
 enum class eRemoteEvent
 {
+	//Events used in personal crash
 	IDK1 = 1480548969,
 	IDK2 = 931221602,
 	IDK3 = 668886109,
@@ -1873,27 +1874,24 @@ enum class eRemoteEvent
 	IDK14 = 597430116,
 	IDK15 = 893081016,
 	IDK16 = 886128956,
-	IDK17 = 526822748,
-	IDK18 = -637352381,
-	IDK19 = -1991423686,
-	IDK20 = -1013989798,
-	IDK21 = -803535423,
-	IDK22 = -397256754,
-	IDK23 = -547323955,
+	IDK17 = -637352381,
+	IDK18 = -1991423686,
+	IDK19 = -1013989798,
+	IDK20 = -803535423,
+	IDK21 = -397256754,
+	IDK22 = -547323955,
 
 	Bounty = 1294995624, // (137, "FM_TXT_BNTY0", iVar1, PLAYER::GET_PLAYER_NAME(Var2.f_1), "", 5000, Var2.f_6);
 	CeoBan = 1240068495, // mpply_vipgameplaydisabledtimer
 	CeoKick = -1425016400, // BGDISMISSED
 	CeoMoney = 547083265, // Goon_Paid_Large
 	ClearWantedLevel = 1449852136,
-	FakeDeposit = -1529596656, // TICK_ATTVAN
 	ForceMission = -283041276, // ), Var0.f_2, 1))
 	ForceMission2 = -1908874529,
 	GtaBanner = 145637109, // NETWORK::NETWORK_IS_SCRIPT_ACTIVE("BUSINESS_BATTLES", -1, true, 0) second one
 	NetworkBail = 1674887089, // NETWORK::NETWORK_BAIL(16, 0, 0); xref func
 	PersonalVehicleDestroyed = -1838276770, // PLYVEH_INS_DES1
 	RemoteOffradar = -1973627888, // NETWORK::GET_TIME_DIFFERENCE(NETWORK::GET_NETWORK_TIME(), Var0.f_2)
-	RotateCam = -1388926377, // CnCTG_IN_BF
 	SendToCutscene = 2131601101, // (bVar3, bVar4, 125f, 1)
 	SendToCayoPerico = 1361475530, // CELL_HI_INV
 	SendToLocation = 1214823473, // &Var222, 11);
@@ -1901,15 +1899,85 @@ enum class eRemoteEvent
 	SoundSpam = 1111927333, // CELL_APTINVYACHT
 	Spectate = -2131157870, // SPEC_TCK1
 	Teleport = -1390976345, // Mission_Pass_Notify
+	TeleportToWarehouse = 2130458390, // CAM::FORCE_CINEMATIC_RENDERING_THIS_UPDATE(true) xref counter
 	TransactionError = -768108950, // NETWORK_RECEIVE_PLAYER_JOBSHARE_CASH
 	VehicleKick = -714268990, // PIM_RFMOC
+	Kick = 1674887089,
 	GiveCollectible = -1178972880, // DLC_SUM20_HIDDEN_COLLECTIBLES xref
 	ChangeMCRole = 656530441, // _PLAYSTATS_CHANGE_MC_ROLE
 	DisableRecording = 867047895, // GET_FINAL_RENDERED_CAM_COORD
 	MCTeleport = -555356783, // NETWORK::NETWORK_HASH_FROM_PLAYER_HANDLE(PLAYER::PLAYER_ID()) == (first one)
+	StartActivity = 1368055548, // (Var0.f_2, -1); first match
 
-	Crash = -1386010354, // SET_NO_LOADING_SCREEN, xref it
+	Crash = 526822748, // SET_NO_LOADING_SCREEN, xref it
 	Crash2 = 1348481963,
+
+	TSECommand = -1388926377, // CnCTG_IN_BF
+	TSECommandRotateCam = -1762807505, // != 29) && f
+
+	Notification = -1529596656,
+	NotificationMoneyBanked = -849958015, // TICK_TC_BANK
+	NotificationMoneyRemoved = -290070531, // TICK_TC_REMO
+	NotificationMoneyStolen = -1640162684, // TICK_TC_STOLs
+};
+
+enum class eActivityType
+{
+	HeistPrep = 233,
+	Gunrunning = 180,
+	Sightseer = 142,
+	HeadHunter = 166,
+	BuySpecialCargo = 167,
+	SellSpecialCargo = 168,
+	DefendSpecialCargo = 169,
+	StealVehicle = 178,
+	ExportVehicle = 188,
+	Gunrunning2 = 225,
+	GunrunningSell = 226,
+	GunrunningDefend = 227,
+	BikerSell = 190,
+	BikerDefend = 191,
+	BusinessResupply = 192,
+	Survival = 3,
+	Darts = 14,
+	ArmWresling = 15,
+	GangAttack = 6,
+	PilotSchool = 122,
+	Golf = 11,
+	ShootingRange = 13,
+	Tennis = 12,
+	BaseJump = 8,
+	Deathmatch = 1,
+	ImpromptuDeathmatch = 5,
+	Mission = 0,
+	Race = 2,
+	ExecutiveDeathmatch = 148,
+	MarkedForDeath = 151,
+	PiracyPrevention = 152,
+	MostWanted = 153,
+	AssetRecovery = 157,
+	HostileTakeover = 159,
+	Point2Point = 162,
+	AmphibiousAssault = 216,
+	Velocity = 219,
+	GunsForHire = 185,
+	ByThePound = 182,
+	RippingItUp = 194,
+	RaceToPoint = 189,
+	HitAndRide = 193,
+	CriminalMischief = 205,
+	WeaponOfChoice = 186,
+	FragileGoods = 207,
+	Torched = 208,
+	Outrider = 209,
+	WheelieRider = 210,
+	POW = 183,
+	ExecutiveSearch = 199,
+	StandYourGround = 201,
+	AutoBuyout = 163,
+	DueDiligence = 160,
+	MarketManipulation = 154,
+	CourierService = 155,
 };
 
 enum class eSessionType

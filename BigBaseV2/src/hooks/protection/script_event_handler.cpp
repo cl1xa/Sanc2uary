@@ -1,17 +1,41 @@
 #include "hooking.hpp"
+#include "gta_util.hpp"
 
 namespace big
 {
+	static void format_string(CNetGamePlayer* player, string type, bool notify = true)
+	{
+		const auto sender = player->get_name();
+
+		//For now, because Im crashing due to unknown fmt errors.
+		LOG(WARNING) << sender << xorstr_(" sent: ") << type;
+
+		//LOG(WARNING) << fmt::format(xorstr_("[BLOCKED_SCRIPT_EVENT] {} sent: {}", sender, type));
+
+		//if (notify)
+		//	g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent: {}", sender, type)));
+	}
+
 	bool hooks::scripted_game_event(CScriptedGameEvent* scripted_game_event, CNetGamePlayer* player)
 	{
 		const auto args = scripted_game_event->m_args;
-
 		const auto hash = static_cast<eRemoteEvent>(args[0]);
-
-		const auto player_name = player->get_name();
 
 		switch (hash)
 		{
+		case eRemoteEvent::GiveCollectible:
+			format_string(player, xorstr_("Give collectible"));
+			break;
+
+		case eRemoteEvent::ChangeMCRole:
+			format_string(player, xorstr_("Change MC role"));
+			break;
+
+		case eRemoteEvent::DisableRecording:
+			format_string(player, xorstr_("Disable recording"));
+			break;
+
+			//Do more testing with these events
 		case eRemoteEvent::IDK1:
 		case eRemoteEvent::IDK2:
 		case eRemoteEvent::IDK3:
@@ -34,14 +58,95 @@ namespace big
 		case eRemoteEvent::IDK20:
 		case eRemoteEvent::IDK21:
 		case eRemoteEvent::IDK22:
-		case eRemoteEvent::IDK23:
-			//These send lots of false positives. They spam and I only want them logged to the console
-			//I will figure out something better later
-			LOG(WARNING) << fmt::format(xorstr_("{} sent potentially unwanted event: {}"), player_name, (int)hash);
+			format_string(player, xorstr_("Script crash #7"), false); //Do not log. Very spammy. Annoying.
 			return true;
 
-		case eRemoteEvent::RotateCam:
-			LOG(INFO) << fmt::format(xorstr_("{} sent camra event: {}"), player_name, (int)hash);
+		case eRemoteEvent::NetworkBail:
+			format_string(player, xorstr_("Network bail #1"));
+			return true;
+
+		case eRemoteEvent::SHKick:
+			format_string(player, xorstr_("Network bail #2"));
+			return true;
+
+		case eRemoteEvent::Crash:
+			format_string(player, xorstr_("Script crash #1"));
+			return true;
+
+		case eRemoteEvent::Crash2:
+			format_string(player, xorstr_("Script crash #2"));
+			return true;
+
+		case eRemoteEvent::Bounty:
+			format_string(player, xorstr_("Bounty"));
+			return true;
+
+		case eRemoteEvent::CeoBan:
+			format_string(player, xorstr_("CEO Ban"));
+			return true;
+
+		case eRemoteEvent::CeoKick:
+			format_string(player, xorstr_("CEO Kick"));
+			return true;
+
+		case eRemoteEvent::CeoMoney:
+			format_string(player, xorstr_("CEO Money"));
+			return true;
+
+		case eRemoteEvent::ClearWantedLevel:
+			format_string(player, xorstr_("Clear wanted level"));
+			return true;
+
+		case eRemoteEvent::Notification:
+			switch (static_cast<eRemoteEvent>(args[2]))
+			{
+			case eRemoteEvent::NotificationMoneyBanked:
+			case eRemoteEvent::NotificationMoneyRemoved:
+			case eRemoteEvent::NotificationMoneyStolen:
+				format_string(player, xorstr_("Fake deposit"));
+				return true;
+			}
+			break;
+
+		case eRemoteEvent::GtaBanner:
+			format_string(player, xorstr_("GTA Banner"));
+			return true;
+
+		case eRemoteEvent::PersonalVehicleDestroyed:
+			format_string(player, xorstr_("Destroy vehicle"));
+			return true;
+
+		case eRemoteEvent::RemoteOffradar:
+			format_string(player, xorstr_("Off radar"));
+			return true;
+
+		case eRemoteEvent::TSECommand:
+			if (static_cast<eRemoteEvent>(args[2]) == eRemoteEvent::TSECommandRotateCam)
+			{
+				format_string(player, xorstr_("Rotate camera"));
+				return true;
+			}
+			break;
+
+		case eRemoteEvent::SendToCutscene:
+			format_string(player, xorstr_("Force cutscene"));
+			return true;
+
+		case eRemoteEvent::MCTeleport:
+			if (args[3] <= 32)
+			{
+				format_string(player, xorstr_("Force teleport #1"));
+				return true;
+			}
+			else if (args[3] > 32)
+			{
+				format_string(player, xorstr_("Script crash #3"));
+				return true;
+			}
+			break;
+
+		case eRemoteEvent::SendToCayoPerico:
+			format_string(player, xorstr_("Force teleport #2"));
 			return true;
 
 		case eRemoteEvent::SendToLocation:
@@ -54,59 +159,90 @@ namespace big
 				{
 					known_location = true;
 
+					format_string(player, xorstr_("Force teleport #3"));
 					return true;
 				}
 				else if ((args[4] == 3 || args[4] == 4) && args[5] == 1)
 				{
 					known_location = true;
 
+					format_string(player, xorstr_("Force teleport #4"));
 					return true;
 				}
 			}
 
 			if (!known_location)
 			{
-				g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent location event: {}"), player_name, (int)hash));
+				format_string(player, xorstr_("Script crash #4"));
 				return true;
 			}
-
-			break; //Someone tell me if this is wrong. Better safe than sorry?
+			break;
 		}
 
-		case eRemoteEvent::ForceMission:
-		case eRemoteEvent::SendToCayoPerico:
-		case eRemoteEvent::SendToCutscene:
 		case eRemoteEvent::Teleport:
+			format_string(player, xorstr_("Force teleport #5"));
+			return true;
+
+		case eRemoteEvent::TeleportToWarehouse:
+			format_string(player, xorstr_("Force teleport #6"));
+			return true;
+
+		case eRemoteEvent::ForceMission:
+			format_string(player, xorstr_("Force mission"));
+			return true;
+
 		case eRemoteEvent::ForceMission2:
-			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent telport event: {}"), player_name, (int)hash));
+			format_string(player, xorstr_("Force mission #2"));
 			return true;
 
-		case eRemoteEvent::Bounty:
-		case eRemoteEvent::CeoBan:
-		case eRemoteEvent::CeoKick:
-		case eRemoteEvent::CeoMoney:
-		case eRemoteEvent::ClearWantedLevel:
-		case eRemoteEvent::FakeDeposit:
-		case eRemoteEvent::GtaBanner:
-		case eRemoteEvent::MCTeleport:
-		case eRemoteEvent::PersonalVehicleDestroyed:
-		case eRemoteEvent::RemoteOffradar:
 		case eRemoteEvent::SoundSpam:
+			format_string(player, xorstr_("Sound spam"));
+			return true;
+
 		case eRemoteEvent::Spectate:
+			format_string(player, xorstr_("Remote spectate"));
+			return true;
+
 		case eRemoteEvent::TransactionError:
+			format_string(player, xorstr_("Transaction error"));
+			return true;
+
 		case eRemoteEvent::VehicleKick:
-
-			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent script event: {}"), player_name, (int)hash));
-			return true;
-			
-		case eRemoteEvent::SHKick:
-		case eRemoteEvent::NetworkBail:
-		case eRemoteEvent::Crash:
-		case eRemoteEvent::Crash2:
-			g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent script crash: {}"), player_name, (int)hash));
+			format_string(player, xorstr_("Vehicle kick"));
 			return true;
 
-		default:
+		case eRemoteEvent::StartActivity:
+			eActivityType activity = static_cast<eActivityType>(args[2]);
+			if (activity == eActivityType::Survival || activity == eActivityType::Mission || activity == eActivityType::Deathmatch || activity == eActivityType::BaseJump || activity == eActivityType::Race)
+			{
+				format_string(player, xorstr_("Script crash #5"));
+				return true;
+			}
+			else if (activity == eActivityType::Tennis)
+			{
+				format_string(player, xorstr_("Script crash #6"));
+				return true;
+			}
+			else if (activity == eActivityType::Darts)
+			{
+				format_string(player, xorstr_("Send to darts"));
+				return true;
+			}
+			else if (activity == eActivityType::PilotSchool)
+			{
+				format_string(player, xorstr_("Send to flight school"));
+				return true;
+			}
+			else if (activity == eActivityType::ImpromptuDeathmatch)
+			{
+				format_string(player, xorstr_("Force deathmatch"));
+				return true;
+			}
+			else if (activity == eActivityType::DefendSpecialCargo || activity == eActivityType::GunrunningDefend || activity == eActivityType::BikerDefend)
+			{
+				format_string(player, xorstr_("Force business raid"));
+				return true;
+			}
 			break;
 		}
 

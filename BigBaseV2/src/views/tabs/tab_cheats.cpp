@@ -6,7 +6,9 @@ namespace big
 {
 	void view_sub::tab_cheats()
 	{
-		if (ImGui::BeginTabBar(xorstr_("##cheats_tabbar")))
+		ImGui::Text(xorstr_("Disabled for now"));
+
+		/*if (ImGui::BeginTabBar(xorstr_("##cheats_tabbar")))
 		{
 			if (ImGui::BeginTabItem(xorstr_("Player")))
 			{
@@ -81,6 +83,6 @@ namespace big
 			}
 
 			ImGui::EndTabBar();
-		}
+		}*/
 	}
 }

@@ -61,7 +61,7 @@ namespace big
 
 		main_batch.add("Script Globals", "48 8D 15 ? ? ? ? 4C 8B C0 E8 ? ? ? ? 48 85 FF 48 89 1D", [this](memory::handle ptr)
 		{
-			m_script_globals = ptr.add(3).rip().as<std::int64_t**>();
+			m_script_globals = ptr.add(3).rip().as<int64_t**>();
 
 			LOG(G3LOG_DEBUG) << xorstr_("ScriptGlobals => ") << HEX_TO_UPPER(m_script_globals);
 		});
@@ -318,7 +318,7 @@ namespace big
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);
 
 		if (!m_hwnd)
-			throw std::runtime_error(xorstr_("Failed to find the game's window."));
+			throw runtime_error(xorstr_("Failed to find the game's window."));
 
 		g_pointers = this;
 	}

@@ -16,7 +16,7 @@ namespace big
 			if (const rage::netPlayerData* net_player_data = player->get_net_data(); net_player_data)
 			{
 				if (g_config.settings.notify_players)
-					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("{} left RSID: {}"), net_player_data->m_name, net_player_data->m_rockstar_id2));
+					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("[{}] {} left"), net_player_data->m_rockstar_id2, net_player_data->m_name));
 			}
 
 			return returnResult;
@@ -29,7 +29,7 @@ namespace big
 			notify::above_map(fmt::format(xorstr_("<C>{}</C> joined."), net_player_data->m_name));
 
 			if (g_config.settings.notify_players)
-				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}] {} joined RSID: {}"), (int)player->m_player_id, net_player_data->m_name, net_player_data->m_rockstar_id2));
+				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}/{}] {} joined"), (int)player->m_player_id, net_player_data->m_rockstar_id2, net_player_data->m_name));
 		}
 
 		return returnResult;

@@ -5,11 +5,11 @@
 
 namespace big
 {
-	fiber_pool::fiber_pool(std::size_t num_fibers)
+	fiber_pool::fiber_pool(size_t num_fibers)
 	{
-		for (std::size_t i = 0; i < num_fibers; ++i)
+		for (size_t i = 0; i < num_fibers; ++i)
 		{
-			g_script_mgr.add_script(std::make_unique<script>(&fiber_func));
+			g_script_mgr.add_script(make_unique<script>(&fiber_func));
 		}
 
 		g_fiber_pool = this;
@@ -20,25 +20,25 @@ namespace big
 		g_fiber_pool = nullptr;
 	}
 
-	void fiber_pool::queue_job(std::function<void()> func)
+	void fiber_pool::queue_job(function<void()> func)
 	{
 		if (func)
 		{
-			std::lock_guard lock(m_mutex);
-			m_jobs.push(std::move(func));
+			lock_guard lock(m_mutex);
+			m_jobs.push(move(func));
 		}
 	}
 
 	void fiber_pool::fiber_tick()
 	{
-		std::unique_lock lock(m_mutex);
+		unique_lock lock(m_mutex);
 		if (!m_jobs.empty())
 		{
-			auto job = std::move(m_jobs.top());
+			auto job = move(m_jobs.top());
 			m_jobs.pop();
 			lock.unlock();
 
-			std::invoke(std::move(job));
+			invoke(move(job));
 		}
 	}
 

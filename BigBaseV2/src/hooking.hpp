@@ -12,7 +12,7 @@ namespace big
 {
 	struct hooks
 	{
-		static bool run_script_threads(std::uint32_t ops_to_execute);
+		static bool run_script_threads(uint32_t ops_to_execute);
 
 		static constexpr auto swapchain_num_funcs = 19;
 		static constexpr auto swapchain_present_index = 8;
@@ -28,13 +28,13 @@ namespace big
 
 		static void* assign_physical_index(CNetworkPlayerMgr* netPlayerMgr, CNetGamePlayer* player, uint8_t new_index);
 
-		static void network_player_mgr_init(CNetworkPlayerMgr* _this, std::uint64_t a2, std::uint32_t a3, std::uint32_t a4[4]);
+		static void network_player_mgr_init(CNetworkPlayerMgr* _this, uint64_t a2, uint32_t a3, uint32_t a4[4]);
 		static void network_player_mgr_shutdown(CNetworkPlayerMgr* _this);
 		
 		//Not yet implemented
 		//static bool send_net_info_to_lobby(rage::netPlayerData* player, int64_t a2, int64_t a3, DWORD* a4);
 
-		static void network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3);
+		static void network_group_override(int64_t a1, int64_t a2, int64_t a3);
 
 		static bool is_dlc_present(Hash dlc_hash);
 
