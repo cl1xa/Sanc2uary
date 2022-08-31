@@ -1,5 +1,6 @@
 #include "menu/views/view.hpp"
 #include "services/player_service.hpp"
+#include "util/toxic.hpp"
 
 namespace big
 {
@@ -9,11 +10,14 @@ namespace big
 
 		if (ImGui::BeginPopupModal(xorstr_("Player selection menu")))
 		{
-			ImGui::Text(fmt::format(xorstr_("{}[{}] {}"), (g_player_service->get_selected()->is_host() ? xorstr_("[H]") : xorstr_("")), g_player_service->get_selected()->id(), g_player_service->get_selected()->get_name()).c_str());
+			auto selected = g_player_service->get_selected();
+			const char* name = selected->get_name();
+
+			ImGui::Text(fmt::format(xorstr_("{}[{}] {}"), (selected->is_host() ? xorstr_("[H]") : xorstr_("")), selected->id(), name).c_str());
 
 			ImGui::Separator();
 
-			if (rage::netPlayerData* net_player_data = g_player_service->get_selected()->get_net_data(); net_player_data != nullptr)
+			if (rage::netPlayerData* net_player_data = selected->get_net_data(); net_player_data != nullptr)
 			{
 				ImGui::Text(xorstr_("Rockstar ID: %d"), net_player_data->m_rockstar_id);
 
@@ -27,10 +31,18 @@ namespace big
 				);
 			}
 
+			queue_button(xorstr_("Dsync player"), []
+			{
+				toxic::desync_target();
+
+				g_notification_service->push(xorstr_("Toxic"), xorstr_("Desynced selected player"));
+			});
+
 			ImGui::Separator();
 
 			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 0.0f, 0.0f, 1.f));
 
+			//Does not need to be queued
 			if (ImGui::Button(xorstr_("EXIT")))
 				ImGui::CloseCurrentPopup();
 

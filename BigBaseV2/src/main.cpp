@@ -44,30 +44,43 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 				try
 				{
-					auto pointers_instance = make_unique<pointers>();
+					auto pointers_instance = std::make_unique<pointers>();
+					LOG(G3LOG_DEBUG) << xorstr_("Pointers initialized");
 
-					auto renderer_instance = make_unique<renderer>();
+					auto renderer_instance = std::make_unique<renderer>();
+					LOG(G3LOG_DEBUG) << xorstr_("Renderer initialized");
 
-					auto fiber_pool_instance = make_unique<fiber_pool>(10);
+					auto fiber_pool_instance = std::make_unique<fiber_pool>(11);
+					LOG(G3LOG_DEBUG) << xorstr_("Fiber pool initialized");
 
-					auto hooking_instance = make_unique<hooking>();
+					auto hooking_instance = std::make_unique<hooking>();
+					LOG(G3LOG_DEBUG) << xorstr_("Hooking initialized");
 
 					g_config.load(xorstr_("default.sanctuary"));
+					LOG(G3LOG_DEBUG) << xorstr_("Settings Loaded");
 
-					auto thread_pool_instance = make_unique<thread_pool>();
+					auto thread_pool_instance = std::make_unique<thread_pool>();
+					LOG(G3LOG_DEBUG) << xorstr_("Thread pool initialized");
 
-					auto notification_service_instance = make_unique<notification_service>();
-					auto player_service_instance = make_unique<player_service>();
+					auto notification_service_instance = std::make_unique<notification_service>();
+					auto player_service_instance = std::make_unique<player_service>();
+					LOG(G3LOG_DEBUG) << xorstr_("Registered service instances");
 
-					g_script_mgr.add_script(make_unique<script>(&features_engine::engine_loop));
-					g_script_mgr.add_script(make_unique<script>(&features_player::player_loop));
-					g_script_mgr.add_script(make_unique<script>(&features_vehicle::vehicle_loop));
+					g_script_mgr.add_script(std::make_unique<script>(&menu::script_func, "GUI", false));
+					LOG(G3LOG_DEBUG) << xorstr_("Menu registered");
 
-					g_script_mgr.add_script(make_unique<script>(&menu::script_func));
+					g_script_mgr.add_script(std::make_unique<script>(&features_engine::engine_loop, xorstr_("ENGINE", false)));
+					g_script_mgr.add_script(std::make_unique<script>(&features_player::player_loop, xorstr_("PLAYER", false)));
+					g_script_mgr.add_script(std::make_unique<script>(&features_vehicle::vehicle_loop, xorstr_("VEHICLE", false)));
+					LOG(G3LOG_DEBUG) << xorstr_("Scripts registered");
 
-					auto native_hooks_instance = make_unique<native_hooks>();
+					auto native_hooks_instance = std::make_unique<native_hooks>();
+					LOG(G3LOG_DEBUG) << xorstr_("Dynamic native hooker initialized");
 
 					g_hooking->enable();
+					LOG(G3LOG_DEBUG) << xorstr_("Hooking enabled");
+
+					LOG(G3LOG_DEBUG) << xorstr_("Successfully injected");
 
 					g_running = true;
 
@@ -77,32 +90,41 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 						g_config.save(xorstr_("default.sanctuary"));
 
-						this_thread::sleep_for(500ms);
+						std::this_thread::sleep_for(500ms);
 					}
 
 					g_hooking->disable();
+					LOG(G3LOG_DEBUG) << xorstr_("Hooking disabled");
 
 					native_hooks_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Dynamic native hooker uninitialized");
 
 					g_script_mgr.remove_all_scripts();
+					LOG(G3LOG_DEBUG) << xorstr_("Scripts unregistered");
 
 					// Make sure that all threads created don't have any blocking loops
 					// otherwise make sure that they have stopped executing
 					thread_pool_instance->destroy();
-					thread_pool_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Destroyed thread pool");
 
-					player_service_instance.reset();
+					thread_pool_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Thread pool uninitialized");
 
 					notification_service_instance.reset();
+					player_service_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Services uninitialized");
 
 					hooking_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Hooking uninitialized");
 
 					fiber_pool_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Fiber pool uninitialized");
 
 					renderer_instance.reset();
+					LOG(G3LOG_DEBUG) << xorstr_("Renderer uninitialized");
 
 					pointers_instance.reset();
-
+					LOG(G3LOG_DEBUG) << xorstr_("Pointers uninitialized");
 				}
 				catch (exception const& ex)
 				{
@@ -110,10 +132,13 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				}
 
 				logger_instance->destroy();
+
 				logger_instance.reset();
+
 				file_manager_instance.reset();
 
 				CloseHandle(g_main_thread);
+
 				FreeLibraryAndExitThread(g_hmodule, 0);
 
 			}, nullptr, 0, &g_main_thread_id);

@@ -29,11 +29,7 @@ namespace big
 			{
 				if (*g_pointers->m_is_session_started)
 				{
-					ImGui::Text(fmt::format(xorstr_("Total players: {}"), g_player_service->players().size() + 1).c_str());
-
-					ImGui::Separator();
-
-					if (ImGui::BeginListBox(xorstr_("##player_list"), { 620.f - ImGui::GetStyle().WindowPadding.x * 2 , 320 }))
+					if (ImGui::BeginListBox(xorstr_("##player_list"), { 620.f - ImGui::GetStyle().WindowPadding.x * 2 , 348 }))
 					{
 						for (const auto& [_, player] : g_player_service->players())
 						{
@@ -41,7 +37,11 @@ namespace big
 
 							ImGui::PushID(player->id());
 
-							ImGui::Text(player->get_name());
+							if (ImGui::MenuItem(player->get_name()))
+							{
+								ImGui::OpenPopup(xorstr_("Player selection menu"));
+								g_player_service->set_selected(player);
+							}
 
 							if (player->is_host())
 							{
@@ -59,42 +59,7 @@ namespace big
 								ImGui::Text(xorstr_("[V]"));
 							}
 
-							ImGui::PopID();
-
-							ImGui::PopStyleVar();
-						}
-
-						ImGui::EndListBox();
-					}
-				}
-				else
-					ImGui::Text(xorstr_("GTA Online is required in order to view the player list"));
-
-				ImGui::EndTabItem();
-			}
-
-			if (ImGui::BeginTabItem(xorstr_("Friends")))
-			{
-				if (*g_pointers->m_is_session_started)
-				{
-					if (ImGui::BeginListBox(xorstr_("##friends_list"), { 620.f - ImGui::GetStyle().WindowPadding.x * 2 , 348 }))
-					{
-						for (const auto& [_, player] : g_player_service->players())
-						{
-							ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, { 0.0, 0.5 });
-
-							ImGui::PushID(player->id());
-
-							if (player->is_friend())
-							{
-								if (ImGui::MenuItem(player->get_name()))
-								{
-									ImGui::OpenPopup(xorstr_("Player selection menu"));
-									g_player_service->set_selected(player);
-								}
-
-								view_main::selected_player();
-							}
+							view_main::selected_player();
 
 							ImGui::PopID();
 

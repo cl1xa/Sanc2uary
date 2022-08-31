@@ -16,7 +16,6 @@ namespace big
 
         ImGui::SameLine();
 
-
         queue_button(xorstr_("Cayo two"), []
             {
                 recovery::cayo::oneClickCayoSetup(930000);
@@ -25,7 +24,6 @@ namespace big
             });
 
         ImGui::SameLine();
-
 
         queue_button(xorstr_("Cayo three"), []
             {

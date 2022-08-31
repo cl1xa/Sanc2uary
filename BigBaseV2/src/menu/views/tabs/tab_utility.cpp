@@ -18,5 +18,12 @@ namespace big
 
 				g_notification_service->push(xorstr_("Utility"), xorstr_("Skipped current cutscene"));
 			});
+
+		queue_button(xorstr_("Clear weather"), []
+			{
+				MISC::SET_OVERRIDE_WEATHER(xorstr_("EXTRASUNNY"));
+
+				g_notification_service->push(xorstr_("Player cheats"), xorstr_("Cleared local weather"));
+			});
 	}
 }
