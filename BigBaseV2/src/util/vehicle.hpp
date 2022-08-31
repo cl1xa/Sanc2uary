@@ -3,7 +3,7 @@
 #include "math.hpp"
 #include "teleport.hpp"
 
-#include "script_global.hpp"
+#include "scripts/script_global.hpp"
 
 namespace big::vehicle
 {

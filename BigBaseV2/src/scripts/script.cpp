@@ -1,6 +1,6 @@
 #pragma once
 #include "common.hpp"
-#include "logger.hpp"
+#include "misc/logger.hpp"
 #include "script.hpp"
 
 namespace big
@@ -9,6 +9,7 @@ namespace big
 	{
 		HMODULE mod{};
 		DWORD64 offset{};
+
 		char buffer[MAX_PATH]{};
 
 		if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCWSTR)exp->ExceptionRecord->ExceptionAddress, &mod) == TRUE && mod != nullptr)
@@ -20,22 +21,57 @@ namespace big
 		LOG(FATAL) << xorstr_("Exception Code: ") << HEX_TO_UPPER(exp->ExceptionRecord->ExceptionCode) << xorstr_(" Exception Offset: ") << HEX_TO_UPPER(offset) << xorstr_(" Fault Module Name: ") << buffer;
 	}
 
-	script::script(func_t func, std::optional<std::size_t> stack_size) :
-		m_func(func),
+	script::script(const func_t func, const std::string_view name, const bool toggleable, const std::optional<std::size_t> stack_size) :
+		script(func, stack_size)
+	{
+		m_name = name;
+		m_toggleable = toggleable;
+	}
+
+	script::script(const func_t func, const std::optional<std::size_t> stack_size) :
+		m_enabled(true),
+		m_toggleable(false),
 		m_script_fiber(nullptr),
-		m_main_fiber(nullptr)
+		m_main_fiber(nullptr),
+		m_func(func)
 	{
 		m_script_fiber = CreateFiber(stack_size.has_value() ? stack_size.value() : 0, [](void* param)
-		{
-			auto this_script = static_cast<script*>(param);
-			this_script->fiber_func();
-		}, this);
+			{
+				auto this_script = static_cast<script*>(param);
+				this_script->fiber_func();
+			}, this);
 	}
 
 	script::~script()
 	{
 		if (m_script_fiber)
 			DeleteFiber(m_script_fiber);
+	}
+
+	const char* script::name() const
+	{
+		return m_name.data();
+	}
+
+	bool script::is_enabled() const
+	{
+		return m_enabled;
+	}
+
+	void script::set_enabled(const bool toggle)
+	{
+		if (m_toggleable)
+			m_enabled = toggle;
+	}
+
+	bool* script::toggle_ptr()
+	{
+		return &m_enabled;
+	}
+
+	bool script::is_toggleable() const
+	{
+		return m_toggleable;
 	}
 
 	void script::tick()
@@ -68,7 +104,6 @@ namespace big
 			m_func();
 		}
 			EXCEPT_CLAUSE
-
 			[]() {
 			LOG(INFO) << xorstr_("Script finished!");
 		}();

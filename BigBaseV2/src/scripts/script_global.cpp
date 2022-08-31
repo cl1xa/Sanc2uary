@@ -4,17 +4,17 @@
 
 namespace big
 {
-	script_global::script_global(std::size_t index) :
+	script_global::script_global(size_t index) :
 		m_index(index)
 	{
 	}
 
-	script_global script_global::at(std::ptrdiff_t index)
+	script_global script_global::at(ptrdiff_t index)
 	{
 		return script_global(m_index + index);
 	}
 
-	script_global script_global::at(std::ptrdiff_t index, std::size_t size)
+	script_global script_global::at(ptrdiff_t index, size_t size)
 	{
 		return script_global(m_index + 1 + (index * size));
 	}

@@ -1,8 +1,8 @@
 #pragma once
 #include "imgui.h"
 #include "pointers.hpp"
-#include "script.hpp"
-#include "fiber_pool.hpp"
+#include "scripts/script.hpp"
+#include "scripts/fiber_pool.hpp"
 
 namespace big
 {

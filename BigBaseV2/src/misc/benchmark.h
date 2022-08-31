@@ -2,13 +2,14 @@
 
 #include "logger.hpp"
 
+using namespace std::chrono;
+
 namespace big
 {
-	using namespace std::chrono;
 	class benchmark
 	{
 	public:
-		explicit benchmark(std::string name = "") : 
+		explicit benchmark(string name = xorstr_("")) : 
 			m_start(high_resolution_clock::now()), m_name(name) {}
 
 		void get_runtime()
@@ -24,8 +25,9 @@ namespace big
 		{
 			m_start = high_resolution_clock::now();
 		}
+
 	private:
 		high_resolution_clock::time_point m_start;
-		std::string m_name;
+		string m_name;
 	};
 }

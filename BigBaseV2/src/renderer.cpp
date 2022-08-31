@@ -1,5 +1,5 @@
 #include "common.hpp"
-#include "file_manager.hpp"
+#include "file_manager/file_manager.hpp"
 #include "views/font.hpp"
 #include "gui.hpp"
 #include "pointers.hpp"

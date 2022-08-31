@@ -2,7 +2,7 @@
 #include "common.hpp"
 #include "file_manager/file.hpp"
 #include "file_manager/folder.hpp"
-#include "xorstr.hpp"
+#include "anti_tamper/xorstr.hpp"
 
 namespace big
 {

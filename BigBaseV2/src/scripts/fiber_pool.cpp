@@ -32,9 +32,11 @@ namespace big
 	void fiber_pool::fiber_tick()
 	{
 		unique_lock lock(m_mutex);
+
 		if (!m_jobs.empty())
 		{
 			auto job = move(m_jobs.top());
+
 			m_jobs.pop();
 			lock.unlock();
 

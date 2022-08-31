@@ -1,12 +1,12 @@
 ﻿#include "common.hpp"
-#include "fiber_pool.hpp"
+#include "scripts/fiber_pool.hpp"
 #include "gui.hpp"
-#include "logger.hpp"
+#include "misc/logger.hpp"
 #include "hooking.hpp"
 #include "pointers.hpp"
 #include "renderer.hpp"
-#include "script_mgr.hpp"
-#include "thread_pool.hpp"
+#include "scripts/script_mgr.hpp"
+#include "scripts/thread_pool.hpp"
 
 #include "api/api.hpp"
 #include "api/auth.hpp"
@@ -52,7 +52,7 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 
 					auto hooking_instance = make_unique<hooking>();
 
-					g_config.load("default.sanctuary");
+					g_config.load(xorstr_("default.sanctuary"));
 
 					auto thread_pool_instance = make_unique<thread_pool>();
 

@@ -1,9 +1,9 @@
 #pragma once
 #include "common.hpp"
 
-#include "script_global.hpp"
-#include "script_mgr.hpp"
-#include "fiber_pool.hpp"
+#include "scripts/script_global.hpp"
+#include "scripts/script_mgr.hpp"
+#include "scripts/fiber_pool.hpp"
 
 #include "util/vehicle.hpp"
 #include "util/entity.hpp"

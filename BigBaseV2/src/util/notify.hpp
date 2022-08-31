@@ -1,6 +1,6 @@
 #pragma once
 #include "network/CNetGamePlayer.hpp"
-#include "script.hpp"
+#include "scripts/script.hpp"
 
 using namespace std;
 

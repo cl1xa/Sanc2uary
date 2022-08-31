@@ -1,6 +1,6 @@
 #include "common.hpp"
 #include "function_types.hpp"
-#include "logger.hpp"
+#include "misc/logger.hpp"
 #include "gta/array.hpp"
 #include "gta/player.hpp"
 #include "gta/script_thread.hpp"
@@ -9,7 +9,7 @@
 #include "memory/module.hpp"
 #include "pointers.hpp"
 #include "renderer.hpp"
-#include "script_mgr.hpp"
+#include "scripts/script_mgr.hpp"
 
 #include <MinHook.h>
 

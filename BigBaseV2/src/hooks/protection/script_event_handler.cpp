@@ -1,5 +1,5 @@
 #include "hooking.hpp"
-#include "gta_util.hpp"
+#include "misc/gta_util.hpp"
 
 namespace big
 {

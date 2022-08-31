@@ -49,9 +49,9 @@
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
 
-#include "logger.hpp"
+#include "misc/logger.hpp"
 
-#include "config/config.hpp"
+#include "file_manager/config/config.hpp"
 #include "gta/natives.hpp"
 #include "gta/enums.hpp"
 #include "natives.hpp"
@@ -59,7 +59,7 @@
 #include "services/notification_service.hpp"
 #include "util/notify.hpp"
 
-#include "xorstr.hpp"
+#include "anti_tamper/xorstr.hpp"
 #include "ped/CPed.hpp"
 #include "gta/enums.hpp"
 

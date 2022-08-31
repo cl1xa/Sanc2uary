@@ -1,13 +1,13 @@
 #include "common.hpp"
 #include "crossmap.hpp"
 #include "gta/script_program.hpp"
-#include "logger.hpp"
+#include "misc/logger.hpp"
 #include "pointers.hpp"
 #include "script_hook.hpp"
 
 namespace big
 {
-	inline std::unordered_map<rage::scrProgram*, script_hook*> script_hook::s_map;
+	inline unordered_map<rage::scrProgram*, script_hook*> script_hook::s_map;
 
 	static bool map_native(rage::scrNativeHash* hash)
 	{
@@ -23,9 +23,9 @@ namespace big
 		return false;
 	}
 
-	script_hook::script_hook(rage::joaat_t script_hash, std::unordered_map<rage::scrNativeHash, rage::scrNativeHandler> native_replacements) :
+	script_hook::script_hook(rage::joaat_t script_hash, unordered_map<rage::scrNativeHash, rage::scrNativeHandler> native_replacements) :
 		m_script_hash(script_hash),
-		m_native_replacements(std::move(native_replacements))
+		m_native_replacements(move(native_replacements))
 	{
 		ensure();
 	}
@@ -58,6 +58,7 @@ namespace big
 			if (program->is_valid())
 			{
 				hook_instance(program);
+
 				LOG(INFO) << xorstr_("Hooked ") << program->m_name << xorstr_(" script (") << HEX_TO_UPPER(static_cast<void*>(program)) << xorstr_(")");
 			}
 		}
@@ -67,7 +68,7 @@ namespace big
 	{
 		m_program = program;
 		s_map.emplace(m_program, this);
-		m_vmt_hook = std::make_unique<vmt_hook>(m_program, 3);
+		m_vmt_hook = make_unique<vmt_hook>(m_program, 3);
 		m_vmt_hook->hook(0, &scrprogram_dtor);
 
 		for (auto [replacement_hash, replacement_handler] : m_native_replacements)

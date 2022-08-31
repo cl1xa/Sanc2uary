@@ -1,14 +1,14 @@
 #include "common.hpp"
-#include "fiber_pool.hpp"
+#include "scripts/fiber_pool.hpp"
 #include "gta/player.hpp"
-#include "gta_util.hpp"
+#include "misc/gta_util.hpp"
 #include "gui.hpp"
-#include "logger.hpp"
+#include "misc/logger.hpp"
 #include "memory/module.hpp"
 #include "memory/pattern.hpp"
 #include "pointers.hpp"
 #include "renderer.hpp"
-#include "script.hpp"
+#include "scripts/script.hpp"
 
 #include <imgui.h>
 #include "widgets/imgui_hotkey.hpp"

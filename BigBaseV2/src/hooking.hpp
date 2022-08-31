@@ -4,7 +4,7 @@
 #include "gta/fwddec.hpp"
 #include "gta/net_game_event.hpp"
 #include "gta/script_thread.hpp"
-#include "script_hook.hpp"
+#include "scripts/script_hook.hpp"
 #include "vmt_hook.hpp"
 #include "gta/enums.hpp"
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "gta/session_types.hpp"
-#include "script_global.hpp"
+#include "scripts/script_global.hpp"
 
 namespace big::session
 {
