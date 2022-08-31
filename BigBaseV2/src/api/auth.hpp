@@ -6,7 +6,7 @@ namespace big::api
 
 	inline void auth_loop()
 	{
-		LOG(INFO) << "API ping";
+		LOG(INFO) << xorstr_("API ping");
 
 		if (!has_logged)
 		{

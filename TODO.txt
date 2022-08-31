@@ -4,7 +4,11 @@ make success notifications green
 add change menu color
 add esp
 
+clean up pointers
+fix main.cpp
+redo logger
+
 remember to always:
 
 organize includes
-ensure menu consistency with backend
+ensure menu consistency

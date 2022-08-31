@@ -1,5 +1,5 @@
 #include "friends_service.hpp"
-#include "pointers.hpp"
+#include "hooking/pointers.hpp"
 
 namespace big
 {
@@ -26,5 +26,4 @@ namespace big
 
 		return false;
 	}
-
 }

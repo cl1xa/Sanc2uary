@@ -49,7 +49,7 @@
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
 
-#include "misc/logger.hpp"
+#include "logger.hpp"
 
 #include "file_manager/config/config.hpp"
 #include "gta/natives.hpp"
@@ -62,8 +62,6 @@
 #include "anti_tamper/xorstr.hpp"
 #include "ped/CPed.hpp"
 #include "gta/enums.hpp"
-
-#include "core/globals.hpp"
 
 using namespace std;
 using namespace big::notify;

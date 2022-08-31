@@ -3,7 +3,7 @@
 #include "gta/fwddec.hpp"
 #include "gta/joaat.hpp"
 #include "gta/natives.hpp"
-#include "vmt_hook.hpp"
+#include "hooking/vmt_hook.hpp"
 
 namespace big
 {

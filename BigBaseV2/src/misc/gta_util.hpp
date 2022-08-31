@@ -4,7 +4,7 @@
 #include "network/CNetworkPlayerMgr.hpp"
 #include "gta/script_thread.hpp"
 #include "gta/tls_context.hpp"
-#include "pointers.hpp"
+#include "hooking/pointers.hpp"
 
 namespace big::gta_util
 {

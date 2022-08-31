@@ -1,6 +1,6 @@
 #pragma once
 #include "common.hpp"
-#include "misc/logger.hpp"
+#include "logger.hpp"
 #include "script.hpp"
 
 namespace big

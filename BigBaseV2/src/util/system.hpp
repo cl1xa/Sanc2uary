@@ -1,6 +1,6 @@
 #pragma once
 #include "crossmap.hpp"
-#include "pointers.hpp"
+#include "hooking/pointers.hpp"
 #include "memory/module.hpp"
 
 namespace big::system

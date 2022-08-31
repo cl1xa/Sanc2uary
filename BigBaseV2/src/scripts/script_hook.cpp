@@ -1,8 +1,8 @@
 #include "common.hpp"
 #include "crossmap.hpp"
 #include "gta/script_program.hpp"
-#include "misc/logger.hpp"
-#include "pointers.hpp"
+#include "logger.hpp"
+#include "hooking/pointers.hpp"
 #include "script_hook.hpp"
 
 namespace big

@@ -4,7 +4,7 @@
 #include "gta/tls_context.hpp"
 #include "misc/gta_util.hpp"
 #include "invoker.hpp"
-#include "pointers.hpp"
+#include "hooking/pointers.hpp"
 #include "script_mgr.hpp"
 
 namespace big

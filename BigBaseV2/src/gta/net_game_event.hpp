@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "pointers.hpp"
+#include "hooking/pointers.hpp"
 #include "fwddec.hpp"
 
 #pragma pack(push, 1)

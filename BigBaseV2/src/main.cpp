@@ -1,21 +1,21 @@
 ﻿#include "common.hpp"
 #include "scripts/fiber_pool.hpp"
-#include "gui.hpp"
-#include "misc/logger.hpp"
-#include "hooking.hpp"
-#include "pointers.hpp"
-#include "renderer.hpp"
+#include "menu/menu.hpp"
+#include "logger.hpp"
+#include "hooking/hooking.hpp"
+#include "hooking/pointers.hpp"
+#include "menu/renderer.hpp"
 #include "scripts/script_mgr.hpp"
 #include "scripts/thread_pool.hpp"
 
 #include "api/api.hpp"
 #include "api/auth.hpp"
-#include "native_hooks/native_hooks.hpp"
+#include "hooking/native_hooks/native_hooks.hpp"
 
 #include "services/player_service.hpp"
 #include "services/notification_service.hpp"
 
-#include "backend/backend.hpp"
+#include "features/features.hpp"
 
 BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
@@ -59,11 +59,11 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					auto notification_service_instance = make_unique<notification_service>();
 					auto player_service_instance = make_unique<player_service>();
 
-					g_script_mgr.add_script(make_unique<script>(&backend_engine::engine_loop));
+					g_script_mgr.add_script(make_unique<script>(&features_engine::engine_loop));
 					//g_script_mgr.add_script(make_unique<script>(&backend_player::player_loop));
 					//g_script_mgr.add_script(make_unique<script>(&backend_vehicle::vehicle_loop));
 
-					g_script_mgr.add_script(make_unique<script>(&gui::script_func));
+					g_script_mgr.add_script(make_unique<script>(&menu::script_func));
 
 					auto native_hooks_instance = make_unique<native_hooks>();
 
