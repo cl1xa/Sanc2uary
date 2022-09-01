@@ -9,7 +9,7 @@ namespace big
 	{
 		auto returnResult = g_hooking->m_assign_physical_index_hook.get_original<decltype(&hooks::assign_physical_index)>()(netPlayerMgr, player, new_index);
 
-		if (new_index == 0xFF) 
+		if (new_index == 0xFF) //0XFF = Nearest empty memory region
 		{
 			g_player_service->player_leave(player);
 

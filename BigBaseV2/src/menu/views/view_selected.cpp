@@ -35,7 +35,7 @@ namespace big
 			{
 				toxic::desync_target();
 
-				g_notification_service->push(xorstr_("Toxic"), xorstr_("Desynced selected player"));
+				g_notification_service->push(xorstr_("Toxic"), xorstr_("Desynced: {}", name));
 			});
 
 			ImGui::Separator();

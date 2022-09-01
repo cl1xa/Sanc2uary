@@ -8,7 +8,7 @@ namespace big
 		static size_t selected_tab = 0;
 		static vector<string> tabs;
 
-		ImGui::SetNextWindowSize(ImVec2{ 780, 430 }, ImGuiCond_Once);
+		ImGui::SetNextWindowSize(ImVec2{ 785, 435 }, ImGuiCond_Once);
 		ImGui::SetNextWindowPos(ImVec2{ 100, 200 }, ImGuiCond_Once);
 
 		tabs = { xorstr_("Protection"), xorstr_("Cheats"), xorstr_("Utility"), xorstr_("Recovery"), xorstr_("Network"), xorstr_("Misc"), xorstr_("Settings")};

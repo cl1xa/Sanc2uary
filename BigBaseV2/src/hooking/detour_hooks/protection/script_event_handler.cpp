@@ -5,15 +5,8 @@ namespace big
 {
 	static void format_string(CNetGamePlayer* player, string type, bool notify = true)
 	{
-		const auto sender = player->get_name();
-
-		//For now, because Im crashing due to unknown fmt errors.
-		LOG(WARNING) << sender << xorstr_(" sent: ") << type;
-
-		//LOG(WARNING) << fmt::format(xorstr_("[BLOCKED_SCRIPT_EVENT] {} sent: {}", sender, type));
-
-		//if (notify)
-		//	g_notification_service->push_warning(xorstr_("Protection"), fmt::format(xorstr_("{} sent: {}", sender, type)));
+		if (notify)
+			g_notification_service->push_warning(xorstr_("Protection"), (string)player->get_name() + " sent unwanted event: " + type);
 	}
 
 	bool hooks::scripted_game_event(CScriptedGameEvent* scripted_game_event, CNetGamePlayer* player)

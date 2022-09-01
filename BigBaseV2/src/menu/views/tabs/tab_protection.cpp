@@ -34,6 +34,19 @@ namespace big
 				ImGui::EndTabItem();
 			}
 
+			if (ImGui::BeginTabItem(xorstr_("Sync")))
+			{
+				ImGui::Checkbox(xorstr_("Check sync boundaries"), &g_config.protection.sync.check_bounds);
+
+				ImGui::Checkbox(xorstr_("Check sync mismatch"), &g_config.protection.sync.check_mismatch);
+
+				ImGui::Checkbox(xorstr_("Check tree nodes"), &g_config.protection.sync.check_nodes);
+
+				ImGui::Checkbox(xorstr_("Validate models"), &g_config.protection.sync.validate_models);
+
+				ImGui::EndTabItem();
+			}
+
 			if (ImGui::BeginTabItem(xorstr_("Other")))
 			{
 				ImGui::Checkbox(xorstr_("Idle kick prevention"), &g_config.protection.other.idle);

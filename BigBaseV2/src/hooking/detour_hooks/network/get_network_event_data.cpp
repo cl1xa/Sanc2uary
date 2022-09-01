@@ -2,12 +2,13 @@
 
 namespace big
 {
+	#define CEventNetworkRemovedFromSessionDueToComplaints 161
+
 	void hooks::get_network_event_data(int64_t unk, rage::CEventNetwork* net_event)
 	{
 		switch (net_event->get_type())
 		{
-			//CEventNetworkRemovedFromSessionDueToComplaints
-			case 161: 
+			case CEventNetworkRemovedFromSessionDueToComplaints:
 			{
 				//g_notification_service->push_error(xorstr_("Session error"), xorstr_("Desynced from session host"));
 

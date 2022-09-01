@@ -51,7 +51,7 @@
 
 #include "logger.hpp"
 
-#include "file_manager/config/config.hpp"
+#include "file_manager/config.hpp"
 #include "gta/natives.hpp"
 
 #include "services/notification_service.hpp"

@@ -28,7 +28,10 @@ namespace big
 
 			struct 
 			{
-
+				bool check_nodes = false;
+				bool check_mismatch = false;
+				bool check_bounds = false;
+				bool validate_models = false;
 
 			}sync;
 

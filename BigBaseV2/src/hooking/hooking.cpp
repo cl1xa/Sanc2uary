@@ -79,7 +79,7 @@ namespace big
 		m_receive_net_message_hook.enable();
 		m_get_network_event_data_hook.enable();
 
-		//m_received_clone_sync_hook.enable();
+		m_received_clone_sync_hook.enable();
 
 		m_censor_chat_text_hook.enable();
 
@@ -94,7 +94,7 @@ namespace big
 
 		m_censor_chat_text_hook.disable();
 
-		//m_received_clone_sync_hook.disable();
+		m_received_clone_sync_hook.disable();
 
 		m_get_network_event_data_hook.disable();
 		m_receive_net_message_hook.disable();

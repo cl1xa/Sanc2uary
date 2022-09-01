@@ -4,6 +4,7 @@ namespace big
 {
 	void view_sub::tab_utility()
 	{
+		ImGui::Checkbox(xorstr_("Keep player clean"), &g_config.cheats.player.keep_player_clean);
 
 		queue_button(xorstr_("Suicide"), []
 			{

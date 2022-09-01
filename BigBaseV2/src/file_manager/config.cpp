@@ -1,4 +1,4 @@
-#include "file_manager/config/config.hpp"
+#include "file_manager/config.hpp"
 
 namespace big
 {
