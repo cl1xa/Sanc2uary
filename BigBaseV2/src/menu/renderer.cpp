@@ -92,31 +92,17 @@ namespace big
 
 	void renderer::wndproc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
-		if (msg == WM_KEYUP)
+		//Persist and restore the cursor position between menu instances.
+		static POINT cursor_coords{};
+
+		if (msg == WM_KEYUP && (wparam == VK_DELETE || wparam == VK_INSERT))
 		{
-			//Persist and restore the cursor position between menu instances.
-			static POINT cursor_coords{};
+			if (g_gui.m_opened)
+				GetCursorPos(&cursor_coords);
+			else if (cursor_coords.x + cursor_coords.y != 0)
+				SetCursorPos(cursor_coords.x, cursor_coords.y);
 
-			switch (wparam)
-			{
-
-			case VK_DELETE:
-			case VK_INSERT:
-				if (g_gui.m_opened)
-					GetCursorPos(&cursor_coords);
-				else if (cursor_coords.x + cursor_coords.y != 0)
-					SetCursorPos(cursor_coords.x, cursor_coords.y);
-
-				g_gui.m_opened ^= true;
-
-				break;
-
-			#ifdef _DEBUG
-			case VK_END:
-				g_running = false;
-				break;
-			#endif
-			}
+			g_gui.m_opened ^= true;
 		}
 
 		if (g_gui.m_opened)
