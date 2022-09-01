@@ -74,10 +74,7 @@ namespace big
 		g_gui.always_draw();
 
 		if (g_gui.m_opened)
-		{
 			g_gui.dx_on_tick();
-		}
-		
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -102,14 +99,18 @@ namespace big
 
 			switch (wparam)
 			{
+
 			case VK_DELETE:
 			case VK_INSERT:
 				if (g_gui.m_opened)
 					GetCursorPos(&cursor_coords);
 				else if (cursor_coords.x + cursor_coords.y != 0)
 					SetCursorPos(cursor_coords.x, cursor_coords.y);
+
 				g_gui.m_opened ^= true;
+
 				break;
+
 			#ifdef _DEBUG
 			case VK_END:
 				g_running = false;

@@ -1,8 +1,8 @@
-#include "features/features.hpp"
+#include "backend/backend.hpp"
 
 namespace big
 {
-	void features_engine::update_globals()
+	void backend_engine::update_globals()
 	{
 		globals::local_player = PLAYER::PLAYER_ID();
 

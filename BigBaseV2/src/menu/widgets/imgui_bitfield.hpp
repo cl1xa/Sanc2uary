@@ -12,6 +12,7 @@ namespace ImGui
 		ImGuiDataType type;
 		size_t size = sizeof(T);
 		std::string format;
+
 		if (size == 1)
 		{
 			type = ImGuiDataType_U8;
@@ -42,32 +43,39 @@ namespace ImGui
 		{
 			if (i % 4 == 0)
 				ImGui::BeginGroup();
+
 			if (*param & (1ULL << i))
 			{
 				ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32_BLACK_TRANS);
 				ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(41, 134, 204, 255));
+
 				if (ImGui::Button(std::string(xorstr("1##")).append(std::to_string(i)).append(xorstr((name)).c_str(), ImVec2(25, 0)))
 				{
 					ret_val = true;
 					*param ^= (1ULL << i);
 				}
+
 				ImGui::PopStyleColor(2);
 			}
 			else
 			{
 				ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32_BLACK_TRANS);
+
 				if (ImGui::Button(std::string(xorstr("0##")).append(std::to_string(i)).append(xorstr(name)).c_str(), ImVec2(25, 0)))
 				{
 					ret_val = true;
 					*param ^= (1ULL << i);
 				}
+
 				ImGui::PopStyleColor();
 			}
+
 			if (i % 4 == 0)
 			{
 				ImGui::Text(xorstr("%i"), i);
 				ImGui::EndGroup();
 			}
+
 			if (i % 16 != 0)
 				ImGui::SameLine();
 		}

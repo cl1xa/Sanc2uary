@@ -42,7 +42,7 @@ namespace big::functions
 	using send_event_ack = void(*)(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, int event_index, int event_handled_bitset);
 	// Received Event Signatures END
 
-	//Sync signatures START
+	// Sync signatures START
 	using get_sync_type_info = const char* (*)(uint16_t sync_type, char a2);
 
 	using get_sync_tree_for_type = rage::netSyncTree* (*)(CNetworkObjectMgr* mgr, uint16_t sync_type);
@@ -52,5 +52,5 @@ namespace big::functions
 	using get_net_object_for_player = rage::netObject* (*)(CNetworkObjectMgr*, int16_t, CNetGamePlayer*, bool);
 
 	using read_bitbuffer_into_sync_tree = void(*)(rage::netSyncTree* tree, uint64_t flag, uint32_t flag2, rage::datBitBuffer* buffer, uint64_t netLogStub);
-	//Sync signatures END
+	// Sync signatures END
 }

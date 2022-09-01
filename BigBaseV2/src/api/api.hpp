@@ -2,7 +2,7 @@
 #include "httplib.hpp"
 #include <exception>
 
-//Not sure if I should xor encrypt this
+//Todo: create a function for every api call type
 
 namespace big::api
 {

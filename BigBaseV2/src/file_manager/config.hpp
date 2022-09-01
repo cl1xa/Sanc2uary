@@ -49,19 +49,9 @@ namespace big
 
 		struct
 		{
-			bool modder_detection = false;
-			bool optimize_loading = false;
-			bool terminate_loading_screens = false;
-			bool uncensor_chat = false;
-
-		}misc;
-
-		struct
-		{
 			struct
 			{
 				bool player_god = false;
-				bool keep_player_clean = false;
 				bool no_police = false;
 				bool infinite_ammo = false;
 
@@ -76,6 +66,22 @@ namespace big
 			}vehicle;
 
 		}cheats;
+
+		struct
+		{
+			bool keep_player_clean = false;
+			bool no_ragdoll = false;
+
+		}utility;
+
+		struct
+		{
+			bool modder_detection = false;
+			bool optimize_loading = false;
+			bool terminate_loading_screens = false;
+			bool uncensor_chat = false;
+
+		}misc;
 
 		struct
 		{

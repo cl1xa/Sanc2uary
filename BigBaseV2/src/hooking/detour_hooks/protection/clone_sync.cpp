@@ -27,7 +27,9 @@ namespace big
 	#define NET_CLOSED 7;
 	#define SUCCESS 8;
 
-	uint32_t crash_models[] = { RAGE_JOAAT("prop_dummy_01"), RAGE_JOAAT("prop_dummy_car"), RAGE_JOAAT("prop_dummy_light"), RAGE_JOAAT("prop_dummy_plane"), RAGE_JOAAT("slod_human"),
+	uint32_t crash_models[] = 
+	{ 
+		RAGE_JOAAT("prop_dummy_01"), RAGE_JOAAT("prop_dummy_car"), RAGE_JOAAT("prop_dummy_light"), RAGE_JOAAT("prop_dummy_plane"), RAGE_JOAAT("slod_human"),
 		RAGE_JOAAT("slod_small_quadped"), RAGE_JOAAT("slod_large_quadped"), RAGE_JOAAT("prop_distantcar_night"), RAGE_JOAAT("prop_distantcar_day"), RAGE_JOAAT("hei_bh1_08_details4_em_night"),
 		RAGE_JOAAT("dt1_18_sq_night_slod"), RAGE_JOAAT("ss1_12_night_slod"), -1288391198, RAGE_JOAAT("h4_prop_bush_bgnvla_med_01"), RAGE_JOAAT("h4_prop_bush_bgnvla_lrg_01"),
 		RAGE_JOAAT("h4_prop_bush_buddleia_low_01"), RAGE_JOAAT("h4_prop_bush_ear_aa"), RAGE_JOAAT("h4_prop_bush_ear_ab"), RAGE_JOAAT("h4_prop_bush_fern_low_01"),
@@ -37,10 +39,15 @@ namespace big
 		RAGE_JOAAT("urbanweeds02_l1"), RAGE_JOAAT("proc_forest_grass01"), RAGE_JOAAT("prop_small_bushyba"), RAGE_JOAAT("arbitergt"), RAGE_JOAAT("astron2"), RAGE_JOAAT("cyclone2"),
 		RAGE_JOAAT("ignus2"), RAGE_JOAAT("s95"), RAGE_JOAAT("hc_gunman"), RAGE_JOAAT("v_res_d_dildo_a"), RAGE_JOAAT("v_res_d_dildo_b"), RAGE_JOAAT("v_res_d_dildo_c"),
 		RAGE_JOAAT("v_res_d_dildo_d"), RAGE_JOAAT("v_res_d_dildo_e"), RAGE_JOAAT("v_res_d_dildo_f"), RAGE_JOAAT("v_res_skateboard"), RAGE_JOAAT("prop_battery_01"), RAGE_JOAAT("prop_barbell_01"),
-		RAGE_JOAAT("prop_barbell_02"), RAGE_JOAAT("prop_bandsaw_01"), RAGE_JOAAT("prop_bbq_3"), RAGE_JOAAT("v_med_curtainsnewcloth2"), RAGE_JOAAT("bh1_07_flagpoles"),
-		92962485, RAGE_JOAAT("ig_wade") };
+		RAGE_JOAAT("prop_barbell_02"), RAGE_JOAAT("prop_bandsaw_01"), RAGE_JOAAT("prop_bbq_3"), RAGE_JOAAT("v_med_curtainsnewcloth2"), RAGE_JOAAT("bh1_07_flagpoles"), RAGE_JOAAT("ig_wade"),
 
-	uint32_t cage_models[] = { RAGE_JOAAT("prop_rub_cage01a"), RAGE_JOAAT("prop_fnclink_05crnr1"), RAGE_JOAAT("prop_gold_cont_01"), RAGE_JOAAT("prop_feeder1"), RAGE_JOAAT("stt_prop_stunt_tube_s"), RAGE_JOAAT("prop_feeder1_cr"), RAGE_JOAAT("p_cablecar_s") };
+		92962485 //Unknown?
+	};
+
+	uint32_t cage_models[] = 
+	{ 
+		RAGE_JOAAT("prop_rub_cage01a"), RAGE_JOAAT("prop_fnclink_05crnr1"), RAGE_JOAAT("prop_gold_cont_01"), RAGE_JOAAT("prop_feeder1"), RAGE_JOAAT("stt_prop_stunt_tube_s"), RAGE_JOAAT("prop_feeder1_cr"), RAGE_JOAAT("p_cablecar_s") 
+	};
 
 	inline bool is_model_a_crash_model(uint32_t model) 
 	{
@@ -81,6 +88,7 @@ namespace big
 			if (typeid(*node).hash_code() == 0xE6B80DD4C167CFF) //CPhysicalAttachDataNode
 				return dynamic_cast<CPhysicalAttachDataNode*>(node);
 		}
+
 		return nullptr;
 	}
 
@@ -316,7 +324,7 @@ namespace big
 				{
 					if (auto model_info = game_obj->m_model_info)
 					{
-						//[WARNING/invoker.cpp:53]: Failed to find 0xC0296A2EDF545E92 native's handler.
+						//[WARNING/invoker.cpp:53]: Failed to find 0xC0296A2EDF545E92 native's handler???
 						if (/*!STREAMING::IS_MODEL_VALID(model_info->m_model_hash) ||*/ (model_info->m_model_type != get_model_data(model_info->m_model_hash)->m_model_type))
 						{
 							g_notification_service->push_warning(fmt::format(xorstr_("{} sent: invalid model"), sender_name), fmt::format(xorstr_("Type {} in sync tree {}"), sync_type, tree_name));
@@ -341,11 +349,8 @@ namespace big
 
 				if (sync_tree->m_child_node_count)
 				{
-					if (check_node(sync_tree->m_sync_node, src, obj_id))
-					{
-						//LOG TO CONSOLE
-						return NO_GAME_OBJ;
-					}
+					if (check_node(sync_tree->m_sync_node, src, obj_id)) //If node is invalid
+						return NO_GAME_OBJ; //Do not register the node
 				}
 			}
 

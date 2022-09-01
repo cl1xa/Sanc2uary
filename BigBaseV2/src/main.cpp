@@ -15,7 +15,7 @@
 #include "services/player_service.hpp"
 #include "services/notification_service.hpp"
 
-#include "features/features.hpp"
+#include "backend/backend.hpp"
 
 BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
@@ -69,9 +69,10 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 					g_script_mgr.add_script(std::make_unique<script>(&menu::script_func, "GUI", false));
 					LOG(G3LOG_DEBUG) << xorstr_("Menu registered");
 
-					g_script_mgr.add_script(std::make_unique<script>(&features_engine::engine_loop, xorstr_("ENGINE", false)));
-					g_script_mgr.add_script(std::make_unique<script>(&features_player::player_loop, xorstr_("PLAYER", false)));
-					g_script_mgr.add_script(std::make_unique<script>(&features_vehicle::vehicle_loop, xorstr_("VEHICLE", false)));
+					g_script_mgr.add_script(std::make_unique<script>(&backend_engine::engine_loop, xorstr_("ENGINE"), false));
+					g_script_mgr.add_script(std::make_unique<script>(&backend_playercheats::player_loop, xorstr_("PLAYER_CHEATS"), false));
+					g_script_mgr.add_script(std::make_unique<script>(&backend_vehiclecheats::vehicle_loop, xorstr_("VEHICLE_CHEATS"), false));
+					g_script_mgr.add_script(std::make_unique<script>(&backend_utility::utility_loop, xorstr_("UTILITY"), false));
 					LOG(G3LOG_DEBUG) << xorstr_("Scripts registered");
 
 					auto native_hooks_instance = std::make_unique<native_hooks>();

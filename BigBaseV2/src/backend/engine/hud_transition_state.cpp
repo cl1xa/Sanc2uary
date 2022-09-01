@@ -1,4 +1,4 @@
-#include "features/features.hpp"
+#include "backend/backend.hpp"
 #include "gta/natives.hpp"
 #include "scripts/script_global.hpp"
 
@@ -80,7 +80,7 @@ namespace big
 	auto transition_state = script_global(1574991);
 	eTransitionState last_state = eTransitionState::TRANSITION_STATE_EMPTY;
 
-	void features_engine::hud_transition_state()
+	void backend_engine::hud_transition_state()
 	{
 		const auto state = *transition_state.as<eTransitionState*>();
 
@@ -106,7 +106,7 @@ namespace big
 		{
 			HUD::BEGIN_TEXT_COMMAND_BUSYSPINNER_ON(xorstr_("STRING"));
 
-			auto const spinner_text = fmt::format(xorstr_("Entering Online ({} | {})"), name_transition_state[(int)state], state);
+			const auto spinner_text = fmt::format(xorstr_("Entering Online ({} | {})") , name_transition_state[(int)state], state);
 
 			HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(spinner_text.c_str());
 			HUD::END_TEXT_COMMAND_BUSYSPINNER_ON(5);

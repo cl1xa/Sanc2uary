@@ -1,8 +1,10 @@
-#include "features/features.hpp"
+#include "backend/backend.hpp"
 
 namespace big
 {
-	void features_player::no_police()
+	int no_stars = 0;
+
+	void backend_playercheats::no_police()
 	{
 		if (g_local_player == nullptr || g_local_player->m_player_info == nullptr)
 			return;
@@ -12,6 +14,6 @@ namespace big
 		if (!g_config.cheats.player.no_police)
 			return;
 
-		playerInfo->m_wanted_level = 0;
+		playerInfo->m_wanted_level = no_stars;
 	}
 }

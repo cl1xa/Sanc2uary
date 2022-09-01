@@ -6,7 +6,7 @@ namespace big
 	static void format_string(CNetGamePlayer* player, string type, bool notify = true)
 	{
 		if (notify)
-			g_notification_service->push_warning(xorstr_("Protection"), (string)player->get_name() + " sent unwanted event: " + type);
+			g_notification_service->push_warning(xorstr_("Protection"), (string)player->get_name() + " sent unwanted event " + type);
 	}
 
 	bool hooks::scripted_game_event(CScriptedGameEvent* scripted_game_event, CNetGamePlayer* player)

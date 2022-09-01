@@ -7,11 +7,10 @@
 #include "scripts/fiber_pool.hpp"
 
 #include "util/vehicle.hpp"
-#include "util/entity.hpp"
 
 namespace big
 {
-	class features_engine
+	class backend_engine
 	{
 	public:
 		static void update_globals();
@@ -23,19 +22,21 @@ namespace big
 		static void engine_loop();
 	};
 
-	class features_player
+	class  backend_playercheats
 	{
 	public:
 		static void player_god();
-		static void keep_player_clean();
 		static void infinite_ammo();
 		static void no_police();
+
+		static void keep_player_clean();
+		static void no_ragdoll();
 
 		static void player_calls();
 		static void player_loop();
 	};
 
-	class features_vehicle
+	class  backend_vehiclecheats
 	{
 	public:
 		static void vehicle_god();
@@ -44,5 +45,15 @@ namespace big
 
 		static void vehicle_calls();
 		static void vehicle_loop();
+	};
+
+	class backend_utility
+	{
+	public:
+		static void keep_player_clean();
+		static void no_ragdoll();
+
+		static void utility_calls();
+		static void utility_loop();
 	};
 }

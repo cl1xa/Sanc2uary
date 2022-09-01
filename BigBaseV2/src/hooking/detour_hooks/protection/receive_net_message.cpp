@@ -63,11 +63,11 @@ namespace big
 						return false;
 					}
 
+						//Desync Kick #2
 					case rage::eNetMessage::CMsgScriptMigrateHost:
 					{
 						if (chrono::system_clock::now() - player->m_last_transition_msg_sent < 200ms)
 						{
-							//Desync Kick #2
 							if (player->m_num_failed_transition_attempts++ == 20)
 								g_notification_service->push_warning(xorstr_("Protections"), (string)player->get_name() + " sent: desync kick #2");
 

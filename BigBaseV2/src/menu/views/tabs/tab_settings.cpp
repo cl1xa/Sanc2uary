@@ -5,8 +5,11 @@ namespace big
 	void view_sub::tab_settings()
 	{
 		ImGui::Checkbox(xorstr_("Notify players"), &g_config.settings.notify_players);
+
 		ImGui::Checkbox(xorstr_("Notify debug"), &g_config.settings.notify_debug);
+
 		ImGui::Checkbox(xorstr_("Notify scripts"), &g_config.settings.notify_scripts);
+
 		ImGui::Checkbox(xorstr_("Script event logger"), &g_config.settings.script_event_logger);
 
 		queue_button(xorstr_("Force exit GTA Online"), []

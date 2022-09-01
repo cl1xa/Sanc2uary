@@ -50,8 +50,10 @@ namespace big
 		__try
 		{
 			auto ptr = memory::handle(m_target);
+
 			while (ptr.as<::uint8_t&>() == 0xE9)
 				ptr = ptr.add(1).rip();
+
 			m_target = ptr.as<void*>();
 		}
 		__except (exp_handler(GetExceptionInformation(), m_name))

@@ -5,7 +5,8 @@
 
 namespace ImGui
 {
-	const char* const key_names[] = {
+	const char* const key_names[] = 
+	{
 		"Unknown",
 		"VK_LBUTTON",
 		"VK_RBUTTON",
@@ -177,6 +178,7 @@ namespace ImGui
 	inline bool Hotkey(const char* label, int* k, const ImVec2& size_arg = {})
 	{
 		ImGuiWindow* window = ImGui::GetCurrentWindow();
+
 		if (window->SkipItems)
 			return false;
 
@@ -191,33 +193,38 @@ namespace ImGui
 		const ImRect total_bb(window->DC.CursorPos, frame_bb.Max);
 
 		ImGui::ItemSize(total_bb, style.FramePadding.y);
+
 		if (!ImGui::ItemAdd(total_bb, id, 0, ImGuiItemFlags_Inputable))
 			return false;
 
 		const bool focus_requested = (ImGui::GetItemStatusFlags() & ImGuiItemStatusFlags_FocusedByTabbing) || g.ActiveId == id;
-		//const bool focus_requested = ImGui::FocusableItemRegister(window, g.ActiveId == id, false);
-		//const bool focus_requested_by_code = focus_requested && (window->FocusIdxAllCounter == window->FocusIdxAllRequestCurrent);
 
 		const bool hovered = ImGui::ItemHoverable(frame_bb, id);
 
-		if (hovered) {
+		if (hovered) 
+		{
 			ImGui::SetHoveredID(id);
 			g.MouseCursor = ImGuiMouseCursor_TextInput;
 		}
 
 		const bool user_clicked = hovered && io.MouseClicked[0];
 
-		if (focus_requested || user_clicked) {
-			if (g.ActiveId != id) {
+		if (focus_requested || user_clicked) 
+		{
+			if (g.ActiveId != id) 
+			{
 				// Start edition
 				memset(io.MouseDown, 0, sizeof(io.MouseDown));
 				memset(io.KeysDown, 0, sizeof(io.KeysDown));
+
 				*k = 0;
 			}
+
 			ImGui::SetActiveID(id, window);
 			ImGui::FocusWindow(window);
 		}
-		else if (io.MouseClicked[0]) {
+		else if (io.MouseClicked[0]) 
+		{
 			// Release focus when we click outside
 			if (g.ActiveId == id)
 				ImGui::ClearActiveID();
@@ -226,10 +233,14 @@ namespace ImGui
 		bool value_changed = false;
 		int key = *k;
 
-		if (g.ActiveId == id) {
-			for (auto i = 0; i < 5; i++) {
-				if (io.MouseDown[i]) {
-					switch (i) {
+		if (g.ActiveId == id) 
+		{
+			for (auto i = 0; i < 5; i++) 
+			{
+				if (io.MouseDown[i]) 
+				{
+					switch (i) 
+					{
 					case 0:
 						key = VK_LBUTTON;
 						break;
@@ -246,27 +257,34 @@ namespace ImGui
 						key = VK_XBUTTON2;
 						break;
 					}
+
 					value_changed = true;
+
 					ImGui::ClearActiveID();
 				}
 			}
-			if (!value_changed) {
-				for (auto i = VK_BACK; i <= VK_RMENU; i++) {
-					if (io.KeysDown[i]) {
+
+			if (!value_changed) 
+			{
+				for (auto i = VK_BACK; i <= VK_RMENU; i++) 
+				{
+					if (io.KeysDown[i]) 
+					{
 						key = i;
 						value_changed = true;
+
 						ImGui::ClearActiveID();
 					}
 				}
 			}
 
-			if (IsKeyPressedMap(ImGuiKey_Escape)) {
+			if (IsKeyPressedMap(ImGuiKey_Escape)) 
+			{
 				*k = 0;
 				ImGui::ClearActiveID();
 			}
-			else {
+			else 
 				*k = key;
-			}
 		}
 
 		// Render
@@ -276,12 +294,10 @@ namespace ImGui
 
 		ImGui::RenderFrame(frame_bb.Min, frame_bb.Max, ImGui::GetColorU32(ImVec4(0.20f, 0.25f, 0.30f, 1.0f)), true, style.FrameRounding);
 
-		if (*k != 0 && g.ActiveId != id) {
+		if (*k != 0 && g.ActiveId != id) 
 			strcpy_s(buf_display, key_names[*k]);
-		}
-		else if (g.ActiveId == id) {
-			strcpy_s(buf_display, "<Press a key>");
-		}
+		else if (g.ActiveId == id) 
+			strcpy_s(buf_display, xorstr_("<Press a key>"));
 
 		const ImRect clip_rect(frame_bb.Min.x, frame_bb.Min.y, frame_bb.Min.x + size.x, frame_bb.Min.y + size.y); // Not using frame_bb.Max because we have adjusted size
 		ImVec2 render_pos = frame_bb.Min + style.FramePadding;

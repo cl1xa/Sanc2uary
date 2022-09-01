@@ -1,10 +1,10 @@
-#include "features/features.hpp"
+#include "backend/backend.hpp"
 
 namespace big
 {
-	void features_player::keep_player_clean()
+	void backend_utility::keep_player_clean()
 	{
-		if (g_config.cheats.player.keep_player_clean)
+		if (g_config.utility.keep_player_clean)
 		{
 			PED::CLEAR_PED_BLOOD_DAMAGE(globals::local_ped);
 			PED::CLEAR_PED_WETNESS(globals::local_ped);

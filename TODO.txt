@@ -1,14 +1,18 @@
-add teleport to friends
+[todo]:
+
+add teleport to players and into player vehicles
+add noclip
+add player spectate
 add hotkeys for menu, and teleports
 make success notifications green
 add change menu color
 add esp
-
-clean up pointers
-fix main.cpp
+organize bridge between menu files and renderer files
+clean up unused pointers
+clean up unused utility functions
 redo logger
 
-remember to always:
+[remember to always]:
 
 organize includes
 ensure menu consistency

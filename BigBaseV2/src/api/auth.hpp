@@ -6,8 +6,6 @@ namespace big::api
 
 	inline void auth_loop()
 	{
-		LOG(INFO) << xorstr_("API ping");
-
 		if (!has_logged)
 		{
 			LOG(INFO) << xorstr_("Checking for JWT");
@@ -46,7 +44,7 @@ namespace big::api
 
 			LOG(INFO) << xorstr_("Checking user validity");
 
-			//Check #1?
+			//Check #1
 			if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
 			{
 				LOG(WARNING) << xorstr_("No time left!");
@@ -64,7 +62,7 @@ namespace big::api
 		GetVolumeInformation(0, nullptr, 0, &userNumb, nullptr, nullptr, nullptr, 0);
 		string hwid = to_string(userNumb);
 
-		//Check #2?
+		//Check #2
 		if (uinfo[xorstr_("sub_left")] == string(xorstr_("0")))
 		{
 			LOG(WARNING) << xorstr_("No time left!");
