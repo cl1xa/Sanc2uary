@@ -7,6 +7,7 @@ add off radar
 add personal vehicles list
 add change menu color
 add esp
+add hotkeys for teleports and menu
 
 make success notifications green
 

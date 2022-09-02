@@ -9,5 +9,7 @@ namespace big
 		globals::local_ped = PLAYER::PLAYER_PED_ID();
 
 		globals::local_vehicle = PED::GET_VEHICLE_PED_IS_USING(globals::local_ped);
+
+		globals::local_position = ENTITY::GET_ENTITY_COORDS(globals::local_ped, false);
 	}
 }

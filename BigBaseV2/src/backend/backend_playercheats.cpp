@@ -9,6 +9,8 @@ namespace big
 		backend_playercheats::player_god();
 
 		backend_playercheats::infinite_ammo();
+
+		backend_playercheats::noclip();
 	}
 
 	void backend_playercheats::player_loop()

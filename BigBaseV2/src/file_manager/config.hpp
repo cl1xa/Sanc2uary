@@ -54,6 +54,7 @@ namespace big
 				bool player_god = false;
 				bool no_police = false;
 				bool infinite_ammo = false;
+				bool noclip = false;
 
 			}player;
 

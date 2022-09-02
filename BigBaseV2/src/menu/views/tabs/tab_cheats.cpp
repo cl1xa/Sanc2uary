@@ -16,6 +16,8 @@ namespace big
 
 				ImGui::Checkbox(xorstr_("Infinite ammo"), &g_config.cheats.player.infinite_ammo);
 
+				ImGui::Checkbox(xorstr_("Noclip"), &g_config.cheats.player.noclip);
+
 				queue_button(xorstr_("Teleport to waypoint"), []
 					{
 						teleport::to_waypoint();
