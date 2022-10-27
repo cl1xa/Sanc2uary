@@ -2,7 +2,7 @@
 #include "scripts/script_global.hpp"
 
 #include "misc/gta_util.hpp"
-#include "gta/data/joaat.hpp"
+#include "gta/data/rage/joaat.hpp"
 
 #include "hooking/native_hooks/freemode.hpp"
 #include "hooking/native_hooks/shop_controller.hpp"

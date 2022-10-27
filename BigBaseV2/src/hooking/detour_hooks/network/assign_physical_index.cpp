@@ -13,10 +13,10 @@ namespace big
 		{
 			g_player_service->player_leave(player);
 
-			if (const rage::netPlayerData* net_player_data = player->get_net_data(); net_player_data)
+			if (const rage::rlGamerInfo* net_player_data = player->get_net_data(); net_player_data)
 			{
 				if (g_config.settings.notify_players)
-					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("[{}] {} left"), net_player_data->m_rockstar_id2, net_player_data->m_name));
+					g_notification_service->push(xorstr_("Player left"), fmt::format(xorstr_("[{}] {} left"), net_player_data->m_peer_id_2, net_player_data->m_name));
 			}
 
 			return returnResult;
@@ -24,12 +24,12 @@ namespace big
 
 		g_player_service->player_join(player);
 
-		if (const rage::netPlayerData* net_player_data = player->get_net_data(); net_player_data)
+		if (const rage::rlGamerInfo* net_player_data = player->get_net_data(); net_player_data)
 		{
 			notify::above_map(fmt::format(xorstr_("<C>{}</C> joined."), net_player_data->m_name));
 
 			if (g_config.settings.notify_players)
-				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}/{}] {} joined"), (int)player->m_player_id, net_player_data->m_rockstar_id2, net_player_data->m_name));
+				g_notification_service->push(xorstr_("Player joined"), fmt::format(xorstr_("[{}/{}] {} joined"), (int)player->m_player_id, net_player_data->m_peer_id_2, net_player_data->m_name));
 		}
 
 		return returnResult;

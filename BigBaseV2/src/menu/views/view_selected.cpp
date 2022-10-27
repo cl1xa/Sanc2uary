@@ -17,9 +17,9 @@ namespace big
 
 			ImGui::Separator();
 
-			if (rage::netPlayerData* net_player_data = selected->get_net_data(); net_player_data != nullptr)
+			if (rage::rlGamerInfo* net_player_data = selected->get_net_data(); net_player_data != nullptr)
 			{
-				ImGui::Text(xorstr_("Rockstar ID: %d"), net_player_data->m_rockstar_id);
+				ImGui::Text(xorstr_("Rockstar ID: %d"), net_player_data->m_peer_id);
 
 				ImGui::Text(
 					xorstr_("IP Address: %d.%d.%d.%d:%d"),

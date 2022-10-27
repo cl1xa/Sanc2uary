@@ -1,7 +1,7 @@
 #pragma once
 #include "gta/data/array.hpp"
-#include "ped/CPedFactory.hpp"
-#include "network/CNetworkPlayerMgr.hpp"
+#include "gta/data/ped/CPedFactory.hpp"
+#include "gta/data/network/CNetworkPlayerMgr.hpp"
 #include "gta/data/script_thread.hpp"
 #include "gta/data/tls_context.hpp"
 #include "hooking/pointers.hpp"

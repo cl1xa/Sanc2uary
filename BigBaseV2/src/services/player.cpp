@@ -1,5 +1,5 @@
 #include "player.hpp"
-#include "network/CNetGamePlayer.hpp"
+#include "gta/data/network/CNetGamePlayer.hpp"
 #include "services/friends_service.hpp"
 
 namespace big
@@ -9,7 +9,7 @@ namespace big
 		m_is_friend = friends_service::is_friend(net_game_player);
 	}
 
-	CAutomobile* player::get_current_vehicle() const
+	CVehicle* player::get_current_vehicle() const
 	{
 		if (const auto ped = this->get_ped(); ped != nullptr)
 			if (const auto vehicle = ped->m_vehicle; vehicle != nullptr)
@@ -23,7 +23,7 @@ namespace big
 		return m_net_game_player == nullptr ? xorstr_("") : m_net_game_player->get_name();
 	}
 
-	rage::netPlayerData* player::get_net_data() const
+	rage::rlGamerInfo* player::get_net_data() const
 	{
 		return m_net_game_player == nullptr ? nullptr : m_net_game_player->get_net_data();
 	}

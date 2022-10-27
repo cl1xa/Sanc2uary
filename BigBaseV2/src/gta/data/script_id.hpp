@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 #include "fwddec.hpp"
-#include "joaat.hpp"
+#include "rage/joaat.hpp"
 
 #pragma pack(push, 1)
 namespace rage

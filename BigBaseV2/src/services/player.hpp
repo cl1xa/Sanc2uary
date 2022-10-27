@@ -24,9 +24,9 @@ namespace big
 		float screen_position_x = -1.f;
 		float screen_position_y = -1.f;
 
-		[[nodiscard]] CAutomobile* get_current_vehicle() const;
+		[[nodiscard]] CVehicle* get_current_vehicle() const;
 		[[nodiscard]] const char* get_name() const;
-		[[nodiscard]] rage::netPlayerData* get_net_data() const;
+		[[nodiscard]] rage::rlGamerInfo* get_net_data() const;
 		[[nodiscard]] CNetGamePlayer* get_net_game_player() const;
 		[[nodiscard]] CPed* get_ped() const;
 		[[nodiscard]] CPlayerInfo* get_player_info() const;

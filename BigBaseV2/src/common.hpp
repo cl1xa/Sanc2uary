@@ -58,8 +58,10 @@
 #include "util/notify.hpp"
 
 #include "anti_tamper/xorstr.hpp"
-#include "ped/CPed.hpp"
+#include "gta/data/ped/CPed.hpp"
 #include "gta/data/enums.hpp"
+
+#include "gta/data/rage/joaat.hpp"
 
 using namespace std;
 using namespace big::notify;

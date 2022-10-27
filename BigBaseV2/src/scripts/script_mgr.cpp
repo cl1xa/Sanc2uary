@@ -6,6 +6,7 @@
 #include "gta/invoker.hpp"
 #include "hooking/pointers.hpp"
 #include "script_mgr.hpp"
+#include "gta/data/rage//joaat.hpp"
 
 namespace big
 {

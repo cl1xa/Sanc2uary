@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <utility>
 #include "fwddec.hpp"
-#include "vector.hpp"
+#include "gta/data/scrvector.hpp"
 
 namespace rage
 {

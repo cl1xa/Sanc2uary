@@ -1,9 +1,9 @@
 #pragma once
 #include <cstdint>
 #include "fwddec.hpp"
-#include "base.hpp"
-#include "joaat.hpp"
+#include "rage/joaat.hpp"
 #include "script_id.hpp"
+#include "base/pgBase.hpp"
 
 #pragma pack(push, 1)
 namespace rage

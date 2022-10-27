@@ -95,7 +95,7 @@ namespace rage
 	class CVehicleHandle
 	{
 	public:
-		class CAutomobile* m_vehicle; //0x0000
+		class CVehicle* m_vehicle; //0x0000
 		int32_t m_handle; //0x0008
 		char pad_000C[4]; //0x000C
 	}; //Size: 0x0010

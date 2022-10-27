@@ -37,7 +37,7 @@ namespace big
 		m_receive_net_message_hook("Receive Net Message", g_pointers->m_receive_net_message, &hooks::receive_net_message),
 		m_get_network_event_data_hook("Get Network Event Data", g_pointers->m_get_network_event_data, &hooks::get_network_event_data),
 
-		m_received_clone_sync_hook("Received Clone Sync", g_pointers->m_received_clone_sync, &hooks::received_clone_sync),
+		//m_received_clone_sync_hook("Received Clone Sync", g_pointers->m_received_clone_sync, &hooks::received_clone_sync),
 
 		m_censor_chat_text_hook("Censor Chat Text", g_pointers->m_censor_chat_text, &hooks::censor_chat_text)
 	{
@@ -79,7 +79,7 @@ namespace big
 		m_receive_net_message_hook.enable();
 		m_get_network_event_data_hook.enable();
 
-		m_received_clone_sync_hook.enable();
+		//m_received_clone_sync_hook.enable();
 
 		m_censor_chat_text_hook.enable();
 
@@ -94,7 +94,7 @@ namespace big
 
 		m_censor_chat_text_hook.disable();
 
-		m_received_clone_sync_hook.disable();
+		//m_received_clone_sync_hook.disable();
 
 		m_get_network_event_data_hook.disable();
 		m_receive_net_message_hook.disable();

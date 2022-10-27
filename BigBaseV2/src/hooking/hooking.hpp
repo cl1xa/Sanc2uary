@@ -32,7 +32,7 @@ namespace big
 		static void network_player_mgr_shutdown(CNetworkPlayerMgr* _this);
 		
 		//Not yet implemented
-		//static bool send_net_info_to_lobby(rage::netPlayerData* player, int64_t a2, int64_t a3, DWORD* a4);
+		//static bool send_net_info_to_lobby(rage::rlGamerInfo* player, int64_t a2, int64_t a3, DWORD* a4);
 
 		static void network_group_override(int64_t a1, int64_t a2, int64_t a3);
 
@@ -58,7 +58,7 @@ namespace big
 		
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
 
-		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, eObjType sync_type, uint16_t obj_id, rage::datBitBuffer* bufer, uint16_t unk, uint32_t timestamp);
+		//static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, eObjType sync_type, uint16_t obj_id, rage::datBitBuffer* bufer, uint16_t unk, uint32_t timestamp);
 	};
 
 	struct minhook_keepalive
@@ -100,7 +100,7 @@ namespace big
 		detour_hook m_is_dlc_present_hook;
 
 		detour_hook m_received_event_hook;
-		detour_hook m_received_clone_sync_hook;
+		//detour_hook m_received_clone_sync_hook;
 
 		detour_hook m_receive_net_message_hook;
 		detour_hook m_get_network_event_data_hook;

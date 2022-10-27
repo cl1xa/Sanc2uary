@@ -1,6 +1,6 @@
 #pragma once
 #include "util/local_player.hpp"
-#include "gta/data/joaat.hpp"
+#include "gta/data/rage/joaat.hpp"
 
 namespace big::recovery
 {

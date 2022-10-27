@@ -6,7 +6,7 @@ namespace big
 	{
 		switch (net_event->m_stat)
 		{
-		case RAGE_JOAAT("MPPLY_BAD_CREW_STATUS"):
+		/*case RAGE_JOAAT("MPPLY_BAD_CREW_STATUS"):
 		case RAGE_JOAAT("MPPLY_BAD_CREW_MOTTO"):
 		case RAGE_JOAAT("MPPLY_BAD_CREW_NAME"):
 		case RAGE_JOAAT("MPPLY_BAD_CREW_EMBLEM"):
@@ -54,7 +54,7 @@ namespace big
 		case RAGE_JOAAT("MPPLY_ISPUNISHED"):
 		case RAGE_JOAAT("MPPLY_OVERALL_CHEAT"):
 		case RAGE_JOAAT("MPPLY_OVERALL_BADSPORT"):
-			return true;
+			return true;*/
 
 		default:
 			break;

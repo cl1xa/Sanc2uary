@@ -1,5 +1,5 @@
 #pragma once
-#include "network/CNetGamePlayer.hpp"
+#include "gta/data/network/CNetGamePlayer.hpp"
 #include "scripts/script.hpp"
 
 using namespace std;

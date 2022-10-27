@@ -1,8 +1,8 @@
 #pragma once
 #include "common.hpp"
-#include "network/CNetworkPlayerMgr.hpp"
-#include "socialclub/FriendRegistry.hpp"
-#include "base/HashTable.hpp"
+#include "gta/data/network/CNetworkPlayerMgr.hpp"
+#include "gta/data/socialclub/FriendRegistry.hpp"
+#include "gta/data/base/HashTable.hpp"
 #include "gta/data/fwddec.hpp"
 #include "gta/data/enums.hpp"
 #include "gta/data/replay.hpp"
